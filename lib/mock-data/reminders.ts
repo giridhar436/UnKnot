@@ -1,0 +1,58 @@
+import { Reminder } from "@/lib/types";
+
+export const mockReminders: Reminder[] = [
+  {
+    id: "rem-001",
+    title: "Samsung Galaxy S25 warranty expires",
+    date: "2027-08-12",
+    source: "Samsung Galaxy S25 Warranty Card",
+    sourceDocumentId: "doc-002",
+    status: "upcoming",
+    type: "warranty_expiry",
+  },
+  {
+    id: "rem-002",
+    title: "Health Insurance renewal due",
+    date: "2027-03-31",
+    source: "Health Insurance Policy - Star Health",
+    sourceDocumentId: "doc-010",
+    status: "upcoming",
+    type: "document_expiry",
+  },
+  {
+    id: "rem-003",
+    title: "Electricity bill payment due",
+    date: "2026-09-15",
+    source: "Electricity Bill - August 2026",
+    sourceDocumentId: "doc-008",
+    status: "upcoming",
+    type: "bill_due",
+  },
+  {
+    id: "rem-004",
+    title: "Cult.fit membership expires",
+    date: "2026-12-31",
+    source: "Gym Membership Receipt",
+    sourceDocumentId: "doc-011",
+    status: "upcoming",
+    type: "subscription_renewal",
+  },
+  {
+    id: "rem-005",
+    title: "Dell laptop warranty expired",
+    date: "2026-03-15",
+    source: "Dell Inspiron 15 Purchase Invoice",
+    sourceDocumentId: "doc-003",
+    status: "completed",
+    type: "warranty_expiry",
+  },
+  {
+    id: "rem-006",
+    title: "HDFC SIP auto-debit",
+    date: "2026-09-25",
+    source: "HDFC Mutual Fund Statement",
+    sourceDocumentId: "doc-009",
+    status: "upcoming",
+    type: "payment",
+  },
+];
