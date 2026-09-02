@@ -1,5 +1,8 @@
 const routes = [
   "/",
+  "/login",
+  "/signup",
+  "/forgot-password",
   "/dashboard",
   "/documents",
   "/documents/doc-001",

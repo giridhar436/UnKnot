@@ -33,7 +33,7 @@ export function Hero() {
           {/* CTAs */}
           <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
-              href="/dashboard"
+              href="/signup"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 h-12 px-7 rounded-xl bg-[#004643] text-white text-base font-semibold shadow-md hover:bg-[#003633] transition-all active:scale-[0.98]"
             >
               <span>Get started</span>

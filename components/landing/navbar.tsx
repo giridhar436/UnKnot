@@ -26,7 +26,7 @@ export function Navbar() {
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-8 text-sm font-medium text-[#5F625F]">
+        <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-[#5F625F]">
           <a
             href="#problem"
             className="hover:text-[#080B10] transition-colors"
@@ -46,10 +46,10 @@ export function Navbar() {
             Categories
           </a>
           <a
-            href="#difference"
+            href="#why-unknot"
             className="hover:text-[#080B10] transition-colors"
           >
-            The Difference
+            Why UnKnot
           </a>
           <a
             href="#use-cases"
@@ -59,10 +59,16 @@ export function Navbar() {
           </a>
         </nav>
 
-        {/* Desktop CTA */}
-        <div className="hidden md:flex items-center gap-4">
+        {/* Desktop CTAs */}
+        <div className="hidden md:flex items-center gap-3">
           <Link
-            href="/dashboard"
+            href="/login"
+            className="h-10 px-3.5 text-sm font-semibold text-[#080B10] hover:text-[#004643] transition-colors flex items-center"
+          >
+            Sign in
+          </Link>
+          <Link
+            href="/signup"
             className="inline-flex items-center gap-2 h-10 px-4 rounded-lg bg-[#004643] text-white text-sm font-medium hover:bg-[#003633] transition-all shadow-sm active:scale-[0.98]"
           >
             <span>Get started</span>
@@ -111,11 +117,11 @@ export function Navbar() {
               Categories
             </a>
             <a
-              href="#difference"
+              href="#why-unknot"
               onClick={() => setMobileMenuOpen(false)}
               className="px-2 py-1.5 rounded-md hover:bg-[#E7E3D8]"
             >
-              The Difference
+              Why UnKnot
             </a>
             <a
               href="#use-cases"
@@ -125,9 +131,16 @@ export function Navbar() {
               Use cases
             </a>
           </nav>
-          <div className="pt-2 border-t border-[#D8D5CC]">
+          <div className="pt-3 border-t border-[#D8D5CC] flex flex-col gap-2">
             <Link
-              href="/dashboard"
+              href="/login"
+              onClick={() => setMobileMenuOpen(false)}
+              className="w-full flex items-center justify-center h-11 px-4 rounded-lg border border-[#D8D5CC] bg-white text-[#080B10] text-sm font-semibold hover:bg-[#F7F5EF]"
+            >
+              Sign in
+            </Link>
+            <Link
+              href="/signup"
               onClick={() => setMobileMenuOpen(false)}
               className="w-full flex items-center justify-center gap-2 h-11 px-4 rounded-lg bg-[#004643] text-white text-sm font-medium shadow-sm hover:bg-[#003633]"
             >

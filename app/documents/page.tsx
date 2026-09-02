@@ -5,17 +5,16 @@ import {
   FileText,
   Image as ImageIcon,
   AlignLeft,
-  Filter,
-  Plus,
   ArrowRight,
   AlertTriangle,
+  Info,
 } from "lucide-react";
 import { getDocuments, getCategories } from "@/lib/services/documents";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
 import { SearchBar } from "@/components/layout/search-bar";
 import { EmptyState } from "@/components/ui/empty-state";
-import { formatCurrency, formatDate } from "@/lib/utils";
+import { AmountDisplay } from "@/components/ui/amount-display";
+import { formatDate } from "@/lib/utils";
 
 interface DocumentsPageProps {
   searchParams: Promise<{
@@ -37,19 +36,36 @@ export default async function DocumentsPage({ searchParams }: DocumentsPageProps
     getCategories(),
   ]);
 
+  const hasDuplicateNotice = documents.some((d) => d.duplicateStatus === "possible");
+
   return (
     <div className="page-container space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#D8D5CC]">
         <div>
           <h1 className="text-2xl font-bold text-[#080B10]">
-            Stored Documents & Records
+            Stored Documents &amp; Records
           </h1>
           <p className="text-xs sm:text-sm text-[#5F625F] mt-1">
             Organized records extracted from your PDFs, photos, receipts, and notes.
           </p>
         </div>
       </div>
+
+      {/* Duplicate Understanding Banner (If Any Present) */}
+      {hasDuplicateNotice && (
+        <div className="p-3.5 bg-[#FEF7EA] border border-[#A66A00]/25 rounded-xl text-xs flex items-start gap-2.5 text-[#5F625F]">
+          <Info className="w-4 h-4 text-[#A66A00] shrink-0 mt-0.5" />
+          <div>
+            <span className="font-semibold text-[#080B10] block">
+              Duplicate Detection Notice
+            </span>
+            <span>
+              UnKnot matches records based on extracted content, merchant identifiers, amounts, and document dates — not upload timestamps. Potential duplicates are flagged for your review.
+            </span>
+          </div>
+        </div>
+      )}
 
       {/* Search and Filters Bar */}
       <div className="flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
@@ -61,7 +77,7 @@ export default async function DocumentsPage({ searchParams }: DocumentsPageProps
         </div>
       </div>
 
-      {/* Category Pills Filter */}
+      {/* Category Filter Pills */}
       <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
         <Link
           href="/documents"
@@ -106,7 +122,7 @@ export default async function DocumentsPage({ searchParams }: DocumentsPageProps
           }
         />
       ) : (
-        <div className="bg-white rounded-xl border border-[#D8D5CC] divide-y divide-[#F0EDE5] overflow-hidden shadow-[0_1px_4px_rgba(0,0,0,0.02)]">
+        <div className="bg-white rounded-xl border border-[#D8D5CC] divide-y divide-[#F0EDE5] overflow-hidden shadow-xs">
           {documents.map((doc) => {
             return (
               <Link
@@ -116,7 +132,7 @@ export default async function DocumentsPage({ searchParams }: DocumentsPageProps
               >
                 <div className="flex items-start sm:items-center gap-3.5 min-w-0">
                   {/* File Type Icon */}
-                  <div className="w-10 h-10 rounded-lg bg-[#E3F0EE] text-[#004643] flex items-center justify-center flex-shrink-0 font-bold text-xs mt-0.5 sm:mt-0">
+                  <div className="w-10 h-10 rounded-lg bg-[#E3F0EE] text-[#004643] flex items-center justify-center shrink-0 font-bold text-xs mt-0.5 sm:mt-0">
                     {doc.type === "pdf" && <FileText className="w-5 h-5" />}
                     {doc.type === "image" && <ImageIcon className="w-5 h-5" />}
                     {doc.type === "text" && <AlignLeft className="w-5 h-5" />}
@@ -138,7 +154,7 @@ export default async function DocumentsPage({ searchParams }: DocumentsPageProps
                       )}
                     </div>
 
-                    <div className="flex items-center gap-2 sm:gap-4 text-xs text-[#5F625F] flex-wrap">
+                    <div className="flex items-center gap-2 sm:gap-4 text-xs text-[#5F625F] flex-wrap font-mono">
                       <span>
                         <strong className="font-medium text-[#080B10]">
                           Doc Date:
@@ -146,11 +162,8 @@ export default async function DocumentsPage({ searchParams }: DocumentsPageProps
                         {formatDate(doc.documentDate)}
                       </span>
                       <span className="text-[#D8D5CC] hidden sm:inline">&bull;</span>
-                      <span className="hidden sm:inline">
-                        <strong className="font-medium text-[#080B10]">
-                          Uploaded:
-                        </strong>{" "}
-                        {formatDate(doc.uploadedAt)}
+                      <span className="hidden sm:inline text-[#8A8D8A]">
+                        Uploaded: {formatDate(doc.uploadedAt)}
                       </span>
                       <span className="text-[#D8D5CC]">&bull;</span>
                       <span className="uppercase text-[10px] font-medium tracking-wider text-[#8A8D8A]">
@@ -160,16 +173,14 @@ export default async function DocumentsPage({ searchParams }: DocumentsPageProps
                   </div>
                 </div>
 
-                <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center border-t sm:border-t-0 pt-2 sm:pt-0 border-[#F0EDE5] flex-shrink-0">
+                <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center border-t sm:border-t-0 pt-2 sm:pt-0 border-[#F0EDE5] shrink-0">
                   {doc.amount ? (
-                    <div className="text-base font-bold text-[#080B10]">
-                      {formatCurrency(doc.amount)}
-                    </div>
+                    <AmountDisplay amount={doc.amount} size="md" />
                   ) : (
                     <div className="text-xs text-[#8A8D8A]">No amount</div>
                   )}
-                  <span className="text-xs text-[#004643] font-medium flex items-center gap-1 group-hover:translate-x-0.5 transition-transform">
-                    <span>View details</span>
+                  <span className="text-xs text-[#004643] font-medium flex items-center gap-1 group-hover:translate-x-0.5 transition-transform mt-0.5">
+                    <span>View record</span>
                     <ArrowRight className="w-3 h-3" />
                   </span>
                 </div>

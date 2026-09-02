@@ -29,21 +29,21 @@ export default async function DashboardPage() {
       {/* Dashboard Greeting Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#D8D5CC]">
         <div>
-          <span className="text-xs font-semibold tracking-wider text-[#004643] uppercase">
+          <span className="text-xs font-semibold tracking-wider text-[#004643] uppercase font-mono">
             {todayStr}
           </span>
           <h1 className="text-2xl sm:text-3xl font-bold text-[#080B10] mt-0.5">
             {greeting}, Giridhar
           </h1>
           <p className="text-xs sm:text-sm text-[#5F625F] mt-1">
-            Here is what needs your attention and your recent connected records.
+            Information command center: what needs attention and your recent connected records.
           </p>
         </div>
 
         {/* Quick Ask Banner */}
         <Link
           href="/ask"
-          className="flex items-center gap-3 p-3 px-4 bg-[#004643] text-white rounded-xl hover:bg-[#003633] transition-all shadow-sm group"
+          className="flex items-center gap-3 p-3 px-4 bg-[#004643] text-white rounded-xl hover:bg-[#003633] transition-all shadow-sm group shrink-0"
         >
           <div className="w-8 h-8 rounded-lg bg-white/15 flex items-center justify-center">
             <Sparkles className="w-4 h-4 text-white" />
@@ -51,14 +51,14 @@ export default async function DashboardPage() {
           <div>
             <span className="text-xs font-semibold block">Ask UnKnot</span>
             <span className="text-[11px] text-white/80 block">
-              Query your records & decisions
+              Query records &amp; decisions
             </span>
           </div>
           <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-0.5 transition-transform" />
         </Link>
       </div>
 
-      {/* 1. Important Today */}
+      {/* 1. Needs Attention & Important Today */}
       <ImportantToday reminders={reminders} />
 
       {/* 2. Financial Snapshot */}

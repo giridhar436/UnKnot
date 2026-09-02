@@ -1,13 +1,8 @@
 import * as React from "react";
 import {
   User,
-  Sliders,
-  Bell,
   Shield,
-  Info,
   Layers,
-  Database,
-  Sparkles,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
@@ -17,7 +12,7 @@ export default function SettingsPage() {
       {/* Header */}
       <div className="pb-4 border-b border-[#D8D5CC]">
         <h1 className="text-2xl font-bold text-[#080B10]">
-          Settings & Information
+          Settings &amp; Information
         </h1>
         <p className="text-xs sm:text-sm text-[#5F625F] mt-1">
           Application configuration, user profile, and Phase 1 prototype details.
@@ -26,7 +21,7 @@ export default function SettingsPage() {
 
       <div className="space-y-6">
         {/* Profile Card */}
-        <div className="bg-white rounded-xl border border-[#D8D5CC] p-6 space-y-4">
+        <div className="bg-white rounded-xl border border-[#D8D5CC] p-6 space-y-4 shadow-xs">
           <div className="flex items-center gap-2.5 pb-3 border-b border-[#F0EDE5]">
             <User className="w-5 h-5 text-[#004643]" />
             <h2 className="text-base font-semibold text-[#080B10]">
@@ -46,7 +41,7 @@ export default function SettingsPage() {
             </div>
             <div>
               <span className="text-[#5F625F] block">Email</span>
-              <span className="font-semibold text-sm text-[#080B10]">
+              <span className="font-semibold text-sm text-[#080B10] font-mono">
                 user@unknot.app
               </span>
             </div>
@@ -58,7 +53,7 @@ export default function SettingsPage() {
             </div>
             <div>
               <span className="text-[#5F625F] block">Date Format</span>
-              <span className="font-semibold text-sm text-[#080B10]">
+              <span className="font-semibold text-sm text-[#080B10] font-mono">
                 DD MMM YYYY (e.g. 12 Aug 2026)
               </span>
             </div>
@@ -66,17 +61,17 @@ export default function SettingsPage() {
         </div>
 
         {/* Phase 1 Prototype Architecture Card */}
-        <div className="bg-white rounded-xl border border-[#D8D5CC] p-6 space-y-4">
+        <div className="bg-white rounded-xl border border-[#D8D5CC] p-6 space-y-4 shadow-xs">
           <div className="flex items-center gap-2.5 pb-3 border-b border-[#F0EDE5]">
             <Layers className="w-5 h-5 text-[#004643]" />
             <h2 className="text-base font-semibold text-[#080B10]">
-              Phase 1 Prototype Architecture
+              Prototype Architecture
             </h2>
           </div>
 
           <div className="space-y-3 text-xs text-[#5F625F] leading-relaxed">
             <p>
-              This is the <strong>Phase 1 Frontend Prototype</strong> of UnKnot. It establishes the design system, information architecture, typed service contracts, and interactive demo flows.
+              This is the <strong>Frontend Prototype</strong> of UnKnot. It establishes the design system, information architecture, typed service contracts, and interactive decision flows.
             </p>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
@@ -84,7 +79,7 @@ export default function SettingsPage() {
                 <span className="font-semibold text-[#080B10] block mb-1">
                   Design System
                 </span>
-                <span>Cyprus & Sand palette, minimal typography, 44px+ touch targets.</span>
+                <span>Cyprus &amp; Sand palette, minimal typography, 44px+ touch targets.</span>
               </div>
               <div className="p-3 bg-[#F7F5EF] rounded-lg border border-[#D8D5CC]">
                 <span className="font-semibold text-[#080B10] block mb-1">
@@ -103,15 +98,15 @@ export default function SettingsPage() {
         </div>
 
         {/* Privacy & Trust Card */}
-        <div className="bg-white rounded-xl border border-[#D8D5CC] p-6 space-y-3 text-xs text-[#5F625F]">
+        <div className="bg-white rounded-xl border border-[#D8D5CC] p-6 space-y-3 text-xs text-[#5F625F] shadow-xs">
           <div className="flex items-center gap-2.5 pb-3 border-b border-[#F0EDE5]">
             <Shield className="w-5 h-5 text-[#004643]" />
             <h2 className="text-base font-semibold text-[#080B10]">
-              Privacy & Trust Principles
+              Privacy &amp; Trust Principles
             </h2>
           </div>
-          <p leading-relaxed>
-            UnKnot operates on privacy-by-design principles. Sensitive API keys remain server-side, and user documents are isolated using row-level security in subsequent integration phases.
+          <p className="leading-relaxed">
+            UnKnot operates on privacy-by-design principles. User documents and extracted records remain isolated to your account.
           </p>
         </div>
       </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { FileText, Image as ImageIcon, AlignLeft, Eye, Download } from "lucide-react";
+import { FileText, Image as ImageIcon, AlignLeft, Eye } from "lucide-react";
 import { DocumentType } from "@/lib/types";
 import { Button } from "@/components/ui/button";
 

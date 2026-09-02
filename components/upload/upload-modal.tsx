@@ -8,7 +8,6 @@ import {
   Camera,
   AlignLeft,
   CheckCircle2,
-  AlertTriangle,
   ArrowRight,
   Upload,
 } from "lucide-react";

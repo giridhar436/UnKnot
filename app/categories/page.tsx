@@ -1,8 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
-import { FolderTree, ArrowRight, FileText } from "lucide-react";
+import { FolderTree, ArrowRight } from "lucide-react";
 import { getCategories } from "@/lib/services/documents";
-import { Badge } from "@/components/ui/badge";
 
 export default async function CategoriesPage() {
   const categories = await getCategories();
@@ -16,10 +15,10 @@ export default async function CategoriesPage() {
           <span>Information Hierarchy</span>
         </div>
         <h1 className="text-2xl font-bold text-[#080B10]">
-          Categories & Domains
+          Categories &amp; Domains
         </h1>
         <p className="text-xs sm:text-sm text-[#5F625F]">
-          Extensible categorization system organizing your scattered receipts, medical bills, warranties, and financial records.
+          Organized information system structuring your scattered receipts, medical bills, warranties, and financial records.
         </p>
       </div>
 
@@ -29,14 +28,14 @@ export default async function CategoriesPage() {
           <Link
             key={cat.id}
             href={`/documents?category=${encodeURIComponent(cat.name)}`}
-            className="p-5 bg-white hover:bg-[#F7F5EF] rounded-xl border border-[#D8D5CC] hover:border-[#004643]/50 transition-all flex flex-col justify-between space-y-4 group shadow-[0_1px_4px_rgba(0,0,0,0.02)]"
+            className="p-5 bg-white hover:bg-[#F7F5EF] rounded-xl border border-[#D8D5CC] hover:border-[#004643]/50 transition-all flex flex-col justify-between space-y-4 group shadow-xs"
           >
-            <div className="space-y-2">
+            <div className="space-y-2.5">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-[#004643] uppercase tracking-wide">
+                <span className="text-xs font-semibold text-[#004643] uppercase tracking-wider">
                   {cat.name}
                 </span>
-                <span className="text-xs font-semibold text-[#080B10] bg-[#F0EDE5] px-2.5 py-0.5 rounded-full border border-[#D8D5CC]">
+                <span className="text-xs font-mono font-medium text-[#080B10] bg-[#F0EDE5] px-2.5 py-0.5 rounded-full border border-[#D8D5CC] tabular-nums">
                   {cat.count} {cat.count === 1 ? "record" : "records"}
                 </span>
               </div>
@@ -50,7 +49,7 @@ export default async function CategoriesPage() {
                   {cat.subcategories.map((sub) => (
                     <span
                       key={sub}
-                      className="text-[11px] text-[#5F625F] bg-[#F0EDE5]/60 px-2 py-0.5 rounded-md"
+                      className="text-[11px] text-[#5F625F] bg-[#F0EDE5]/80 px-2 py-0.5 rounded-md"
                     >
                       {sub}
                     </span>

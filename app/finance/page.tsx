@@ -1,12 +1,9 @@
 import * as React from "react";
 import Link from "next/link";
 import {
-  Wallet,
   TrendingUp,
   Receipt,
-  Calendar,
   ArrowRight,
-  ShieldCheck,
 } from "lucide-react";
 import {
   getExpenses,
@@ -16,7 +13,8 @@ import {
 } from "@/lib/services/finance";
 import { InvestmentCard } from "@/components/finance/investment-card";
 import { Badge } from "@/components/ui/badge";
-import { formatCurrency, formatDate } from "@/lib/utils";
+import { AmountDisplay } from "@/components/ui/amount-display";
+import { formatDate } from "@/lib/utils";
 
 export default async function FinancePage() {
   const [expenses, investments, summary, upcomingPayments] = await Promise.all([
@@ -50,38 +48,48 @@ export default async function FinancePage() {
 
       {/* Top Metrics Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-5 bg-white rounded-xl border border-[#D8D5CC] space-y-1">
-          <span className="text-xs font-medium text-[#5F625F]">
-            August Recorded Expenses
+        <div className="p-5 bg-white rounded-xl border border-[#D8D5CC] space-y-1.5 shadow-xs">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#5F625F] block">
+            Recorded Outflow (Aug)
           </span>
-          <div className="text-2xl font-bold text-[#080B10]">
-            {formatCurrency(summary.totalExpensesThisMonth)}
+          <div>
+            <AmountDisplay
+              amount={summary.totalExpensesThisMonth}
+              size="xl"
+              trend="expense"
+            />
           </div>
           <span className="text-[11px] text-[#5F625F] block">
             {expenses.length} tracked items
           </span>
         </div>
 
-        <div className="p-5 bg-white rounded-xl border border-[#D8D5CC] space-y-1">
-          <span className="text-xs font-medium text-[#5F625F]">
+        <div className="p-5 bg-white rounded-xl border border-[#D8D5CC] space-y-1.5 shadow-xs">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#5F625F] block">
             Active Investments Recorded
           </span>
-          <div className="text-2xl font-bold text-[#080B10]">
-            {formatCurrency(summary.totalInvestments)}
+          <div>
+            <AmountDisplay
+              amount={summary.totalInvestments}
+              size="xl"
+              trend="investment"
+            />
           </div>
           <span className="text-[11px] text-[#167A5B] block font-medium">
             {investments.length} verified investment accounts
           </span>
         </div>
 
-        <div className="p-5 bg-white rounded-xl border border-[#D8D5CC] space-y-1">
-          <span className="text-xs font-medium text-[#5F625F]">
-            Upcoming Obligations
+        <div className="p-5 bg-white rounded-xl border border-[#D8D5CC] space-y-1.5 shadow-xs">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#5F625F] block">
+            Upcoming Dues &amp; Bills
           </span>
-          <div className="text-2xl font-bold text-[#080B10]">
-            {formatCurrency(
-              upcomingPayments.reduce((sum, p) => sum + p.amount, 0)
-            )}
+          <div>
+            <AmountDisplay
+              amount={upcomingPayments.reduce((sum, p) => sum + p.amount, 0)}
+              size="xl"
+              trend="neutral"
+            />
           </div>
           <span className="text-[11px] text-[#5F625F] block">
             {upcomingPayments.length} upcoming dues
@@ -115,11 +123,11 @@ export default async function FinancePage() {
         <div className="flex items-center justify-between">
           <h2 className="text-base font-semibold text-[#080B10] flex items-center gap-2">
             <Receipt className="w-4 h-4 text-[#004643]" />
-            <span>Tracked Purchases & Expenses</span>
+            <span>Tracked Purchases &amp; Expenses</span>
           </h2>
         </div>
 
-        <div className="bg-white rounded-xl border border-[#D8D5CC] divide-y divide-[#F0EDE5] overflow-hidden shadow-[0_1px_4px_rgba(0,0,0,0.02)]">
+        <div className="bg-white rounded-xl border border-[#D8D5CC] divide-y divide-[#F0EDE5] overflow-hidden shadow-xs">
           {expenses.map((exp) => (
             <div
               key={exp.id}
@@ -134,19 +142,17 @@ export default async function FinancePage() {
                     {exp.category}
                   </Badge>
                 </div>
-                <p className="text-xs text-[#5F625F]">
+                <p className="text-xs text-[#5F625F] font-mono">
                   Date: {formatDate(exp.date)}
                 </p>
               </div>
 
-              <div className="text-right flex-shrink-0">
-                <span className="text-sm font-bold text-[#080B10] block">
-                  {formatCurrency(exp.amount)}
-                </span>
+              <div className="text-right shrink-0">
+                <AmountDisplay amount={exp.amount} size="md" />
                 {exp.documentId && (
                   <Link
                     href={`/documents/${exp.documentId}`}
-                    className="text-[11px] text-[#004643] hover:underline font-medium"
+                    className="text-[11px] text-[#004643] hover:underline font-medium block mt-0.5"
                   >
                     View receipt &rarr;
                   </Link>

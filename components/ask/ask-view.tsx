@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Sparkles, ArrowRight, RotateCcw, Search } from "lucide-react";
+import { ArrowRight, Search } from "lucide-react";
 import { Analysis, SuggestedQuestion } from "@/lib/types";
 import { askQuestion } from "@/lib/services/ask";
 import { AnswerCard } from "./answer-card";

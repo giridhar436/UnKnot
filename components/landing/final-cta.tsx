@@ -11,27 +11,26 @@ export function FinalCTA() {
         </span>
 
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-white leading-tight">
-          Stop searching. <br className="hidden sm:inline" />
-          Start knowing.
+          Your information already exists. <br className="hidden sm:inline" />
+          UnKnot helps you make sense of it.
         </h2>
 
         <p className="text-base sm:text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
-          Bring the information you already have into one place and make it useful.
-          Transform scattered receipts, warranties, and files into clear decisions.
+          Bring your documents, records, money-related information, and important dates together so you can understand what matters when it matters.
         </p>
 
         <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
           <Link
-            href="/dashboard"
+            href="/signup"
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 h-13 px-8 rounded-xl bg-white text-[#004643] text-base font-bold shadow-lg hover:bg-[#F0EDE5] transition-all active:scale-[0.98]"
           >
-            <span>Get started with UnKnot</span>
+            <span>Get started</span>
             <ArrowRight className="w-5 h-5 text-[#004643]" />
           </Link>
         </div>
 
         <p className="text-xs text-white/60 pt-2">
-          Instant access · No friction · Structured knowledge
+          Instant workspace access · Structured knowledge · Privacy-first
         </p>
       </div>
     </section>

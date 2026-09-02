@@ -32,12 +32,15 @@ export function Footer() {
             <a href="#categories" className="hover:text-[#080B10] transition-colors">
               Categories
             </a>
+            <a href="#why-unknot" className="hover:text-[#080B10] transition-colors">
+              Why UnKnot
+            </a>
             <a href="#use-cases" className="hover:text-[#080B10] transition-colors">
               Use cases
             </a>
-            <a href="#trust" className="hover:text-[#080B10] transition-colors">
-              Privacy & Trust
-            </a>
+            <Link href="/login" className="hover:text-[#080B10] transition-colors">
+              Sign In
+            </Link>
             <Link href="/dashboard" className="text-[#004643] font-semibold hover:underline">
               Enter Workspace →
             </Link>
@@ -48,7 +51,7 @@ export function Footer() {
         <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#5F625F]">
           <p>© {new Date().getFullYear()} UnKnot. Designed for clear decisions.</p>
           <p className="text-center sm:text-right">
-            Cyprus & Sand Visual Identity · Built with quiet confidence
+            Cyprus &amp; Sand Visual Identity · Built with quiet confidence
           </p>
         </div>
       </div>

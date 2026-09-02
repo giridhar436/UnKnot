@@ -1,9 +1,9 @@
 import * as React from "react";
 import Link from "next/link";
-import { TrendingUp, ArrowLeft, Plus, ShieldCheck } from "lucide-react";
+import { ArrowLeft, ShieldCheck } from "lucide-react";
 import { getInvestments } from "@/lib/services/finance";
 import { InvestmentCard } from "@/components/finance/investment-card";
-import { formatCurrency } from "@/lib/utils";
+import { AmountDisplay } from "@/components/ui/amount-display";
 
 export default async function InvestmentsPage() {
   const investments = await getInvestments();
@@ -31,19 +31,17 @@ export default async function InvestmentsPage() {
           </p>
         </div>
 
-        <div className="bg-white px-4 py-2.5 rounded-xl border border-[#D8D5CC] flex-shrink-0">
-          <span className="text-[11px] text-[#5F625F] block">
+        <div className="bg-white px-4 py-2.5 rounded-xl border border-[#D8D5CC] shrink-0">
+          <span className="text-[10px] font-semibold uppercase tracking-wider text-[#5F625F] block">
             Total Recorded Assets
           </span>
-          <span className="text-xl font-bold text-[#080B10]">
-            {formatCurrency(totalAmount)}
-          </span>
+          <AmountDisplay amount={totalAmount} size="lg" trend="investment" />
         </div>
       </div>
 
       {/* Note distinguishing facts from recommendations */}
       <div className="p-4 bg-[#E3F0EE]/60 border border-[#004643]/20 rounded-xl text-xs text-[#080B10] flex items-start gap-2.5">
-        <ShieldCheck className="w-4 h-4 text-[#004643] flex-shrink-0 mt-0.5" />
+        <ShieldCheck className="w-4 h-4 text-[#004643] shrink-0 mt-0.5" />
         <div>
           <span className="font-semibold block">Verified Financial Facts</span>
           <p className="text-[#5F625F] text-[11px] mt-0.5 leading-relaxed">

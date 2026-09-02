@@ -30,8 +30,14 @@ export function AppShell({ children }: AppShellProps) {
     setIsMoreMenuOpen(false);
   }
 
-  // Landing page has its own standalone navigation and footer
-  if (pathname === "/") {
+  // Public routes (landing page, auth) have their own standalone navigation and layout
+  const isPublicRoute =
+    pathname === "/" ||
+    pathname === "/login" ||
+    pathname === "/signup" ||
+    pathname === "/forgot-password";
+
+  if (isPublicRoute) {
     return <div className="min-h-screen bg-[#F7F5EF] text-[#080B10] flex flex-col">{children}</div>;
   }
 

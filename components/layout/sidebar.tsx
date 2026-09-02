@@ -94,7 +94,7 @@ export function Sidebar({ onOpenUpload }: SidebarProps) {
       </nav>
 
       {/* Footer Profile Snippet */}
-      <div className="p-4 border-t border-[#D8D5CC]">
+      <div className="p-4 border-t border-[#D8D5CC] space-y-2">
         <div className="flex items-center gap-3 p-2 rounded-lg bg-white/60 border border-[#D8D5CC]/60">
           <div className="w-8 h-8 rounded-full bg-[#004643] text-white flex items-center justify-center text-xs font-semibold">
             G
@@ -104,9 +104,24 @@ export function Sidebar({ onOpenUpload }: SidebarProps) {
               Giridhar
             </p>
             <p className="text-[10px] text-[#5F625F] truncate">
-              Phase 1 Prototype
+              Demo Session
             </p>
           </div>
+        </div>
+
+        <div className="flex items-center justify-between px-1 text-[11px]">
+          <Link
+            href="/settings"
+            className="text-[#5F625F] hover:text-[#080B10] transition-colors"
+          >
+            Settings
+          </Link>
+          <Link
+            href="/login"
+            className="text-[#B42318] hover:underline font-medium"
+          >
+            Sign out
+          </Link>
         </div>
       </div>
     </aside>

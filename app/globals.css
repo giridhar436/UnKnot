@@ -83,6 +83,7 @@
   --color-bg-card: var(--bg-card);
   --color-bg-elevated: var(--bg-elevated);
   --font-sans: var(--font-inter);
+  --font-mono: var(--font-mono);
 }
 
 /* ===========================

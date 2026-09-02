@@ -7,17 +7,15 @@ import {
   Clock,
   FolderTree,
   Tag,
-  Share2,
-  Trash2,
 } from "lucide-react";
 import { getDocument, getRelatedDocuments } from "@/lib/services/documents";
 import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
+import { AmountDisplay } from "@/components/ui/amount-display";
 import { DocumentPreview } from "@/components/documents/document-preview";
 import { EntityList } from "@/components/documents/entity-list";
 import { DuplicateStatus } from "@/components/documents/duplicate-status";
 import { RelatedDocuments } from "@/components/documents/related-documents";
-import { formatCurrency, formatDate, formatTimestamp } from "@/lib/utils";
+import { formatDate, formatTimestamp } from "@/lib/utils";
 
 interface DocumentDetailPageProps {
   params: Promise<{
@@ -65,18 +63,16 @@ export default async function DocumentDetailPage({ params }: DocumentDetailPageP
         </div>
 
         {doc.amount && (
-          <div className="bg-white px-4 py-2 rounded-xl border border-[#D8D5CC] flex-shrink-0">
-            <span className="text-[11px] text-[#5F625F] block">
+          <div className="bg-white px-4 py-2.5 rounded-xl border border-[#D8D5CC] shrink-0">
+            <span className="text-[10px] uppercase font-semibold text-[#5F625F] block">
               Recorded Amount
             </span>
-            <span className="text-xl font-bold text-[#080B10]">
-              {formatCurrency(doc.amount)}
-            </span>
+            <AmountDisplay amount={doc.amount} size="lg" />
           </div>
         )}
       </div>
 
-      {/* Main Grid: Left Column (Entities & Related) + Right Column (Preview & Metadata) */}
+      {/* Main Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Left Column: Extracted Information & Connections (2 cols) */}
         <div className="lg:col-span-2 space-y-6">
@@ -138,7 +134,7 @@ export default async function DocumentDetailPage({ params }: DocumentDetailPageP
                   <Calendar className="w-3.5 h-3.5" />
                   Document Date
                 </span>
-                <span className="font-semibold text-[#080B10]">
+                <span className="font-semibold text-[#080B10] font-mono">
                   {formatDate(doc.documentDate)}
                 </span>
               </div>
@@ -148,7 +144,7 @@ export default async function DocumentDetailPage({ params }: DocumentDetailPageP
                   <Clock className="w-3.5 h-3.5" />
                   Uploaded At
                 </span>
-                <span className="font-semibold text-[#080B10]">
+                <span className="font-semibold text-[#080B10] font-mono">
                   {formatTimestamp(doc.uploadedAt)}
                 </span>
               </div>
@@ -158,7 +154,7 @@ export default async function DocumentDetailPage({ params }: DocumentDetailPageP
                   <Tag className="w-3.5 h-3.5" />
                   Input Type
                 </span>
-                <span className="font-semibold text-[#080B10] uppercase">
+                <span className="font-semibold text-[#080B10] uppercase font-mono">
                   {doc.type}
                 </span>
               </div>
