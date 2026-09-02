@@ -46,7 +46,7 @@ export default async function FinancePage() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
         <div className="p-4 sm:p-5 bg-white rounded-xl border border-[#DFDBD1] space-y-1.5 shadow-xs">
           <span className="text-[10px] font-mono font-medium uppercase tracking-wider text-[#5C615E] block">
-            Recorded Outflow (Aug)
+            Recorded Outflow ({new Date().toLocaleDateString("en-US", { month: "short" })})
           </span>
           <div>
             <AmountDisplay

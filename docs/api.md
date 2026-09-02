@@ -5,7 +5,6 @@
 The API is responsible for:
 - Authentication-aware requests
 - Upload processing orchestration
-- Classification
 - Entity extraction
 - Duplicate detection
 - Database operations
@@ -13,26 +12,34 @@ The API is responsible for:
 - Fireworks AI calls
 - Analysis generation
 
+All API routes are in `app/api/`. Server actions are in `lib/actions/`.
 Frontend code must not directly contain secret API keys.
 
 ---
 
 ## 2. API Structure
 
-Recommended structure:
-
 ```text
 app/
   api/
-    documents/
-    analysis/
-    search/
-    entities/
-    investments/
-    expenses/
+    upload/
+      route.ts          — POST: File upload + processing
+    ask/
+      route.ts          — POST: Ask UnKnot (Context Engine)
+    files/
+      [id]/
+        route.ts        — GET: File URL retrieval
+    records/
+      [id]/
+        route.ts        — DELETE: Record deletion
 ```
 
-Use REST-style endpoints where practical.
+Server Actions:
+
+```text
+lib/actions/
+  auth.ts               — signUpAction, signInAction, signOutAction, resetPasswordAction
+```
 
 ---
 
@@ -40,249 +47,229 @@ Use REST-style endpoints where practical.
 
 Authentication is handled by Supabase Auth.
 
-Every protected API request should resolve the current authenticated user.
+The proxy (`proxy.ts`) refreshes sessions on every request and protects application routes.
 
-Conceptually:
+Every protected API request resolves the current user via:
 
-```http
-Authorization: authenticated-session
+```typescript
+const supabase = await createClient();
+const { data: { user } } = await supabase.auth.getUser();
 ```
 
-The backend must derive the user ID from the authenticated session.
-
-Do not accept an arbitrary `userId` from the frontend and trust it.
+The backend derives the user ID from the authenticated session.
+It does not accept an arbitrary `userId` from the frontend.
 
 ---
 
-# 4. Document APIs
+# 4. Upload API
 
-## POST /api/documents/upload
+## POST /api/upload
 
 Purpose:
-Upload a PDF/image and start processing.
+Upload a PDF/image or submit text and run the full processing pipeline.
 
-Input:
-- File
-- Optional user-provided title/notes
+Input (FormData):
+- `file` — File (PDF or image, max 10MB)
+- OR `text` — string (plain text input)
+- `title` — optional string
 
 Processing:
 
 ```text
-Upload
- -> Validate
- -> Cloudinary
- -> Determine PDF/Image
- -> Parse/OCR
- -> Classification
- -> Entity Extraction
- -> Duplicate Check
- -> Supabase
+Validate auth
+  → Validate file type/size
+  → Upload to Cloudinary
+  → Create record + file in Supabase
+  → Extract text (PDF parse / OCR / direct)
+  → Entity extraction (Fireworks AI)
+  → Validate output (Zod)
+  → Duplicate detection
+  → Store extracted_data
+  → Create relationships
+  → Generate reminders
+  → Update record status
 ```
 
-Response should include:
+Response (success):
 
 ```json
 {
   "success": true,
-  "documentId": "document-id",
-  "status": "processed"
+  "recordId": "uuid",
+  "status": "completed",
+  "extracted": {
+    "title": "...",
+    "category": "Purchases",
+    "amount": 79999,
+    "currency": "INR",
+    "document_date": "2026-08-12",
+    "merchant": "Croma Electronics",
+    "product": "Samsung Galaxy S25",
+    "warranty_expiry": "2027-08-12"
+  }
 }
 ```
 
-For longer processing, the endpoint may return:
+Response (error):
 
 ```json
 {
-  "success": true,
-  "documentId": "document-id",
-  "status": "processing"
+  "success": false,
+  "error": {
+    "code": "INVALID_TYPE",
+    "message": "File type not supported"
+  }
 }
 ```
 
 ---
 
-## GET /api/documents
+# 5. Ask UnKnot API
+
+## POST /api/ask
 
 Purpose:
-Return the authenticated user's documents.
+Process a natural language question through the Context Engine.
 
-Optional filters:
-
-```text
-category
-date
-search
-sort
-```
-
-Example:
-
-```http
-GET /api/documents?category=Warranty
-```
-
----
-
-## GET /api/documents/:id
-
-Purpose:
-Return one document and its extracted information.
-
-Should include:
-- Document metadata
-- Category
-- Entities
-- Important dates
-- Duplicate status
-- Cloudinary file reference
-- Related records
-
----
-
-## DELETE /api/documents/:id
-
-Delete a document according to the application's retention rules.
-
-The backend must verify ownership before deletion.
-
----
-
-# 5. Search API
-
-## GET /api/search
-
-Purpose:
-Search across the user's structured information.
-
-Example:
-
-```http
-GET /api/search?q=laptop
-```
-
-Search can return:
-- Documents
-- Purchases
-- Expenses
-- Investments
-- Warranties
-- Repairs
-- Other entities
-
-The first MVP can use PostgreSQL text search/filters.
-
-Semantic/vector search can be added later if genuinely required.
-
----
-
-# 6. Analysis API
-
-## POST /api/analysis
-
-Input:
+Input (JSON):
 
 ```json
 {
-  "question": "Should I repair my laptop or replace it?"
+  "question": "How much did I spend on medicines this month?"
 }
 ```
 
 Processing:
 
 ```text
-Question
-  ↓
-Context Engine
-  ↓
-Retrieve relevant records
-  ↓
-Build context
-  ↓
-Fireworks AI
-  ↓
-Validate response
-  ↓
-Return answer
+Authenticate user
+  → Retrieve relevant records from Supabase
+  → Gather related records via relationships
+  → Build controlled context
+  → Send context + question to Fireworks AI
+  → Validate response
+  → Store analysis
+  → Return answer + source references
 ```
 
-Example response:
+Response:
 
 ```json
 {
-  "answer": "...",
-  "supportingData": [
-    {
-      "type": "repair",
-      "id": "..."
-    }
-  ]
+  "success": true,
+  "analysis": {
+    "id": "analysis-...",
+    "question": "How much did I spend on medicines this month?",
+    "answer": "You spent ₹3,240 on medicines in August 2026.",
+    "evidence": [
+      {
+        "id": "...",
+        "type": "medical",
+        "title": "Apollo Pharmacy Bill",
+        "documentId": "...",
+        "detail": "Amount: INR 1240, Date: 2026-08-05"
+      }
+    ],
+    "suggestedAction": "View related documents"
+  }
 }
 ```
 
-The UI should be able to show which stored records contributed to the answer.
+---
+
+# 6. File API
+
+## GET /api/files/[id]
+
+Purpose:
+Return the Cloudinary secure URL for a file.
+
+The backend verifies ownership before returning the URL.
+
+Response:
+
+```json
+{
+  "success": true,
+  "url": "https://res.cloudinary.com/..."
+}
+```
 
 ---
 
-# 7. Entity API
+# 7. Record Deletion
 
-## GET /api/entities
+## DELETE /api/records/[id]
 
-Retrieve extracted entities for the authenticated user.
+Purpose:
+Delete a record and its associated files.
 
-Possible filters:
+Processing:
 
 ```text
-type
-category
-documentId
-dateRange
+Verify ownership
+  → Delete from Cloudinary
+  → Delete record (cascades to files, extracted_data, relationships, reminders)
+```
+
+Response:
+
+```json
+{
+  "success": true
+}
 ```
 
 ---
 
-# 8. Finance APIs
+# 8. Server Actions
 
-## POST /api/expenses
+## Auth Actions (lib/actions/auth.ts)
 
-Create or confirm an expense.
+### signUpAction(email, password, fullName)
 
-```json
-{
-  "title": "Laptop repair",
-  "amount": 18000,
-  "date": "2026-08-20",
-  "category": "Repair"
-}
-```
+Creates a new Supabase Auth user and profile.
 
-## POST /api/investments
+### signInAction(email, password)
 
-Investments must be explicitly represented.
+Authenticates user with Supabase Auth.
 
-```json
-{
-  "name": "Mutual Fund XYZ",
-  "type": "Mutual Fund",
-  "amount": 5000,
-  "date": "2026-08-01"
-}
-```
+### signOutAction()
 
-Important:
-If a user has an investment, the system should not incorrectly conclude that the user needs to "start investing".
+Signs out the user and redirects to home.
 
-The distinction between:
-- recommendation to invest
-- existing investment
-- additional investment opportunity
+### resetPasswordAction(email)
 
-must be preserved.
+Sends password reset email via Supabase Auth.
 
 ---
 
-# 9. Error Format
+# 9. Service Layer
 
-Use a consistent response:
+The service layer (`lib/services/`) provides data access functions used by server components:
+
+```text
+lib/services/
+  documents.ts      — getDocuments, getDocument, getRelatedDocuments, getCategories
+  finance.ts        — getExpenses, getInvestments, getFinanceSummary, getUpcomingPayments
+  reminders.ts      — getReminders, getUpcomingReminders
+  ask.ts            — askQuestion (calls /api/ask), getSuggestedQuestions, getActivityItems
+  processing.ts     — processRecord (orchestrates full pipeline)
+  extraction.ts     — extractEntities (Fireworks AI)
+  duplicates.ts     — checkDuplicates
+  relationships.ts  — createRelationships
+  context-engine.ts — askContextEngine
+  pdf-parser.ts     — parsePdf
+  ocr.ts            — extractTextFromImage (OCR abstraction)
+```
+
+All service functions query Supabase with user-scoped RLS.
+
+---
+
+# 10. Error Format
+
+Consistent error response:
 
 ```json
 {
@@ -294,31 +281,34 @@ Use a consistent response:
 }
 ```
 
+Error codes:
+- `UNAUTHORIZED` — No authenticated session
+- `NO_FILE` — No file provided
+- `INVALID_TYPE` — Unsupported file type
+- `FILE_TOO_LARGE` — File exceeds 10MB
+- `DB_ERROR` — Database operation failed
+- `PROCESSING_FAILED` — Pipeline error
+- `NOT_FOUND` — Record/file not found
+- `INTERNAL_ERROR` — Unexpected error
+
 Do not expose internal stack traces to users.
 
 ---
 
-# 10. Fireworks AI Rules
+# 11. Fireworks AI Rules
 
-Fireworks API calls must happen server-side.
-
-Never:
-
-```text
-Browser -> Fireworks API using secret key
-```
-
-Instead:
+Fireworks API calls happen server-side only.
 
 ```text
 Browser
   ↓
-UnKnot Backend
+UnKnot Backend (API Route / Server Action)
   ↓
 Fireworks API
 ```
 
-Use structured output wherever supported.
+Models used:
+- `accounts/fireworks/models/llama-v3p1-8b-instruct` — Entity extraction, Context Engine answers
+- `accounts/fireworks/models/llama-v3p2-11b-vision-instruct` — OCR/Vision
 
-The application should validate model responses before storing them.
-
+Structured output is requested and validated with Zod before storage.

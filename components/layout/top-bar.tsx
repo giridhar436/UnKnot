@@ -2,9 +2,10 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Plus, Bell } from "lucide-react";
+import { Plus } from "lucide-react";
 import { SearchBar } from "./search-bar";
 import { Button } from "@/components/ui/button";
+import { NotificationBell } from "./notification-bell";
 
 interface TopBarProps {
   onOpenUpload: () => void;
@@ -32,14 +33,7 @@ export function TopBar({ onOpenUpload }: TopBarProps) {
 
       {/* Actions */}
       <div className="flex items-center gap-2">
-        <Link
-          href="/reminders"
-          className="p-2 text-[#5C615E] hover:text-[#111414] hover:bg-[#F2EFEB] rounded-lg transition-colors relative min-h-[44px] min-w-[44px] flex items-center justify-center"
-          aria-label="Important dates and reminders"
-        >
-          <Bell className="w-4 h-4" />
-          <span className="absolute top-2.5 right-2.5 w-1.5 h-1.5 rounded-full bg-[#B85D3B]" />
-        </Link>
+        <NotificationBell />
 
         <Button
           onClick={onOpenUpload}

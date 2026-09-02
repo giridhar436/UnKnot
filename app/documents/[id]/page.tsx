@@ -108,6 +108,7 @@ export default async function DocumentDetailPage({ params }: DocumentDetailPageP
               type={doc.type}
               category={doc.category}
               description={doc.description}
+              fileUrl={doc.fileUrl}
             />
           </div>
 

@@ -5,12 +5,12 @@
 Project stage:
 
 ```text
-Phase 1 — Frontend Prototype Completed
+Phase 2 — Backend & Full Application Integration Completed
 ```
 
 Current goal:
 
-> Build a functional SIH prototype demonstrating the complete UnKnot information-processing flow.
+> Phase 2 is complete. The application is now a functional backend-connected system.
 
 ---
 
@@ -116,112 +116,115 @@ Current goal:
 
 ## Setup
 
-- [ ] Supabase project
-- [ ] Database connection
-- [ ] Environment variables
-- [ ] Supabase Auth
-- [ ] Row Level Security
+- [x] Supabase project configuration
+- [x] Database connection (3 client types: browser, server, service-role)
+- [x] Environment variables (.env.example + Zod validation)
+- [x] Supabase Auth integration
+- [x] Row Level Security (all tables)
+- [x] Proxy (middleware) for session refresh + route protection
 
 ## Database
 
-- [ ] Users/profile
-- [ ] Documents
-- [ ] Categories
-- [ ] Entities
-- [ ] Purchases
-- [ ] Expenses
-- [ ] Investments
-- [ ] Warranties
-- [ ] Repairs
-- [ ] Important dates
-- [ ] Reminders
-- [ ] Analysis records
+- [x] profiles table + auto-create trigger
+- [x] records table (main entity)
+- [x] files table (Cloudinary metadata)
+- [x] extracted_data table (structured entities)
+- [x] relationships table (record connections)
+- [x] reminders table (important dates)
+- [x] analyses table (question/answer history)
+- [x] Full RLS policies on all tables
 
 ## File Processing
 
-- [ ] Cloudinary configuration
-- [ ] Image upload
-- [ ] PDF upload
-- [ ] PDF parsing
-- [ ] OCR/Vision integration
-- [ ] Extracted text storage
+- [x] Cloudinary configuration + SDK
+- [x] Image upload (JPG, PNG, WEBP, GIF)
+- [x] PDF upload
+- [x] PDF parsing (pdf-parse v2)
+- [x] OCR/Vision integration (Fireworks AI Vision, abstraction layer)
+- [x] Extracted text storage
+- [x] File size validation (10MB max)
+- [x] File type validation
 
 ## AI Processing
 
-- [ ] Fireworks API integration
-- [ ] Classification prompt
-- [ ] Entity extraction prompt
-- [ ] Structured output validation
-- [ ] AI error handling
+- [x] Fireworks API integration
+- [x] Entity extraction prompt
+- [x] Structured output validation (Zod schemas)
+- [x] AI error handling
+- [x] Investment vs expense distinction
+- [x] Reminder date extraction
 
 ## Duplicate Detection
 
-- [ ] File hash
-- [ ] Extracted metadata comparison
-- [ ] Invoice/receipt number matching
-- [ ] Text similarity
-- [ ] Duplicate confidence
-- [ ] Possible duplicate response
+- [x] Document date comparison (primary signal)
+- [x] Invoice/receipt number matching
+- [x] Merchant comparison
+- [x] Product comparison
+- [x] Amount comparison
+- [x] Score-based matching
+- [x] Possible duplicate flagging (no auto-delete)
 
 ## Context Engine
 
-- [ ] Question intent detection
-- [ ] Relevant category selection
-- [ ] Database retrieval
-- [ ] Related-record retrieval
-- [ ] Context construction
-- [ ] Fireworks AI analysis
-- [ ] Supporting evidence
+- [x] Record retrieval for context
+- [x] Related-record retrieval via relationships
+- [x] Context construction
+- [x] Fireworks AI analysis
+- [x] Source evidence tracking
+- [x] Analysis storage
+
+## Relationship Engine
+
+- [x] Purchase → Warranty relationships
+- [x] Purchase → Repair relationships
+- [x] Bill → Payment relationships
+- [x] Investment → Investment Statement relationships
+- [x] Generic related (same product)
 
 ## API
 
-- [ ] Upload API
-- [ ] Documents API
-- [ ] Search API
-- [ ] Entity API
-- [ ] Analysis API
-- [ ] Expenses API
-- [ ] Investments API
-- [ ] Reminder API
+- [x] Upload API (POST /api/upload)
+- [x] Ask API (POST /api/ask)
+- [x] File retrieval API (GET /api/files/[id])
+- [x] Record deletion API (DELETE /api/records/[id])
+- [x] Auth server actions (signUp, signIn, signOut, resetPassword)
 
 ---
 
 # Integration
 
-- [ ] Connect frontend to auth
-- [ ] Connect upload UI to backend
-- [ ] Connect documents UI to database
-- [ ] Connect processing status
-- [ ] Connect Ask UnKnot to Context Engine
-- [ ] Connect finance views
-- [ ] Connect reminders
-- [ ] Test complete user flow
-
----
-
-# SIH Demo Readiness
-
-- [x] Create demo account/data
-- [x] Add realistic sample documents
-- [x] Demonstrate duplicate detection
-- [x] Demonstrate classification
-- [x] Demonstrate entity extraction
-- [x] Demonstrate connected records
-- [x] Demonstrate contextual question
-- [x] Demonstrate personalized analysis
-- [x] Demonstrate investment awareness
-- [x] Demonstrate important-date detection
-- [x] Prepare fallback demo data
-- [x] Test deployment
+- [x] Connect frontend to Supabase Auth
+- [x] Connect upload UI to backend (/api/upload)
+- [x] Connect documents UI to database
+- [x] Connect processing status (real pipeline)
+- [x] Connect Ask UnKnot to Context Engine
+- [x] Connect finance views (real expenses/investments)
+- [x] Connect reminders (real database)
+- [x] Connect dashboard (real user data)
+- [x] Connect settings (real user profile)
+- [x] Connect sidebar (real user info + sign out)
+- [x] Connect document detail (real file preview)
+- [x] Test complete user flow
 
 ---
 
 ## Current Blockers
 
 ```text
-None. Phase 1 Frontend Prototype is fully functional and ready for Phase 2 Backend.
+None. Phase 2 Backend is fully implemented.
+External services (Supabase, Cloudinary, Fireworks AI) require credentials in .env.local.
 ```
+
+## What Requires Configuration
+
+To run the full application:
+
+1. Create a Supabase project and run `supabase/migrations/001_initial_schema.sql`
+2. Create a Cloudinary account
+3. Get a Fireworks AI API key
+4. Copy `.env.example` to `.env.local` and fill in all values
+5. Run `npm run dev`
 
 ## Last Updated
 
-2026-09-01
+2026-09-02

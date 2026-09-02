@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { getReminders } from "@/lib/services/reminders";
 import { Badge } from "@/components/ui/badge";
+import { ReminderActions } from "@/components/reminders/reminder-actions";
 import { formatDate } from "@/lib/utils";
 
 export default async function RemindersPage() {
@@ -88,19 +89,22 @@ export default async function RemindersPage() {
                   </div>
                 </div>
 
-                <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center border-t sm:border-t-0 pt-2 sm:pt-0 border-[#DFDBD1]/50 shrink-0">
+                <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center border-t sm:border-t-0 pt-2 sm:pt-0 border-[#DFDBD1]/50 shrink-0 gap-2">
                   <span className="text-xs sm:text-sm font-bold text-[#111414] font-mono">
                     {formatDate(item.date)}
                   </span>
-                  {item.sourceDocumentId && (
-                    <Link
-                      href={`/documents/${item.sourceDocumentId}`}
-                      className="text-xs text-[#064038] hover:underline font-semibold flex items-center gap-1 mt-0.5 group"
-                    >
-                      <span>View record</span>
-                      <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-                    </Link>
-                  )}
+                  <div className="flex items-center gap-2">
+                    <ReminderActions reminderId={item.id} status={item.status} />
+                    {item.sourceDocumentId && (
+                      <Link
+                        href={`/documents/${item.sourceDocumentId}`}
+                        className="text-xs text-[#064038] hover:underline font-semibold flex items-center gap-1 mt-0.5 group"
+                      >
+                        <span>View record</span>
+                        <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                      </Link>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
@@ -146,19 +150,22 @@ export default async function RemindersPage() {
                   </div>
                 </div>
 
-                <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center border-t sm:border-t-0 pt-2 sm:pt-0 border-[#DFDBD1]/50 shrink-0">
+                <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center border-t sm:border-t-0 pt-2 sm:pt-0 border-[#DFDBD1]/50 shrink-0 gap-2">
                   <span className="text-xs sm:text-sm font-semibold text-[#111414] font-mono">
                     {formatDate(item.date)}
                   </span>
-                  {item.sourceDocumentId && (
-                    <Link
-                      href={`/documents/${item.sourceDocumentId}`}
-                      className="text-xs text-[#064038] hover:underline font-semibold flex items-center gap-1 mt-0.5 group"
-                    >
-                      <span>View record</span>
-                      <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
-                    </Link>
-                  )}
+                  <div className="flex items-center gap-2">
+                    <ReminderActions reminderId={item.id} status={item.status} />
+                    {item.sourceDocumentId && (
+                      <Link
+                        href={`/documents/${item.sourceDocumentId}`}
+                        className="text-xs text-[#064038] hover:underline font-semibold flex items-center gap-1 mt-0.5 group"
+                      >
+                        <span>View record</span>
+                        <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
+                      </Link>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
@@ -182,20 +189,23 @@ export default async function RemindersPage() {
                 key={item.id}
                 className="p-3.5 sm:p-4 flex items-center justify-between gap-3 text-xs"
               >
-                <div className="space-y-0.5">
+                <div className="space-y-0.5 min-w-0 flex-1">
                   <p className="font-semibold text-[#111414]">{item.title}</p>
                   <p className="text-[11px] text-[#5C615E] font-mono">
                     Date: {formatDate(item.date)} &bull; {item.source}
                   </p>
                 </div>
-                {item.sourceDocumentId && (
-                  <Link
-                    href={`/documents/${item.sourceDocumentId}`}
-                    className="text-[#064038] hover:underline font-semibold font-mono text-xs"
-                  >
-                    View record &rarr;
-                  </Link>
-                )}
+                <div className="flex items-center gap-2 shrink-0">
+                  <ReminderActions reminderId={item.id} status={item.status} />
+                  {item.sourceDocumentId && (
+                    <Link
+                      href={`/documents/${item.sourceDocumentId}`}
+                      className="text-[#064038] hover:underline font-semibold font-mono text-xs"
+                    >
+                      View record &rarr;
+                    </Link>
+                  )}
+                </div>
               </div>
             ))}
           </div>

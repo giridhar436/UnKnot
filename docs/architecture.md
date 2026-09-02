@@ -29,22 +29,17 @@ Typical information domains include:
 
 | Layer | Technology | Responsibility |
 |---|---|---|
-| Frontend | Next.js + React | Web application |
-| Styling | Tailwind CSS | UI and responsive design |
-| Backend | Next.js API Routes / Server Actions | Application logic and APIs |
+| Frontend | Next.js 16 + React 19 | Web application |
+| Styling | Tailwind CSS v4 | UI and responsive design |
+| Backend | Next.js API Routes + Server Actions | Application logic and APIs |
 | Database | Supabase PostgreSQL | Structured application data |
 | Authentication | Supabase Auth | User accounts and sessions |
 | File Storage | Cloudinary | Original PDFs/images |
 | AI | Fireworks AI API | Classification, entity extraction, reasoning and analysis |
-| PDF Processing | PDF parser | Extract text from text-based PDFs |
-| OCR/Vision | Selected OCR/Vision service | Read images and scanned PDFs |
+| PDF Processing | pdf-parse v2 | Extract text from text-based PDFs |
+| OCR/Vision | Fireworks AI Vision (abstraction layer) | Read images and scanned PDFs |
+| Validation | Zod | Schema validation for AI outputs |
 | Deployment | Vercel | Web application deployment |
-
-### Important principle
-
-Do not add another technology just because it is popular.
-
-Every technology must solve a real requirement.
 
 ---
 
@@ -70,13 +65,14 @@ Every technology must solve a real requirement.
                 +-----+----+
                       |
                       v
-               Classification
+               Entity Extraction
+               (Fireworks AI)
                       |
                       v
               Duplicate Detection
                       |
                       v
-              Entity Extraction
+              Relationship Engine
                       |
              +--------+--------+
              |                 |
@@ -109,39 +105,35 @@ Text-based PDF:
 
 ```text
 PDF
- -> PDF Parser
+ -> pdf-parse v2
  -> Extracted Text
- -> Classification
- -> Entity Extraction
+ -> Entity Extraction (Fireworks AI)
 ```
 
 Scanned PDF:
 
 ```text
 PDF
- -> Page/Image Processing
- -> OCR/Vision
+ -> pdf-parse v2 (insufficient text detected)
+ -> Fireworks AI Vision OCR
  -> Extracted Text
- -> Classification
- -> Entity Extraction
+ -> Entity Extraction (Fireworks AI)
 ```
 
 ### Image
 
 ```text
 Image
- -> OCR/Vision
+ -> Fireworks AI Vision OCR
  -> Extracted Text + Visual information
- -> Classification
- -> Entity Extraction
+ -> Entity Extraction (Fireworks AI)
 ```
 
 ### Text
 
 ```text
 Text
- -> Classification
- -> Entity Extraction
+ -> Entity Extraction (Fireworks AI)
 ```
 
 The three input paths are intentionally different because PDF, image and text require different preprocessing.
@@ -159,63 +151,46 @@ Examples:
 - medical_bill.pdf
 - warranty.pdf
 
-The database should store the Cloudinary identifier/URL rather than duplicating the binary file inside PostgreSQL.
+The database stores the Cloudinary identifier/URL rather than duplicating the binary file inside PostgreSQL.
 
 ### Supabase PostgreSQL
 
-Stores structured information such as:
+Tables:
 
 ```text
-User
-Document
-DocumentMetadata
-Category
-Entity
-Purchase
-Expense
-Investment
-Warranty
-MedicalRecord
-Repair
-ImportantDate
-Analysis
+profiles         — User profile information
+records          — Main structured representation of a user record
+files            — Cloudinary file metadata linked to records
+extracted_data   — Structured entities extracted from documents
+relationships    — Connections between records
+reminders        — Important dates linked to records
+analyses         — Question/answer history from Ask UnKnot
 ```
 
-The exact schema should evolve during implementation.
+The exact schema is defined in `supabase/migrations/001_initial_schema.sql`.
 
 ---
 
 ## 6. Entity Extraction
 
-After preprocessing, UnKnot identifies useful entities from the content.
+After preprocessing, UnKnot identifies useful entities from the content using Fireworks AI.
 
-Example:
+The extraction prompt requests structured JSON output with:
+- category (Finance, Investments, Medical, Warranty, Purchases, Repairs, Documents, Subscriptions, Other)
+- record_type (purchase, warranty, repair, medical, bill, investment, etc.)
+- title, merchant, product, amount, currency, document_date
+- invoice_number, warranty_expiry, investment_type
+- is_investment flag (critical for separating investments from expenses)
+- entities array (all extracted data points)
+- reminder_dates (important dates to generate reminders)
 
-```text
-"Bought Samsung Galaxy S25 for ₹79,999
-on 12 August 2026. Warranty until
-12 August 2027."
-```
-
-Possible extracted entities:
-
-```text
-Product: Samsung Galaxy S25
-Amount: ₹79,999
-Purchase Date: 12-Aug-2026
-Warranty End: 12-Aug-2027
-Category: Purchase
-```
-
-The extracted information is stored as structured data so that it can be searched and connected later.
+Output is validated with Zod schemas before storage.
 
 ---
 
 ## 7. Classification
 
-UnKnot should classify information into practical categories.
-
-Initial categories:
+UnKnot classifies information into practical categories:
 
 ```text
 Finance
@@ -224,42 +199,50 @@ Finance
   - Income
   - Payment
 
-Purchase
+Investments
+Purchases
 Warranty
 Repair
 Medical
 Documents
-Important Dates
+  - Insurance
+  - Legal
+  - Personal
 Subscriptions
 Other
 ```
 
-Classification should be extensible.
-
-Do not hard-code the application around only the initial categories.
+Classification is performed by Fireworks AI during entity extraction.
 
 ---
 
 ## 8. Duplicate Detection
 
-Duplicate detection must NOT rely on upload timestamp.
+Duplicate detection does NOT rely on upload timestamp.
 
-For documents, UnKnot should compare extracted information and document-level signals such as:
+The system compares extracted information and document-level signals:
 
 ```text
-Document type
-Document date
+Document date (strongest signal)
+Invoice/receipt number (very strong)
 Merchant/provider
-Invoice/receipt number
-Amount
 Product/service
-Extracted text similarity
-File hash where applicable
+Amount
 ```
 
-For example, two photos of the same receipt uploaded on different days should still be recognized as possible duplicates.
+Scoring:
+- Document date match: +40
+- Invoice number match: +50
+- Merchant match: +20
+- Product match: +15
+- Amount match: +15
 
-The original file upload time is only metadata about the upload event, not the actual document date.
+Thresholds:
+- Score < 30: No duplicate
+- Score 30-69: Possible duplicate
+- Score >= 70: High confidence duplicate
+
+Possible duplicates are flagged for user review, never auto-deleted.
 
 ---
 
@@ -267,69 +250,133 @@ The original file upload time is only metadata about the upload event, not the a
 
 The Context Engine is the layer between stored information and Fireworks AI.
 
-It should:
+It:
 
-1. Receive the user's question/request.
-2. Understand what information is relevant.
-3. Retrieve relevant structured records from Supabase.
-4. Retrieve relevant document metadata and, where necessary, document text.
-5. Build a limited context package.
-6. Send that context to Fireworks AI.
-7. Return the model's structured result to the application.
+1. Receives the user's question/request.
+2. Retrieves relevant structured records from Supabase (limited to 50 most recent).
+3. Retrieves related records via the relationships table.
+4. Builds a controlled context package.
+5. Sends context + question to Fireworks AI.
+6. Returns the model's answer with source references.
 
-Example:
-
-```text
-User:
-"Should I repair this laptop or replace it?"
-
-Context Engine retrieves:
-- Purchase price
-- Purchase date
-- Warranty status
-- Previous repair records
-- Previous repair costs
-- Current repair estimate
-- Relevant documents
-
-Fireworks AI:
-Analyzes the supplied context.
-
-UnKnot:
-Displays the analysis and supporting information.
-```
-
-The AI should not be treated as the database.
+The AI is instructed to:
+- Never fabricate information
+- Distinguish Known/Unknown/Inferred
+- Treat investments as assets, not expenses
+- Cite which records the answer is based on
+- Flag conflicts between records
 
 ---
 
-## 10. Core Design Principle
+## 10. Relationship Engine
+
+Relationships are created rule-based after entity extraction:
 
 ```text
-Raw information
-      ↓
-Structured information
-      ↓
-Connected information
-      ↓
-Relevant context
-      ↓
-AI reasoning
-      ↓
-Useful answer/decision
+Purchase + Warranty (same product) → purchase_warranty
+Purchase + Repair (same product) → purchase_repair
+Bill + Payment → bill_payment
+Investment + Investment Statement → investment_statement
+Same product (no specific rule) → related
 ```
 
-This separation makes the system easier to debug, explain and scale.
+Relationships are stored in the `relationships` table and used for:
+- Document detail page (showing related records)
+- Context Engine (gathering related context)
 
 ---
 
 ## 11. Security Principles
 
-- Never expose Fireworks API keys in frontend code.
-- Never expose Supabase service-role credentials in the browser.
-- Use authenticated server-side operations for sensitive data.
-- Apply database access controls such as Supabase Row Level Security.
-- Users must only access their own records/files.
-- Validate uploaded file type and size.
-- Do not send unrelated user data to the AI model.
-- Do not treat AI output as authoritative for high-stakes medical or financial decisions.
+- **Row Level Security**: Every table has RLS policies scoped to `auth.uid() = user_id`
+- **Service-role client**: Only used server-side for admin operations (bypasses RLS)
+- **Session management**: Supabase Auth with HTTP-only cookies, refreshed via proxy on every request
+- **Secrets**: Fireworks API key, Cloudinary secrets, and Supabase service-role key are server-only
+- **File validation**: Type and size checks before upload
+- **AI data minimization**: Only relevant context is sent to Fireworks AI
+- **No cross-user access**: RLS ensures users can only access their own data
+
+---
+
+## 12. Processing Pipeline
+
+```text
+Upload
+  → Validate (auth, file type, file size)
+  → Upload to Cloudinary
+  → Create record (status: uploaded)
+  → Create file record
+  → Extract text (PDF parse / OCR / direct text)
+  → Entity extraction (Fireworks AI)
+  → Validate output (Zod)
+  → Duplicate detection
+  → Store extracted_data
+  → Update record (status: completed)
+  → Create relationships
+  → Generate reminders from extracted dates
+```
+
+Processing states: `uploaded` → `processing` → `extracting` → `completed` / `failed` / `needs_review`
+
+---
+
+## 13. Authentication Flow
+
+1. User submits login/signup form
+2. Server action calls Supabase Auth
+3. On success, redirect to dashboard
+4. Proxy (middleware) checks session on protected routes
+5. Unauthenticated users redirected to /login
+6. Authenticated users redirected away from /login, /signup
+
+---
+
+## 14. Environment Variables
+
+```env
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+SUPABASE_SERVICE_ROLE_KEY=
+
+CLOUDINARY_CLOUD_NAME=
+CLOUDINARY_API_KEY=
+CLOUDINARY_API_SECRET=
+
+FIREWORKS_API_KEY=
+
+OCR_PROVIDER=fireworks_vision
+```
+
+---
+
+## 15. API Routes
+
+```text
+POST /api/upload     — File upload + processing pipeline
+POST /api/ask        — Ask UnKnot (Context Engine)
+GET  /api/files/[id] — Get file URL (auth-protected)
+DELETE /api/records/[id] — Delete record + Cloudinary file
+```
+
+Server Actions:
+```text
+lib/actions/auth.ts    — signUp, signIn, signOut, resetPassword
+```
+
+---
+
+## 16. Frontend Integration
+
+All pages now use real Supabase data:
+
+- `/dashboard` — Real user data, real documents, real finance summary, real reminders
+- `/documents` — Real records from Supabase with category filters and search
+- `/documents/[id]` — Real record detail with extracted entities, related documents, original file preview
+- `/categories` — Real category counts from database
+- `/finance` — Real expenses and investments (properly separated)
+- `/investments` — Real investment records
+- `/reminders` — Real reminders from database
+- `/ask` — Real Context Engine queries via /api/ask
+- `/settings` — Real user profile data
+
+Upload modal connects to `/api/upload` for real file processing.

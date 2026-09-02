@@ -3,7 +3,6 @@
 import * as React from "react";
 import { ArrowRight, Search } from "lucide-react";
 import { Analysis, SuggestedQuestion } from "@/lib/types";
-import { askQuestion } from "@/lib/services/ask";
 import { AnswerCard } from "./answer-card";
 import { SuggestedQuestions } from "./suggested-questions";
 import { Button } from "@/components/ui/button";
@@ -18,22 +17,41 @@ export function AskView({ initialSuggested }: AskViewProps) {
   const [currentAnalysis, setCurrentAnalysis] = React.useState<Analysis | null>(
     null
   );
+  const [error, setError] = React.useState<string | null>(null);
 
   const handleAsk = async (textToAsk: string) => {
     if (!textToAsk.trim() || loading) return;
     setLoading(true);
     setQuery(textToAsk);
+    setError(null);
 
-    setTimeout(async () => {
-      const res = await askQuestion(textToAsk);
-      setCurrentAnalysis(res);
+    try {
+      const response = await fetch("/api/ask", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ question: textToAsk }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.success) {
+        setError(data.error?.message || "Failed to process your question");
+        setLoading(false);
+        return;
+      }
+
+      setCurrentAnalysis(data.analysis);
       setLoading(false);
-    }, 400);
+    } catch {
+      setError("Network error. Please try again.");
+      setLoading(false);
+    }
   };
 
   const handleClear = () => {
     setCurrentAnalysis(null);
     setQuery("");
+    setError(null);
   };
 
   return (
@@ -86,6 +104,13 @@ export function AskView({ initialSuggested }: AskViewProps) {
         </div>
       </form>
 
+      {/* Error State */}
+      {error && (
+        <div className="p-4 bg-[#FDF0EE] rounded-xl border border-[#BA2D25]/20 text-xs text-[#BA2D25]">
+          {error}
+        </div>
+      )}
+
       {/* Loading State */}
       {loading && (
         <div className="bg-white rounded-xl border border-[#DFDBD1] p-6 space-y-4 animate-pulse">
@@ -96,7 +121,7 @@ export function AskView({ initialSuggested }: AskViewProps) {
             <div className="h-3.5 bg-[#F2EFEB] rounded w-1/2"></div>
           </div>
           <p className="text-[11px] font-mono text-[#888E8A] text-center pt-2">
-            Synthesizing structured records and analyzing context...
+            Retrieving relevant records and analyzing context...
           </p>
         </div>
       )}

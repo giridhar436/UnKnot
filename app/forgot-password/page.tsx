@@ -4,19 +4,29 @@ import * as React from "react";
 import Link from "next/link";
 import { ArrowRight, Mail, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { resetPasswordAction } from "@/lib/actions/auth";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = React.useState("");
   const [submitted, setSubmitted] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-      setSubmitted(true);
-    }, 350);
+    setError(null);
+
+    const result = await resetPasswordAction(email);
+
+    setIsLoading(false);
+
+    if (!result.success) {
+      setError(result.error || "Failed to send reset email");
+      return;
+    }
+
+    setSubmitted(true);
   };
 
   return (
@@ -56,6 +66,12 @@ export default function ForgotPasswordPage() {
               Enter your email to receive recovery instructions.
             </p>
           </div>
+
+          {error && (
+            <div className="p-3 bg-[#FDF0EE] rounded-lg border border-[#BA2D25]/25 text-xs text-[#BA2D25]">
+              {error}
+            </div>
+          )}
 
           {submitted ? (
             <div className="space-y-4">

@@ -1,69 +1,70 @@
-import { Analysis, SuggestedQuestion, ActivityItem } from "@/lib/types";
-import {
-  mockAnalyses,
-  mockSuggestedQuestions,
-  mockActivityItems,
-} from "@/lib/mock-data/ask";
+import type { Analysis, SuggestedQuestion, ActivityItem } from "@/lib/types";
+import { createClient } from "@/lib/supabase/server";
 
 /**
- * Ask a question against stored mock knowledge
+ * Ask a question — calls the Context Engine API route.
+ * This is called from client components, so it fetches from /api/ask.
  */
 export async function askQuestion(query: string): Promise<Analysis> {
-  const normalizedQuery = query.toLowerCase().trim();
-
-  // Find best match in mockAnalyses
-  const match = mockAnalyses.find((a) => {
-    const q = a.question.toLowerCase();
-    return (
-      q.includes(normalizedQuery) ||
-      normalizedQuery.includes(q) ||
-      (normalizedQuery.includes("medicine") && q.includes("medicine")) ||
-      (normalizedQuery.includes("phone") && q.includes("phone")) ||
-      (normalizedQuery.includes("laptop") && q.includes("laptop")) ||
-      (normalizedQuery.includes("repair") && q.includes("repair")) ||
-      (normalizedQuery.includes("warranty") && q.includes("warranty")) ||
-      (normalizedQuery.includes("investment") && q.includes("investment"))
-    );
+  const response = await fetch("/api/ask", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ question: query }),
   });
 
-  if (match) {
-    return match;
+  if (!response.ok) {
+    const error = await response.json().catch(() => null);
+    throw new Error(
+      error?.error?.message || "Failed to process your question"
+    );
   }
 
-  // Fallback dynamic synthesis response for other queries
-  return {
-    id: `ask-${Date.now()}`,
-    question: query,
-    answer: `I analyzed your stored documents and records for "${query}". Currently, I found 1 relevant document matching your terms.`,
-    evidence: [
-      {
-        id: `ev-${Date.now()}`,
-        type: "document",
-        title: "Samsung Galaxy S25 Receipt",
-        documentId: "doc-001",
-        detail: "Matches purchase and electronics context",
-      },
-    ],
-    consideredFactors: ["Stored receipts", "Extracted entities"],
-    suggestedAction: "View related documents",
-  };
+  const data = await response.json();
+  return data.analysis;
 }
 
 /**
- * Get suggested quick questions
+ * Suggested quick questions — these are static but could be personalized later.
  */
 export async function getSuggestedQuestions(): Promise<SuggestedQuestion[]> {
-  return [...mockSuggestedQuestions];
+  return [
+    { id: "sq-001", text: "How much did I spend on medicines this month?", category: "Medical" },
+    { id: "sq-002", text: "What warranties do I have?", category: "Warranty" },
+    { id: "sq-003", text: "Should I repair this laptop or replace it?", category: "Decision" },
+    { id: "sq-004", text: "How much did I spend on this phone?", category: "Purchase" },
+    { id: "sq-005", text: "What are my current investments?", category: "Finance" },
+    { id: "sq-006", text: "When is my insurance renewal due?", category: "Documents" },
+  ];
 }
 
 /**
- * Get recent activity feed
+ * Recent activity feed — derived from recent records and analyses.
  */
 export async function getActivityItems(limit: number = 5): Promise<ActivityItem[]> {
-  return [...mockActivityItems]
-    .sort(
-      (a, b) =>
-        new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
-    )
-    .slice(0, limit);
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) return [];
+
+  // Get recent records as activity items
+  const { data: records } = await supabase
+    .from("records")
+    .select("id, title, category, uploaded_at, status")
+    .eq("user_id", user.id)
+    .eq("status", "completed")
+    .order("uploaded_at", { ascending: false })
+    .limit(limit);
+
+  if (!records) return [];
+
+  return records.map((r) => ({
+    id: `act-${r.id}`,
+    type: "document_added" as const,
+    title: `${r.title} added`,
+    description: `${r.category} record was processed and categorized`,
+    timestamp: r.uploaded_at,
+    documentId: r.id,
+  }));
 }

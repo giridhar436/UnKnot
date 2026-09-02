@@ -1,5 +1,6 @@
 import * as React from "react";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { Sparkles, ArrowRight } from "lucide-react";
 import { getGreeting, formatDate } from "@/lib/utils";
 import { getDocuments } from "@/lib/services/documents";
@@ -10,8 +11,31 @@ import { ImportantToday } from "@/components/dashboard/important-today";
 import { FinancialSnapshot } from "@/components/dashboard/financial-snapshot";
 import { RecentDocuments } from "@/components/dashboard/recent-documents";
 import { RecentActivity } from "@/components/dashboard/recent-activity";
+import { createClient } from "@/lib/supabase/server";
 
 export default async function DashboardPage() {
+  const supabase = await createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+
+  if (!user) {
+    redirect("/login");
+  }
+
+  // Get user's display name
+  const { data: profile } = await supabase
+    .from("profiles")
+    .select("full_name")
+    .eq("id", user.id)
+    .single();
+
+  const displayName =
+    profile?.full_name ||
+    user.user_metadata?.full_name ||
+    user.email?.split("@")[0] ||
+    "User";
+
   const [documents, financeSummary, investments, reminders, activities] =
     await Promise.all([
       getDocuments(),
@@ -33,7 +57,7 @@ export default async function DashboardPage() {
             {todayStr} &bull; Workspace Active
           </span>
           <h1 className="text-2xl sm:text-3xl font-bold text-[#111414] mt-0.5 tracking-tight">
-            {greeting}, Giridhar
+            {greeting}, {displayName}
           </h1>
           <p className="text-xs sm:text-sm text-[#5C615E] mt-0.5">
             Information command center &bull; Review urgent actions, connected records, and financial context.

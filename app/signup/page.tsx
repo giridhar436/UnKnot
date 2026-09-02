@@ -5,20 +5,40 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowRight, Lock, Mail, User, ShieldCheck } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { signUpAction } from "@/lib/actions/auth";
 
 export default function SignupPage() {
   const router = useRouter();
-  const [name, setName] = React.useState("Giridhar");
-  const [email, setEmail] = React.useState("giridhar@example.com");
-  const [password, setPassword] = React.useState("pass12345");
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
+  const [error, setError] = React.useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    setTimeout(() => {
+    setError(null);
+
+    const result = await signUpAction(email, password, name);
+
+    if (!result.success) {
+      setError(result.error || "Sign up failed");
+      setIsLoading(false);
+      return;
+    }
+
+    // Sign in automatically after signup
+    const { signInAction } = await import("@/lib/actions/auth");
+    const signInResult = await signInAction(email, password);
+
+    if (signInResult.success) {
       router.push("/dashboard");
-    }, 350);
+      router.refresh();
+    } else {
+      // Account created but sign in failed — redirect to login
+      router.push("/login?signed_up=true");
+    }
   };
 
   return (
@@ -58,6 +78,12 @@ export default function SignupPage() {
               Turn scattered paperwork into connected, actionable records.
             </p>
           </div>
+
+          {error && (
+            <div className="p-3 bg-[#FDF0EE] rounded-lg border border-[#BA2D25]/25 text-xs text-[#BA2D25]">
+              {error}
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-3.5">
             <div className="space-y-1">
@@ -115,9 +141,10 @@ export default function SignupPage() {
                   id="password"
                   type="password"
                   required
+                  minLength={6}
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  placeholder="Create password"
+                  placeholder="Create password (min 6 characters)"
                   className="w-full h-10 pl-9 pr-3.5 bg-[#FAF8F5] text-[#111414] text-xs font-mono rounded-lg border border-[#DFDBD1] focus:outline-none focus:border-[#064038] focus:ring-1 focus:ring-[#064038] transition-all"
                 />
               </div>

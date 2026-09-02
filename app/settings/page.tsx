@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 import {
   User,
   Shield,
@@ -14,12 +14,47 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { LineNav, LineNavItem } from "@/components/ui/line-nav";
 import { Button } from "@/components/ui/button";
+import { createClient } from "@/lib/supabase/client";
 
 export default function SettingsPage() {
+  const router = useRouter();
   const [activeTab, setActiveTab] = React.useState("account");
   const [warrantyAlerts, setWarrantyAlerts] = React.useState(true);
   const [billReminders, setBillReminders] = React.useState(true);
   const [duplicateFlags, setDuplicateFlags] = React.useState(true);
+  const [userName, setUserName] = React.useState("");
+  const [userEmail, setUserEmail] = React.useState("");
+
+  React.useEffect(() => {
+    async function fetchUser() {
+      const supabase = createClient();
+      const { data: { user } } = await supabase.auth.getUser();
+      if (user) {
+        setUserEmail(user.email || "");
+        const { data: profile } = await supabase
+          .from("profiles")
+          .select("full_name")
+          .eq("id", user.id)
+          .single();
+        setUserName(
+          profile?.full_name ||
+          user.user_metadata?.full_name ||
+          user.email?.split("@")[0] ||
+          "User"
+        );
+      }
+    }
+    fetchUser();
+  }, []);
+
+  const handleSignOut = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push("/");
+    router.refresh();
+  };
+
+  const initial = userName.charAt(0).toUpperCase() || "U";
 
   const navItems: LineNavItem[] = [
     { id: "account", label: "Account", icon: User },
@@ -55,14 +90,14 @@ export default function SettingsPage() {
             <div className="flex items-center justify-between pb-3 border-b border-[#DFDBD1]/60">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-full bg-[#064038] text-white flex items-center justify-center font-bold text-sm">
-                  G
+                  {initial}
                 </div>
                 <div>
                   <h2 className="text-sm sm:text-base font-bold text-[#111414]">
-                    Giridhar
+                    {userName || "Loading..."}
                   </h2>
                   <span className="text-xs text-[#5C615E] font-mono">
-                    giridhar@example.com
+                    {userEmail || "Loading..."}
                   </span>
                 </div>
               </div>
@@ -77,7 +112,7 @@ export default function SettingsPage() {
                   Default Currency
                 </span>
                 <span className="font-semibold text-xs text-[#111414] mt-0.5 block">
-                  INR (₹) &bull; Indian Rupee
+                  INR (&#8377;) &bull; Indian Rupee
                 </span>
               </div>
               <div className="p-3 bg-[#FAF8F5] rounded-lg border border-[#DFDBD1]/70">
@@ -92,14 +127,17 @@ export default function SettingsPage() {
 
             <div className="pt-2 flex items-center justify-between">
               <span className="text-xs text-[#5C615E]">
-                Personal Decision Utility &bull; Workspace 01
+                Personal Decision Utility
               </span>
-              <Link href="/login">
-                <Button variant="outline" size="sm" className="text-xs gap-1.5 text-[#BA2D25]">
-                  <LogOut className="w-3.5 h-3.5" />
-                  <span>Sign out</span>
-                </Button>
-              </Link>
+              <Button
+                variant="outline"
+                size="sm"
+                className="text-xs gap-1.5 text-[#BA2D25]"
+                onClick={handleSignOut}
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span>Sign out</span>
+              </Button>
             </div>
           </div>
         </div>
@@ -219,6 +257,16 @@ export default function SettingsPage() {
                 Your uploaded documents, contracts, bank statements, and medical notes are never used to train generalized foundation models.
               </p>
             </div>
+
+            <div className="p-3.5 bg-[#FAF8F5] rounded-lg border border-[#DFDBD1] space-y-2 text-xs">
+              <div className="flex items-center gap-2 text-[#064038] font-bold">
+                <CheckCircle2 className="w-4 h-4 text-[#1D7A58]" />
+                <span>Row Level Security</span>
+              </div>
+              <p className="text-[11px] text-[#5C615E] leading-relaxed">
+                All data is isolated at the database level using Supabase Row Level Security. No user can access another user&rsquo;s records.
+              </p>
+            </div>
           </div>
         </div>
       )}
@@ -231,13 +279,18 @@ export default function SettingsPage() {
               Session &amp; Authentication Security
             </h2>
             <p className="text-xs text-[#5C615E]">
-              Manage credentials, active devices, and session tokens.
+              Your session is managed by Supabase Auth with secure, HTTP-only cookies.
             </p>
 
-            <div className="pt-2">
-              <Button variant="outline" size="sm" className="text-xs">
-                Update Password
-              </Button>
+            <div className="space-y-3 text-xs">
+              <div className="flex items-center justify-between p-3 bg-[#FAF8F5] rounded-lg border border-[#DFDBD1]">
+                <span className="text-[#5C615E]">Auth Provider</span>
+                <span className="font-semibold text-[#111414]">Supabase Auth</span>
+              </div>
+              <div className="flex items-center justify-between p-3 bg-[#FAF8F5] rounded-lg border border-[#DFDBD1]">
+                <span className="text-[#5C615E]">Session Type</span>
+                <span className="font-semibold text-[#111414]">Server-side cookie</span>
+              </div>
             </div>
           </div>
         </div>

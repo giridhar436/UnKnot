@@ -2,7 +2,7 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import {
   LayoutDashboard,
   Files,
@@ -12,11 +12,15 @@ import {
   CalendarClock,
   Settings,
   Plus,
+  LogOut,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { createClient } from "@/lib/supabase/client";
 
 interface SidebarProps {
   onOpenUpload?: () => void;
+  userName?: string;
+  userEmail?: string;
 }
 
 const navItems = [
@@ -29,8 +33,19 @@ const navItems = [
   { name: "Settings", href: "/settings", icon: Settings },
 ];
 
-export function Sidebar({ onOpenUpload }: SidebarProps) {
+export function Sidebar({ onOpenUpload, userName, userEmail }: SidebarProps) {
   const pathname = usePathname();
+  const router = useRouter();
+  const displayName = userName || "User";
+  const displayEmail = userEmail || "";
+  const initial = displayName.charAt(0).toUpperCase() || "U";
+
+  const handleSignOut = async () => {
+    const supabase = createClient();
+    await supabase.auth.signOut();
+    router.push("/");
+    router.refresh();
+  };
 
   return (
     <aside className="hidden lg:flex flex-col w-60 bg-[#F2EFEB] border-r border-[#DFDBD1] h-screen sticky top-0 select-none z-30">
@@ -98,14 +113,14 @@ export function Sidebar({ onOpenUpload }: SidebarProps) {
       <div className="p-3.5 border-t border-[#DFDBD1] space-y-2">
         <div className="flex items-center gap-2.5 p-2 rounded-lg bg-white/80 border border-[#DFDBD1]/80 shadow-xs">
           <div className="w-7 h-7 rounded-full bg-[#064038] text-white flex items-center justify-center text-xs font-semibold">
-            G
+            {initial}
           </div>
           <div className="flex-1 min-w-0">
             <p className="text-xs font-semibold text-[#111414] truncate leading-tight">
-              Giridhar
+              {displayName}
             </p>
             <p className="text-[10px] text-[#5C615E] font-mono truncate">
-              Demo Session
+              {displayEmail || "Authenticated"}
             </p>
           </div>
         </div>
@@ -117,12 +132,14 @@ export function Sidebar({ onOpenUpload }: SidebarProps) {
           >
             Settings
           </Link>
-          <Link
-            href="/login"
-            className="text-[#BA2D25] hover:underline font-medium"
+          <button
+            type="button"
+            onClick={handleSignOut}
+            className="text-[#BA2D25] hover:underline font-medium flex items-center gap-1 cursor-pointer"
           >
+            <LogOut className="w-3 h-3" />
             Sign out
-          </Link>
+          </button>
         </div>
       </div>
     </aside>

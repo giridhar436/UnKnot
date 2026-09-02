@@ -13,6 +13,7 @@ import { Badge } from "@/components/ui/badge";
 import { SearchBar } from "@/components/layout/search-bar";
 import { EmptyState } from "@/components/ui/empty-state";
 import { AmountDisplay } from "@/components/ui/amount-display";
+import { DocumentActions } from "@/components/documents/document-actions";
 import { formatDate } from "@/lib/utils";
 
 interface DocumentsPageProps {
@@ -172,16 +173,19 @@ export default async function DocumentsPage({ searchParams }: DocumentsPageProps
                   </div>
                 </div>
 
-                <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center border-t sm:border-t-0 pt-2 sm:pt-0 border-[#DFDBD1]/50 shrink-0">
+                <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center border-t sm:border-t-0 pt-2 sm:pt-0 border-[#DFDBD1]/50 shrink-0 gap-2">
                   {doc.amount ? (
                     <AmountDisplay amount={doc.amount} size="md" />
                   ) : (
                     <div className="text-xs font-mono text-[#888E8A]">No amount</div>
                   )}
-                  <span className="text-xs text-[#064038] font-semibold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform mt-0.5">
-                    <span>View record</span>
-                    <ArrowRight className="w-3 h-3" />
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <DocumentActions documentId={doc.id} currentTitle={doc.title} />
+                    <span className="text-xs text-[#064038] font-semibold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform mt-0.5">
+                      <span>View record</span>
+                      <ArrowRight className="w-3 h-3" />
+                    </span>
+                  </div>
                 </div>
               </Link>
             );

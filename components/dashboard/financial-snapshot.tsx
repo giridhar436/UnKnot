@@ -33,7 +33,7 @@ export function FinancialSnapshot({ summary, investments }: FinancialSnapshotPro
         {/* Monthly Expenses / Outflow */}
         <div className="p-4 bg-white rounded-xl border border-[#DFDBD1] space-y-2 shadow-xs">
           <span className="text-[10px] font-mono uppercase tracking-wider text-[#5C615E] font-medium block">
-            This Month Outflow (Aug)
+            This Month Outflow ({new Date().toLocaleDateString('en-US', { month: 'short' })})
           </span>
           <div>
             <AmountDisplay
