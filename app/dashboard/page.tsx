@@ -51,12 +51,12 @@ export default async function DashboardPage() {
   return (
     <div className="page-container space-y-8">
       {/* Dashboard Greeting Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#DFDBD1]">
+      <div className="flex flex-col gap-4 pb-4 border-b border-[#DFDBD1]">
         <div>
           <span className="text-[10.5px] font-semibold tracking-widest text-[#064038] uppercase font-mono">
             {todayStr} &bull; Workspace Active
           </span>
-          <h1 className="text-2xl sm:text-3xl font-bold text-[#111414] mt-0.5 tracking-tight">
+          <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#111414] mt-0.5 tracking-tight">
             {greeting}, {displayName}
           </h1>
           <p className="text-xs sm:text-sm text-[#5C615E] mt-0.5">
@@ -67,9 +67,9 @@ export default async function DashboardPage() {
         {/* Quick Ask Banner */}
         <Link
           href="/ask"
-          className="flex items-center gap-3 p-2.5 px-4 bg-[#064038] text-white rounded-xl hover:bg-[#032B25] transition-all shadow-xs group shrink-0"
+          className="flex items-center gap-3 p-2.5 px-4 bg-[#064038] text-white rounded-xl hover:bg-[#032B25] transition-all shadow-xs group self-start sm:self-auto min-h-[44px]"
         >
-          <div className="w-7 h-7 rounded-lg bg-white/15 flex items-center justify-center">
+          <div className="w-7 h-7 rounded-lg bg-white/15 flex items-center justify-center shrink-0">
             <Sparkles className="w-3.5 h-3.5 text-[#E3ECE8]" />
           </div>
           <div>
@@ -78,7 +78,7 @@ export default async function DashboardPage() {
               Query records &amp; decisions
             </span>
           </div>
-          <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-0.5 transition-transform" />
+          <ArrowRight className="w-3.5 h-3.5 ml-1 group-hover:translate-x-0.5 transition-transform shrink-0" />
         </Link>
       </div>
 

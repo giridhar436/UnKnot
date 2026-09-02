@@ -29,7 +29,7 @@ export function FinancialSnapshot({ summary, investments }: FinancialSnapshotPro
         </Link>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
         {/* Monthly Expenses / Outflow */}
         <div className="p-4 bg-white rounded-xl border border-[#DFDBD1] space-y-2 shadow-xs">
           <span className="text-[10px] font-mono uppercase tracking-wider text-[#5C615E] font-medium block">

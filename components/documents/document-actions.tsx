@@ -53,7 +53,7 @@ export function DocumentActions({
   return (
     <>
       <div
-        className="flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity"
+        className="flex items-center gap-1 opacity-100 lg:opacity-0 lg:group-hover:opacity-100 transition-opacity"
         onClick={(e) => e.preventDefault()}
         onKeyDown={(e) => e.stopPropagation()}
       >
@@ -65,10 +65,10 @@ export function DocumentActions({
             setNewTitle(currentTitle);
             setIsRenameOpen(true);
           }}
-          className="p-1.5 text-[#5C615E] hover:text-[#064038] hover:bg-[#F2EFEB] rounded-md transition-colors"
+          className="p-2 text-[#5C615E] hover:text-[#064038] hover:bg-[#F2EFEB] rounded-md transition-colors min-h-[36px] min-w-[36px] flex items-center justify-center"
           aria-label="Rename document"
         >
-          <Pencil className="w-3.5 h-3.5" />
+          <Pencil className="w-4 h-4" />
         </button>
         <button
           type="button"
@@ -77,10 +77,10 @@ export function DocumentActions({
             e.stopPropagation();
             setIsDeleteOpen(true);
           }}
-          className="p-1.5 text-[#5C615E] hover:text-[#B85D3B] hover:bg-[#FDF1EC] rounded-md transition-colors"
+          className="p-2 text-[#5C615E] hover:text-[#B85D3B] hover:bg-[#FDF1EC] rounded-md transition-colors min-h-[36px] min-w-[36px] flex items-center justify-center"
           aria-label="Delete document"
         >
-          <Trash2 className="w-3.5 h-3.5" />
+          <Trash2 className="w-4 h-4" />
         </button>
       </div>
 

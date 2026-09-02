@@ -125,20 +125,22 @@ export default async function DocumentsPage({ searchParams }: DocumentsPageProps
         <div className="bg-white rounded-xl border border-[#DFDBD1] divide-y divide-[#DFDBD1]/60 overflow-hidden shadow-xs">
           {documents.map((doc) => {
             return (
-              <Link
+              <div
                 key={doc.id}
-                href={`/documents/${doc.id}`}
-                className="p-4 sm:p-4.5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 hover:bg-[#FAF8F5] transition-colors group"
+                className="p-3 sm:p-4 flex flex-col gap-2 hover:bg-[#FAF8F5] transition-colors group"
               >
-                <div className="flex items-start sm:items-center gap-3.5 min-w-0">
+                <Link
+                  href={`/documents/${doc.id}`}
+                  className="flex items-start gap-3 min-w-0"
+                >
                   {/* File Type Icon */}
-                  <div className="w-9 h-9 rounded-lg bg-[#FAF8F5] border border-[#DFDBD1] text-[#064038] flex items-center justify-center shrink-0 font-bold text-xs mt-0.5 sm:mt-0">
+                  <div className="w-9 h-9 rounded-lg bg-[#FAF8F5] border border-[#DFDBD1] text-[#064038] flex items-center justify-center shrink-0 font-bold text-xs">
                     {doc.type === "pdf" && <FileText className="w-4 h-4" />}
                     {doc.type === "image" && <ImageIcon className="w-4 h-4" />}
                     {doc.type === "text" && <AlignLeft className="w-4 h-4" />}
                   </div>
 
-                  <div className="min-w-0 space-y-1">
+                  <div className="min-w-0 flex-1 space-y-1">
                     <div className="flex items-center gap-2 flex-wrap">
                       <h3 className="text-sm font-semibold text-[#111414] group-hover:text-[#064038] transition-colors truncate">
                         {doc.title}
@@ -149,21 +151,16 @@ export default async function DocumentsPage({ searchParams }: DocumentsPageProps
                       {doc.duplicateStatus === "possible" && (
                         <span className="inline-flex items-center gap-1 text-[9.5px] font-mono font-semibold text-[#B85D3B] bg-[#FDF1EC] px-1.5 py-0.2 rounded border border-[#B85D3B]/25">
                           <AlertTriangle className="w-2.5 h-2.5" />
-                          Possible Duplicate
+                          <span className="hidden sm:inline">Possible </span>Duplicate
                         </span>
                       )}
                     </div>
 
-                    <div className="flex items-center gap-2 sm:gap-4 text-xs text-[#5C615E] flex-wrap font-mono">
-                      <span>
+                    <div className="flex items-center gap-2 text-xs text-[#5C615E] flex-wrap font-mono">
+                      <span className="text-[11px]">
                         <strong className="font-medium text-[#111414]">
-                          Doc Date:
-                        </strong>{" "}
-                        {formatDate(doc.documentDate)}
-                      </span>
-                      <span className="text-[#DFDBD1] hidden sm:inline">&bull;</span>
-                      <span className="hidden sm:inline text-[#888E8A]">
-                        Uploaded: {formatDate(doc.uploadedAt)}
+                          {formatDate(doc.documentDate)}
+                        </strong>
                       </span>
                       <span className="text-[#DFDBD1]">&bull;</span>
                       <span className="uppercase text-[9.5px] font-medium tracking-wider text-[#888E8A]">
@@ -171,23 +168,26 @@ export default async function DocumentsPage({ searchParams }: DocumentsPageProps
                       </span>
                     </div>
                   </div>
-                </div>
 
-                <div className="flex sm:flex-col items-center sm:items-end justify-between sm:justify-center border-t sm:border-t-0 pt-2 sm:pt-0 border-[#DFDBD1]/50 shrink-0 gap-2">
-                  {doc.amount ? (
-                    <AmountDisplay amount={doc.amount} size="md" />
-                  ) : (
-                    <div className="text-xs font-mono text-[#888E8A]">No amount</div>
+                  {doc.amount && (
+                    <div className="shrink-0">
+                      <AmountDisplay amount={doc.amount} size="sm" />
+                    </div>
                   )}
-                  <div className="flex items-center gap-2">
-                    <DocumentActions documentId={doc.id} currentTitle={doc.title} />
-                    <span className="text-xs text-[#064038] font-semibold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform mt-0.5">
-                      <span>View record</span>
-                      <ArrowRight className="w-3 h-3" />
-                    </span>
-                  </div>
+                </Link>
+
+                {/* Actions row */}
+                <div className="flex items-center justify-between pl-12 pt-1">
+                  <DocumentActions documentId={doc.id} currentTitle={doc.title} />
+                  <Link
+                    href={`/documents/${doc.id}`}
+                    className="text-xs text-[#064038] font-semibold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform min-h-[36px]"
+                  >
+                    <span>View record</span>
+                    <ArrowRight className="w-3 h-3" />
+                  </Link>
                 </div>
-              </Link>
+              </div>
             );
           })}
         </div>
