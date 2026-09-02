@@ -7,7 +7,6 @@ import {
   FolderTree,
   CalendarClock,
   Settings,
-  HelpCircle,
   X,
   Plus,
 } from "lucide-react";
@@ -15,7 +14,6 @@ import { Sidebar } from "./sidebar";
 import { TopBar } from "./top-bar";
 import { MobileBottomNav } from "./mobile-bottom-nav";
 import { UploadModal } from "@/components/upload/upload-modal";
-import { cn } from "@/lib/utils";
 
 interface AppShellProps {
   children: React.ReactNode;
@@ -24,11 +22,18 @@ interface AppShellProps {
 export function AppShell({ children }: AppShellProps) {
   const [isUploadOpen, setIsUploadOpen] = React.useState(false);
   const [isMoreMenuOpen, setIsMoreMenuOpen] = React.useState(false);
+  const [prevPath, setPrevPath] = React.useState<string | null>(null);
   const pathname = usePathname();
 
-  React.useEffect(() => {
+  if (prevPath !== pathname) {
+    setPrevPath(pathname);
     setIsMoreMenuOpen(false);
-  }, [pathname]);
+  }
+
+  // Landing page has its own standalone navigation and footer
+  if (pathname === "/") {
+    return <div className="min-h-screen bg-[#F7F5EF] text-[#080B10] flex flex-col">{children}</div>;
+  }
 
   return (
     <div className="min-h-screen flex bg-[#F7F5EF] text-[#080B10]">
