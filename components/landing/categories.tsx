@@ -7,121 +7,144 @@ import {
   ShieldCheck,
   ShoppingBag,
   FileText,
-  CalendarClock,
   Wrench,
   FolderTree,
+  ArrowRight,
 } from "lucide-react";
+import Link from "next/link";
 
 export function Categories() {
   const categories = [
     {
       name: "Finance",
       icon: Wallet,
-      description: "Bank statements, account records, recurring fees, and loans.",
-      examples: "Account summaries, credit reports, loan schedules",
-    },
-    {
-      name: "Bills & Utilities",
-      icon: Receipt,
-      description: "Electricity, internet, water, maintenance dues, and municipal taxes.",
-      examples: "BESCOM bills, quarterly broadband, society dues",
+      count: "Statements, accounts, loans",
+      description: "Bank statements, account summaries, recurring fees, and credit records.",
+      tag: "Verified Extraction",
     },
     {
       name: "Investments",
       icon: TrendingUp,
-      description: "Mutual fund statements, fixed deposits, gold bonds, and portfolio notes.",
-      examples: "CAMS summaries, PPF receipts, equity dividend records",
+      count: "SIPs, PPF, FDs, gold",
+      description: "Mutual fund statements, recurring deposits, and equity portfolios separated from spending.",
+      tag: "Preserved Type & Amount",
     },
     {
-      name: "Medical & Health",
+      name: "Medical",
       icon: HeartPulse,
-      description: "Prescriptions, health insurance policies, diagnostic reports, and claims.",
-      examples: "Lab test results, hospital discharge bills, policy cards",
-    },
-    {
-      name: "Warranties",
-      icon: ShieldCheck,
-      description: "Appliance warranties, gadget coverage plans, and extended guarantees.",
-      examples: "AppleCare agreements, AC warranty cards, TV invoices",
+      count: "Prescriptions, bills, claims",
+      description: "Consultation bills, diagnostic lab reports, pharmacy bills, and insurance claims.",
+      tag: "Health Records",
     },
     {
       name: "Purchases",
       icon: ShoppingBag,
-      description: "High-value retail invoices, order receipts, and proof of purchase.",
-      examples: "Electronics receipts, furniture orders, vehicle delivery slips",
+      count: "Electronics, retail, appliances",
+      description: "High-value retail invoices, merchant receipts, and proof of purchase.",
+      tag: "Cost & Merchant",
     },
     {
-      name: "Documents & ID",
-      icon: FileText,
-      description: "Agreements, certificates, rental leases, and registration papers.",
-      examples: "Rental contracts, vehicle RC, property deed copies",
+      name: "Warranties",
+      icon: ShieldCheck,
+      count: "Manufacturer, extended care",
+      description: "Coverage agreements, serial numbers, protection terms, and expiry deadlines.",
+      tag: "Actionable Deadlines",
     },
     {
-      name: "Reminders & Dates",
-      icon: CalendarClock,
-      description: "Payment due dates, policy renewal deadlines, and service milestones.",
-      examples: "Car insurance renewals, tax filing dates, subscription end dates",
+      name: "Bills",
+      icon: Receipt,
+      count: "Utilities, rent, internet",
+      description: "Electricity, broadband, municipal charges, maintenance, and due dates.",
+      tag: "Upcoming Dues",
     },
     {
-      name: "Repairs & Maintenance",
+      name: "Repairs",
       icon: Wrench,
-      description: "Car service history, appliance repair bills, and contractor receipts.",
-      examples: "Vehicle service invoices, plumbing bills, carpentry receipts",
+      count: "Automotive, appliance service",
+      description: "Car service logs, appliance maintenance bills, and technician work orders.",
+      tag: "Service History",
     },
     {
-      name: "Other Important Records",
+      name: "Documents",
+      icon: FileText,
+      count: "Agreements, IDs, certificates",
+      description: "Rental agreements, identity cards, vehicle registration, and ownership records.",
+      tag: "Secure Storage",
+    },
+    {
+      name: "Other",
       icon: FolderTree,
-      description: "Any custom record or life paperwork that requires quick retrieval.",
-      examples: "Club memberships, pet vaccination logs, school fees",
+      count: "Custom life paperwork",
+      description: "Pet vaccination records, memberships, club logs, and miscellaneous receipts.",
+      tag: "Extensible",
     },
   ];
 
   return (
-    <section id="categories" className="py-20 md:py-28 bg-[#F0EDE5] border-b border-[#D8D5CC]/80 scroll-mt-12">
+    <section id="categories" className="py-20 md:py-28 bg-[#F2EFEB] border-b border-[#DFDBD1]/80 scroll-mt-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="max-w-2xl mx-auto text-center space-y-4">
-          <span className="text-xs font-semibold text-[#004643] tracking-wider uppercase">
-            Universal Coverage
+        <div className="max-w-2xl mx-auto text-center space-y-3">
+          <span className="text-[11px] font-mono font-semibold text-[#064038] tracking-widest uppercase">
+            Information Domains
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#080B10]">
+          <h2 className="text-3xl sm:text-4xl md:text-[2.6rem] font-bold tracking-tight text-[#111414]">
             What UnKnot understands
           </h2>
-          <p className="text-base sm:text-lg text-[#5F625F]">
-            Every major domain of your everyday paperwork, structured into clear, searchable categories.
+          <p className="text-sm sm:text-base text-[#5C615E] leading-relaxed">
+            Every major domain of your everyday paperwork, structured into clear, connected categories rather than arbitrary folder hierarchies.
           </p>
         </div>
 
-        {/* Clean Grid */}
-        <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-2 gap-4">
+        {/* Editorial Categories Grid */}
+        <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
           {categories.map((cat, idx) => {
             const Icon = cat.icon;
             return (
               <div
                 key={idx}
-                className="p-5 bg-white rounded-xl border border-[#D8D5CC] shadow-xs flex flex-col justify-between hover:border-[#004643]/50 transition-colors"
+                className="p-5 bg-white rounded-xl border border-[#DFDBD1] shadow-xs flex flex-col justify-between hover:border-[#064038]/50 transition-all group"
               >
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-lg bg-[#E3F0EE] text-[#004643] flex items-center justify-center shrink-0 mt-0.5">
-                    <Icon className="w-5 h-5" />
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between">
+                    <div className="w-8 h-8 rounded-lg bg-[#FAF8F5] border border-[#DFDBD1] text-[#064038] flex items-center justify-center group-hover:bg-[#064038] group-hover:text-white transition-colors">
+                      <Icon className="w-4 h-4" />
+                    </div>
+                    <span className="text-[10.5px] font-mono text-[#5C615E] bg-[#FAF8F5] px-2 py-0.5 rounded border border-[#DFDBD1]/60">
+                      {cat.tag}
+                    </span>
                   </div>
-                  <div className="space-y-1 min-w-0">
-                    <h3 className="text-base font-bold text-[#080B10]">
+
+                  <div>
+                    <h3 className="text-base font-bold text-[#111414] group-hover:text-[#064038] transition-colors">
                       {cat.name}
                     </h3>
-                    <p className="text-xs sm:text-sm text-[#5F625F] leading-relaxed">
+                    <p className="text-xs text-[#5C615E] mt-1 leading-relaxed">
                       {cat.description}
                     </p>
                   </div>
                 </div>
 
-                <div className="mt-4 pt-3 border-t border-[#E5E2DA] flex items-center justify-between text-[11px] text-[#5F625F]">
-                  <span className="font-semibold text-[#004643]">Examples:</span>
-                  <span className="truncate ml-2 text-right">{cat.examples}</span>
+                <div className="mt-4 pt-3 border-t border-[#DFDBD1]/60 flex items-center justify-between text-[11px] text-[#888E8A] font-mono">
+                  <span className="truncate">{cat.count}</span>
+                  <span className="text-[#064038] font-semibold flex items-center gap-1 group-hover:translate-x-0.5 transition-transform shrink-0">
+                    Explore &rarr;
+                  </span>
                 </div>
               </div>
             );
           })}
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="mt-10 text-center">
+          <Link
+            href="/categories"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#064038] hover:text-[#032B25] transition-colors"
+          >
+            <span>View all information domains in the workspace</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
       </div>
     </section>

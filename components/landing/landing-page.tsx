@@ -12,7 +12,7 @@ import { Footer } from "./footer";
 
 export function LandingPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-[#F7F5EF] text-[#080B10]">
+    <div className="min-h-screen flex flex-col bg-[var(--ivory)] text-[var(--charcoal)]">
       {/* 1. Navigation */}
       <Navbar />
 

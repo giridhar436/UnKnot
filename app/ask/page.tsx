@@ -9,15 +9,15 @@ export default async function AskPage() {
   return (
     <div className="page-container space-y-6 max-w-4xl">
       {/* Header */}
-      <div className="pb-4 border-b border-[#D8D5CC] space-y-1">
-        <div className="flex items-center gap-2 text-xs font-semibold text-[#004643] uppercase tracking-wider">
+      <div className="pb-4 border-b border-[#DFDBD1] space-y-1">
+        <div className="flex items-center gap-2 text-[11px] font-mono font-semibold text-[#064038] uppercase tracking-wider">
           <Sparkles className="w-4 h-4" />
           <span>Decision & Context Engine</span>
         </div>
-        <h1 className="text-2xl font-bold text-[#080B10]">
+        <h1 className="text-2xl font-bold text-[#111414]">
           Ask UnKnot
         </h1>
-        <p className="text-xs sm:text-sm text-[#5F625F]">
+        <p className="text-xs sm:text-sm text-[#5A605C]">
           Get answers and decision guidance based on your stored receipts, bills, warranties, and financial records.
         </p>
       </div>
@@ -26,9 +26,9 @@ export default async function AskPage() {
       <AskView initialSuggested={suggestedQuestions} />
 
       {/* Trust & Non-Authoritative Guidance Note */}
-      <div className="p-4 bg-[#F0EDE5] rounded-xl border border-[#D8D5CC] text-xs text-[#5F625F] flex items-start gap-2.5">
-        <Info className="w-4 h-4 text-[#004643] flex-shrink-0 mt-0.5" />
-        <p leading-relaxed>
+      <div className="p-4 bg-[#F2EFEB] rounded-xl border border-[#DFDBD1] text-xs text-[#5A605C] flex items-start gap-2.5">
+        <Info className="w-4 h-4 text-[#064038] flex-shrink-0 mt-0.5" />
+        <p className="leading-relaxed">
           UnKnot answers queries using extracted facts from your uploaded documents. Recommendations are decision-support insights and do not replace certified financial or medical counsel.
         </p>
       </div>

@@ -2,96 +2,89 @@
 
 ## 1. Design Direction
 
-UnKnot uses a **minimal, premium, editorial-style UI** inspired by the Cyprus + Sand reference palette.
+UnKnot uses an **editorial, calm, intelligent visual design system** pairing Deep Evergreen with Warm Ivory, Charcoal, and a single restrained Terracotta accent.
 
-The product should feel like a calm, trustworthy everyday utility — not a generic AI dashboard.
+The product feels like a serious, trustworthy everyday decision utility — not a generic AI dashboard.
 
 Core visual idea:
 
 ```text
-CYPRUS + SAND + NEAR-BLACK
-Minimal typography
-Strong contrast
-Thin borders
-Quiet UI
+DEEP EVERGREEN + WARM IVORY + DEEP CHARCOAL + MUTED TERRACOTTA
+Geist Sans + Geist Mono typography
+ChanhDai-inspired component micro-interactions (Line Nav, Status Button, Icon Swap)
+Crisp 1px borders (#DFDBD1)
 Information first
+Tabular figures for amounts and dates
 ```
 
-The same design language must be used across:
+The same design language is used across:
 
 - Desktop web
 - Tablet web
 - Mobile web
 - Mobile PWA
-- Login/authentication
-- Dashboard
-- File/document views
-- Categories
-- Search
-- Ask/analysis
-- Finance
-- Investments
-- Reminders
-- Profile/settings
+- Landing page (`/`)
+- Authentication (`/login`, `/signup`, `/forgot-password`)
+- Dashboard (`/dashboard`)
+- File/document views (`/documents`, `/documents/[id]`)
+- Categories (`/categories`)
+- Search & Decision Query (`/ask`)
+- Finance & Investments (`/finance`, `/investments`)
+- Reminders (`/reminders`)
+- Profile & Settings (`/settings`)
 - Empty/loading/error states
-
-Do not create a separate "mobile design language". Mobile is a responsive version of the same UnKnot system.
 
 ---
 
-## 2. Reference Palette
+## 2. Palette Tokens
 
-The primary visual reference is:
-
-- **Cyprus** — `#004643`
-- **Sand** — `#F0EDE5`
-- **Near Black** — `#080B10`
-- **Dark Gray** — `#171717`
-
-### Core tokens
+### Core palette
 
 ```text
-Cyprus:
-#004643
+Deep Evergreen (Primary):
+#064038
 
-Cyprus Dark:
-#003633
+Evergreen Dark (Hover/Active):
+#032B25
 
-Cyprus Soft:
-#E3F0EE
+Evergreen Soft (Surface/Badge):
+#E3ECE8
 
-Sand:
-#F0EDE5
+Warm Ivory (App Background):
+#FAF8F5
 
-Sand Light:
-#F7F5EF
+Warm Ivory Light:
+#FDFCFA
 
-Near Black:
-#080B10
+Warm Bone (Secondary Surface / Sidebar):
+#F2EFEB
 
-Dark Gray:
-#171717
+Deep Charcoal (Text / Dark Surface):
+#111414
 
-White:
-#FFFFFF
+Neutral Slate (Secondary Text):
+#5C615E
+
+Muted Charcoal (Subtle/Icons):
+#888E8A
+
+Borders:
+#DFDBD1 / #CCC7BB
+
+Muted Terracotta (Restrained Warm Accent):
+#B85D3B (Alerts, deadlines, urgent dues)
+#FDF1EC (Soft background)
 ```
 
 ### Semantic colors
 
-Semantic colors are allowed only when they communicate actual status.
+Semantic colors communicate actual state without decorative noise:
 
 ```text
-Success:
-#167A5B
-
-Warning:
-#A66A00
-
-Danger:
-#B42318
-
-Info:
-#245B8F
+Success: #1D7A58 / Soft: #EBF7F1
+Warning / Urgency: #B85D3B / Soft: #FDF1EC
+Danger: #BA2D25 / Soft: #FDF0EE
+Info: #23587B / Soft: #EDF5FA
 ```
 
 Do not use semantic colors as decorative accents.

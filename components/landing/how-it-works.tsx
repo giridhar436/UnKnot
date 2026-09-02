@@ -1,5 +1,5 @@
 import * as React from "react";
-import { UploadCloud, Cpu, Compass, ArrowRight } from "lucide-react";
+import { UploadCloud, Layers, Link2, Compass, ArrowRight } from "lucide-react";
 import Link from "next/link";
 
 export function HowItWorks() {
@@ -8,103 +8,114 @@ export function HowItWorks() {
       num: "01",
       title: "Add",
       icon: UploadCloud,
-      summary: "Upload a PDF, image, receipt, or simply enter text.",
+      summary: "PDFs, camera photos, screenshots, or plain text.",
       detail:
-        "Drop in a photo of a bill, an emailed insurance policy, an equipment manual, or a quick note. No rigid templates required.",
+        "Drop in a PDF invoice, take a photo of a receipt, or paste an emailed warranty confirmation. UnKnot handles unstructured formats directly.",
       features: [
-        "PDF invoices & policy documents",
-        "Camera photos & screenshot uploads",
-        "Quick manual text notes",
+        "Text-based & scanned PDFs",
+        "Camera photos & gallery uploads",
+        "Direct text notes & records",
       ],
     },
     {
       num: "02",
       title: "Understand",
-      icon: Cpu,
-      summary:
-        "UnKnot extracts useful information, identifies its category and connects related details.",
+      icon: Layers,
+      summary: "Extracts key facts and categorizes the record.",
       detail:
-        "Amounts, due dates, warranty periods, vendor names, and reference IDs are extracted and linked to matching records in your life.",
+        "Amounts, dates, merchant names, invoice numbers, warranty terms, and investment types are extracted into clean, structured data.",
       features: [
-        "Automatic categorization & tagging",
-        "Date & deadline discovery",
-        "Cross-record entity linking",
+        "Automated domain categorization",
+        "Extracted amounts & currencies",
+        "Document date identification",
       ],
     },
     {
       num: "03",
+      title: "Connect",
+      icon: Link2,
+      summary: "Discovers relationships between separate items.",
+      detail:
+        "UnKnot connects your purchase invoice to its warranty policy, repair history, and tax deductions—building one contextual timeline.",
+      features: [
+        "Purchase to warranty linking",
+        "Receipt to repair pairing",
+        "Cross-document entity graph",
+      ],
+    },
+    {
+      num: "04",
       title: "Act",
       icon: Compass,
-      summary:
-        "Search, ask questions, review important dates, understand finances and make better decisions.",
+      summary: "Ask questions and make informed decisions.",
       detail:
-        "Get reminders before warranties expire, track real spending over time, and ask natural questions to get instant, cited answers.",
+        "Ask natural questions with grounded citations, receive alerts before warranties expire, and see your financial position clearly.",
       features: [
-        "Natural language query answering",
-        "Actionable deadline alerts",
-        "Comprehensive financial visibility",
+        "Direct natural language answers",
+        "Verified document citations",
+        "Timeline deadline alerts",
       ],
     },
   ];
 
   return (
-    <section id="how-it-works" className="py-20 md:py-28 bg-[#F7F5EF] border-b border-[#D8D5CC]/80 scroll-mt-12">
+    <section id="how-it-works" className="py-20 md:py-28 bg-[#FAF8F5] border-b border-[#DFDBD1]/80 scroll-mt-12">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
-        <div className="max-w-2xl mx-auto text-center space-y-4">
-          <span className="text-xs font-semibold text-[#004643] tracking-wider uppercase">
-            Simple & Transparent Workflow
+        <div className="max-w-2xl mx-auto text-center space-y-3">
+          <span className="text-[11px] font-mono font-semibold text-[#064038] tracking-widest uppercase">
+            The Flow
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#080B10]">
+          <h2 className="text-3xl sm:text-4xl md:text-[2.6rem] font-bold tracking-tight text-[#111414]">
             How UnKnot works
           </h2>
-          <p className="text-base sm:text-lg text-[#5F625F]">
-            From raw, messy documents to clear, connected decisions in three straightforward steps.
+          <p className="text-sm sm:text-base text-[#5C615E] font-normal leading-relaxed">
+            From raw, scattered paperwork to clear, connected decisions in four straightforward stages.
           </p>
         </div>
 
-        {/* 3 Step Editorial Layout */}
-        <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 relative">
+        {/* 4 Step Grid Layout */}
+        <div className="mt-14 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 relative">
           {steps.map((step) => {
             const Icon = step.icon;
             return (
               <div
                 key={step.num}
-                className="relative flex flex-col justify-between p-6 sm:p-7 bg-white rounded-2xl border border-[#D8D5CC] shadow-xs hover:border-[#004643]/50 transition-all group"
+                className="relative flex flex-col justify-between p-5 sm:p-6 bg-white rounded-xl border border-[#DFDBD1] shadow-xs hover:border-[#064038]/50 transition-all group"
               >
                 <div>
                   {/* Step Top Bar */}
-                  <div className="flex items-center justify-between pb-4 border-b border-[#E5E2DA]">
-                    <span className="text-3xl font-extrabold text-[#004643] font-mono tracking-tight">
+                  <div className="flex items-center justify-between pb-3.5 border-b border-[#DFDBD1]/70">
+                    <span className="text-2xl font-bold text-[#064038] font-mono tracking-tight">
                       {step.num}
                     </span>
-                    <div className="w-10 h-10 rounded-xl bg-[#E3F0EE] text-[#004643] flex items-center justify-center group-hover:bg-[#004643] group-hover:text-white transition-colors">
-                      <Icon className="w-5 h-5" />
+                    <div className="w-8 h-8 rounded-lg bg-[#FAF8F5] border border-[#DFDBD1] text-[#064038] flex items-center justify-center group-hover:bg-[#064038] group-hover:text-white transition-colors">
+                      <Icon className="w-4 h-4" />
                     </div>
                   </div>
 
                   {/* Title & Summary */}
-                  <div className="mt-5 space-y-2">
-                    <h3 className="text-xl font-bold text-[#080B10]">
+                  <div className="mt-4 space-y-1.5">
+                    <h3 className="text-base font-bold text-[#111414]">
                       {step.title}
                     </h3>
-                    <p className="text-sm font-semibold text-[#004643] leading-snug">
+                    <p className="text-xs font-semibold text-[#064038] leading-snug">
                       {step.summary}
                     </p>
-                    <p className="text-xs sm:text-sm text-[#5F625F] leading-relaxed pt-1">
+                    <p className="text-xs text-[#5C615E] leading-relaxed pt-1">
                       {step.detail}
                     </p>
                   </div>
                 </div>
 
                 {/* Feature Bullet Points */}
-                <div className="mt-6 pt-4 border-t border-[#E5E2DA] space-y-2">
+                <div className="mt-5 pt-3.5 border-t border-[#DFDBD1]/60 space-y-1.5">
                   {step.features.map((feat, fIdx) => (
                     <div
                       key={fIdx}
-                      className="flex items-center gap-2 text-xs text-[#5F625F]"
+                      className="flex items-center gap-2 text-[11px] text-[#5C615E]"
                     >
-                      <span className="w-1.5 h-1.5 rounded-full bg-[#004643]"></span>
+                      <span className="w-1 h-1 rounded-full bg-[#064038]"></span>
                       <span>{feat}</span>
                     </div>
                   ))}
@@ -117,11 +128,11 @@ export function HowItWorks() {
         {/* Inline Bottom CTA */}
         <div className="mt-12 text-center">
           <Link
-            href="/dashboard"
-            className="inline-flex items-center gap-2 text-sm font-semibold text-[#004643] hover:text-[#003633] transition-colors group"
+            href="/signup"
+            className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#064038] hover:text-[#032B25] transition-colors group"
           >
-            <span>Try uploading your first record in the workspace</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-0.5 transition-transform" />
+            <span>Start organizing your records with UnKnot</span>
+            <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
           </Link>
         </div>
       </div>

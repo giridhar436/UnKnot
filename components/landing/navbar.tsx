@@ -8,71 +8,71 @@ export function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = React.useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#F7F5EF]/95 backdrop-blur-sm border-b border-[#D8D5CC]/80 transition-all">
+    <header className="sticky top-0 z-50 w-full bg-[#FAF8F5]/95 backdrop-blur-md border-b border-[#DFDBD1]/80 transition-all">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        {/* Brand */}
+        {/* Brand Wordmark & Descriptor */}
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 rounded-lg bg-[#004643] text-white flex items-center justify-center font-bold text-base shadow-sm group-hover:bg-[#003633] transition-colors">
+          <div className="w-8 h-8 rounded-lg bg-[#064038] text-white flex items-center justify-center font-bold text-sm shadow-xs group-hover:bg-[#032B25] transition-colors">
             U
           </div>
           <div className="flex flex-col">
-            <span className="font-semibold text-lg tracking-tight text-[#080B10] leading-none">
+            <span className="font-semibold text-base tracking-tight text-[#111414] leading-none">
               UnKnot
             </span>
-            <span className="text-[10px] text-[#5F625F] font-semibold tracking-wider uppercase mt-0.5">
+            <span className="text-[9.5px] text-[#5C615E] font-mono font-medium tracking-widest uppercase mt-0.5">
               Decision Utility
             </span>
           </div>
         </Link>
 
         {/* Desktop Navigation Links */}
-        <nav className="hidden md:flex items-center gap-7 text-sm font-medium text-[#5F625F]">
+        <nav className="hidden md:flex items-center gap-7 text-xs font-medium text-[#5C615E]">
           <a
             href="#problem"
-            className="hover:text-[#080B10] transition-colors"
+            className="hover:text-[#111414] transition-colors"
           >
             The Problem
           </a>
           <a
             href="#how-it-works"
-            className="hover:text-[#080B10] transition-colors"
+            className="hover:text-[#111414] transition-colors"
           >
-            How it works
+            How it Works
           </a>
           <a
             href="#categories"
-            className="hover:text-[#080B10] transition-colors"
+            className="hover:text-[#111414] transition-colors"
           >
             Categories
           </a>
           <a
             href="#why-unknot"
-            className="hover:text-[#080B10] transition-colors"
+            className="hover:text-[#111414] transition-colors"
           >
-            Why UnKnot
+            The Difference
           </a>
           <a
             href="#use-cases"
-            className="hover:text-[#080B10] transition-colors"
+            className="hover:text-[#111414] transition-colors"
           >
-            Use cases
+            Use Cases
           </a>
         </nav>
 
-        {/* Desktop CTAs */}
+        {/* Desktop Actions */}
         <div className="hidden md:flex items-center gap-3">
           <Link
             href="/login"
-            className="h-10 px-3.5 text-sm font-semibold text-[#080B10] hover:text-[#004643] transition-colors flex items-center"
+            className="h-9 px-3 text-xs font-medium text-[#111414] hover:text-[#064038] transition-colors flex items-center"
           >
             Sign in
           </Link>
           <Link
             href="/signup"
-            className="inline-flex items-center gap-2 h-10 px-4 rounded-lg bg-[#004643] text-white text-sm font-medium hover:bg-[#003633] transition-all shadow-sm active:scale-[0.98]"
+            className="inline-flex items-center gap-1.5 h-9 px-4 rounded-lg bg-[#064038] text-white text-xs font-semibold hover:bg-[#032B25] transition-all shadow-xs active:scale-[0.98]"
           >
             <span>Get started</span>
-            <ArrowRight className="w-4 h-4" />
+            <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
@@ -80,7 +80,7 @@ export function Navbar() {
         <button
           type="button"
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-lg text-[#080B10] hover:bg-[#F0EDE5] border border-transparent hover:border-[#D8D5CC] transition-colors"
+          className="md:hidden p-2 rounded-lg text-[#111414] hover:bg-[#F2EFEB] border border-transparent hover:border-[#DFDBD1] transition-colors"
           aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
         >
           {mobileMenuOpen ? (
@@ -93,59 +93,59 @@ export function Navbar() {
 
       {/* Mobile Drawer */}
       {mobileMenuOpen && (
-        <div className="md:hidden border-b border-[#D8D5CC] bg-[#F0EDE5] px-4 pt-3 pb-6 space-y-4 shadow-lg animate-in slide-in-from-top-2 duration-200">
-          <nav className="flex flex-col space-y-3 text-sm font-medium text-[#080B10]">
+        <div className="md:hidden border-b border-[#DFDBD1] bg-[#F2EFEB] px-4 pt-3 pb-6 space-y-4 shadow-lg animate-in slide-in-from-top-2 duration-200">
+          <nav className="flex flex-col space-y-2.5 text-xs font-medium text-[#111414]">
             <a
               href="#problem"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-2 py-1.5 rounded-md hover:bg-[#E7E3D8]"
+              className="px-2.5 py-1.5 rounded-md hover:bg-[#EAE6DE]"
             >
               The Problem
             </a>
             <a
               href="#how-it-works"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-2 py-1.5 rounded-md hover:bg-[#E7E3D8]"
+              className="px-2.5 py-1.5 rounded-md hover:bg-[#EAE6DE]"
             >
-              How it works
+              How it Works
             </a>
             <a
               href="#categories"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-2 py-1.5 rounded-md hover:bg-[#E7E3D8]"
+              className="px-2.5 py-1.5 rounded-md hover:bg-[#EAE6DE]"
             >
               Categories
             </a>
             <a
               href="#why-unknot"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-2 py-1.5 rounded-md hover:bg-[#E7E3D8]"
+              className="px-2.5 py-1.5 rounded-md hover:bg-[#EAE6DE]"
             >
-              Why UnKnot
+              The Difference
             </a>
             <a
               href="#use-cases"
               onClick={() => setMobileMenuOpen(false)}
-              className="px-2 py-1.5 rounded-md hover:bg-[#E7E3D8]"
+              className="px-2.5 py-1.5 rounded-md hover:bg-[#EAE6DE]"
             >
-              Use cases
+              Use Cases
             </a>
           </nav>
-          <div className="pt-3 border-t border-[#D8D5CC] flex flex-col gap-2">
+          <div className="pt-3 border-t border-[#DFDBD1] flex flex-col gap-2">
             <Link
               href="/login"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center h-11 px-4 rounded-lg border border-[#D8D5CC] bg-white text-[#080B10] text-sm font-semibold hover:bg-[#F7F5EF]"
+              className="w-full flex items-center justify-center h-10 px-4 rounded-lg border border-[#DFDBD1] bg-white text-[#111414] text-xs font-semibold hover:bg-[#FAF8F5]"
             >
               Sign in
             </Link>
             <Link
               href="/signup"
               onClick={() => setMobileMenuOpen(false)}
-              className="w-full flex items-center justify-center gap-2 h-11 px-4 rounded-lg bg-[#004643] text-white text-sm font-medium shadow-sm hover:bg-[#003633]"
+              className="w-full flex items-center justify-center gap-1.5 h-10 px-4 rounded-lg bg-[#064038] text-white text-xs font-semibold shadow-xs hover:bg-[#032B25]"
             >
               <span>Get started</span>
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
         </div>

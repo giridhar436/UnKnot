@@ -16,22 +16,22 @@ export default function ForgotPasswordPage() {
     setTimeout(() => {
       setIsLoading(false);
       setSubmitted(true);
-    }, 400);
+    }, 350);
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F5EF] flex flex-col justify-between px-4 py-8">
+    <div className="min-h-screen bg-[#FAF8F5] flex flex-col justify-between px-4 py-8">
       {/* Brand Top Header */}
       <div className="max-w-md w-full mx-auto flex items-center justify-between">
         <Link href="/" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 rounded-lg bg-[#004643] text-white flex items-center justify-center font-bold text-base shadow-sm group-hover:bg-[#003633] transition-colors">
+          <div className="w-8 h-8 rounded-lg bg-[#064038] text-white flex items-center justify-center font-bold text-xs shadow-xs group-hover:bg-[#032B25] transition-colors">
             U
           </div>
           <div className="flex flex-col">
-            <span className="font-semibold text-lg tracking-tight text-[#080B10] leading-none">
+            <span className="font-semibold text-base tracking-tight text-[#111414] leading-none">
               UnKnot
             </span>
-            <span className="text-[10px] text-[#5F625F] font-semibold tracking-wider uppercase mt-0.5">
+            <span className="text-[9.5px] text-[#5C615E] font-mono font-medium tracking-widest uppercase mt-0.5">
               Decision Utility
             </span>
           </div>
@@ -39,55 +39,55 @@ export default function ForgotPasswordPage() {
 
         <Link
           href="/login"
-          className="text-xs text-[#5F625F] hover:text-[#080B10] font-medium"
+          className="text-xs text-[#5C615E] hover:text-[#111414] font-medium"
         >
-          ← Back to login
+          &larr; Back to login
         </Link>
       </div>
 
       {/* Main Card */}
-      <div className="max-w-md w-full mx-auto my-auto py-8">
-        <div className="bg-white rounded-2xl border border-[#D8D5CC] p-6 sm:p-8 shadow-sm space-y-6">
-          <div className="space-y-1.5">
-            <h1 className="text-2xl font-bold tracking-tight text-[#080B10]">
+      <div className="max-w-md w-full mx-auto my-auto py-6">
+        <div className="bg-white rounded-xl border border-[#DFDBD1] p-6 sm:p-8 shadow-xs space-y-5">
+          <div className="space-y-1">
+            <h1 className="text-xl sm:text-2xl font-bold tracking-tight text-[#111414]">
               Reset Password
             </h1>
-            <p className="text-xs sm:text-sm text-[#5F625F]">
-              Enter your email address and we&rsquo;ll send you instructions to regain access to your account.
+            <p className="text-xs text-[#5C615E]">
+              Enter your email to receive recovery instructions.
             </p>
           </div>
 
           {submitted ? (
             <div className="space-y-4">
-              <div className="p-4 bg-[#E3F0EE] rounded-xl border border-[#004643]/20 flex items-start gap-3 text-xs text-[#004643]">
-                <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5 text-[#167A5B]" />
-                <div className="space-y-1">
-                  <span className="font-bold text-sm block">Check your inbox</span>
-                  <p className="text-[#080B10] leading-relaxed">
-                    If an account exists for <strong className="font-mono">{email}</strong>, you will receive password reset instructions.
+              <div className="p-3.5 bg-[#FAF8F5] rounded-lg border border-[#DFDBD1] flex items-start gap-2.5 text-xs text-[#111414]">
+                <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-[#1D7A58]" />
+                <div className="space-y-0.5">
+                  <span className="font-semibold text-[#064038] block">Instructions Sent</span>
+                  <p className="text-[#5C615E] text-[11px] leading-relaxed">
+                    If an account exists for <strong className="font-mono text-[#111414]">{email}</strong>, instructions to reset your password have been sent.
                   </p>
                 </div>
               </div>
 
               <Link
                 href="/login"
-                className="w-full flex items-center justify-center gap-2 h-11 px-4 rounded-lg bg-[#004643] text-white text-sm font-semibold hover:bg-[#003633] transition-colors shadow-sm"
+                className="w-full flex items-center justify-center gap-1.5 h-10 px-4 rounded-lg bg-[#064038] text-white text-xs font-semibold hover:bg-[#032B25] transition-colors shadow-xs"
               >
                 <span>Return to Sign In</span>
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-3.5 h-3.5" />
               </Link>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-4">
-              <div className="space-y-1.5">
+              <div className="space-y-1">
                 <label
                   htmlFor="email"
-                  className="text-xs font-semibold text-[#080B10] block"
+                  className="text-xs font-semibold text-[#111414] block"
                 >
                   Account Email
                 </label>
                 <div className="relative">
-                  <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#8A8D8A]" />
+                  <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-[#888E8A]" />
                   <input
                     id="email"
                     type="email"
@@ -95,7 +95,7 @@ export default function ForgotPasswordPage() {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="name@example.com"
-                    className="w-full h-11 pl-10 pr-3.5 bg-[#F7F5EF] text-[#080B10] text-sm rounded-lg border border-[#D8D5CC] focus:outline-none focus:border-[#004643] focus:ring-1 focus:ring-[#004643] transition-all"
+                    className="w-full h-10 pl-9 pr-3.5 bg-[#FAF8F5] text-[#111414] text-xs font-mono rounded-lg border border-[#DFDBD1] focus:outline-none focus:border-[#064038] focus:ring-1 focus:ring-[#064038] transition-all"
                   />
                 </div>
               </div>
@@ -103,25 +103,25 @@ export default function ForgotPasswordPage() {
               <Button
                 type="submit"
                 disabled={isLoading || !email}
-                className="w-full h-11 text-sm font-semibold mt-2"
+                className="w-full h-10 text-xs font-semibold mt-1"
               >
                 {isLoading ? (
                   <div className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
                 ) : (
                   <>
-                    <span>Send Reset Instructions</span>
-                    <ArrowRight className="w-4 h-4 ml-1.5" />
+                    <span>Send Reset Link</span>
+                    <ArrowRight className="w-3.5 h-3.5 ml-1.5" />
                   </>
                 )}
               </Button>
             </form>
           )}
 
-          <div className="pt-4 border-t border-[#E5E2DA] text-center text-xs text-[#5F625F]">
-            Remembered your password?{" "}
+          <div className="pt-3.5 border-t border-[#DFDBD1]/60 text-center text-xs text-[#5C615E]">
+            Remember your password?{" "}
             <Link
               href="/login"
-              className="text-[#004643] font-semibold hover:underline"
+              className="text-[#064038] font-semibold hover:underline"
             >
               Sign in
             </Link>
@@ -130,8 +130,8 @@ export default function ForgotPasswordPage() {
       </div>
 
       {/* Footer Note */}
-      <div className="max-w-md w-full mx-auto text-center text-xs text-[#8A8D8A]">
-        UnKnot · Personal Information & Decision Utility
+      <div className="max-w-md w-full mx-auto text-center text-xs font-mono text-[#888E8A]">
+        UnKnot &bull; Personal Information &amp; Decision Utility
       </div>
     </div>
   );

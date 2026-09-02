@@ -23,18 +23,18 @@ export function DocumentPreview({
   return (
     <div className="space-y-3">
       {/* File Preview Frame */}
-      <div className="bg-[#F0EDE5] border border-[#D8D5CC] rounded-xl p-8 flex flex-col items-center justify-center text-center relative overflow-hidden min-h-[220px]">
+      <div className="bg-[#F2EFEB] border border-[#DFDBD1] rounded-xl p-8 flex flex-col items-center justify-center text-center relative overflow-hidden min-h-[220px]">
         {/* Subtle document backdrop badge */}
-        <div className="w-16 h-16 rounded-2xl bg-white text-[#004643] flex items-center justify-center shadow-sm mb-3">
+        <div className="w-16 h-16 rounded-2xl bg-white text-[#064038] flex items-center justify-center shadow-xs mb-3 border border-[#DFDBD1]">
           {type === "pdf" && <FileText className="w-8 h-8" />}
           {type === "image" && <ImageIcon className="w-8 h-8" />}
           {type === "text" && <AlignLeft className="w-8 h-8" />}
         </div>
 
-        <h4 className="text-sm font-semibold text-[#080B10] max-w-xs truncate">
+        <h4 className="text-sm font-semibold text-[#111414] max-w-xs truncate">
           {title}
         </h4>
-        <p className="text-xs text-[#5F625F] mt-1">
+        <p className="text-xs text-[#5A605C] mt-1">
           {type === "pdf"
             ? "PDF Document (Text/OCR Indexed)"
             : type === "image"
@@ -57,12 +57,12 @@ export function DocumentPreview({
 
       {/* Simulated Document Viewer Modal */}
       {isPreviewOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60">
-          <div className="bg-white rounded-2xl max-w-2xl w-full p-6 space-y-4 border border-[#D8D5CC] shadow-2xl">
-            <div className="flex items-center justify-between border-b border-[#D8D5CC] pb-3">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-[2px]">
+          <div className="bg-white rounded-2xl max-w-2xl w-full p-6 space-y-4 border border-[#DFDBD1] shadow-2xl">
+            <div className="flex items-center justify-between border-b border-[#EAE6DE] pb-3">
               <div>
-                <h3 className="font-semibold text-[#080B10]">{title}</h3>
-                <span className="text-xs text-[#5F625F]">{category} Document</span>
+                <h3 className="font-semibold text-[#111414]">{title}</h3>
+                <span className="text-xs text-[#5A605C]">{category} Document</span>
               </div>
               <Button
                 size="sm"
@@ -73,12 +73,12 @@ export function DocumentPreview({
               </Button>
             </div>
 
-            <div className="bg-[#F7F5EF] p-6 rounded-xl border border-[#D8D5CC] min-h-[250px] flex flex-col justify-center items-center text-center space-y-2">
-              <div className="w-12 h-12 rounded-full bg-[#004643]/10 text-[#004643] flex items-center justify-center">
+            <div className="bg-[#FAF8F5] p-6 rounded-xl border border-[#DFDBD1] min-h-[250px] flex flex-col justify-center items-center text-center space-y-2">
+              <div className="w-12 h-12 rounded-full bg-[#E3ECE8] text-[#064038] flex items-center justify-center">
                 {type === "pdf" ? <FileText className="w-6 h-6" /> : <ImageIcon className="w-6 h-6" />}
               </div>
-              <p className="text-sm font-medium text-[#080B10]">{title}</p>
-              <p className="text-xs text-[#5F625F] max-w-md">
+              <p className="text-sm font-medium text-[#111414]">{title}</p>
+              <p className="text-xs text-[#5A605C] max-w-md">
                 {description || "Original file stored and indexed for contextual query processing."}
               </p>
             </div>

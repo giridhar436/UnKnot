@@ -14,7 +14,7 @@ interface SearchBarProps {
 
 export function SearchBar({
   className,
-  placeholder = "Search documents, entities, amounts...",
+  placeholder = "Search documents, entities, merchants, amounts...",
   onSearch,
   initialValue = "",
 }: SearchBarProps) {
@@ -40,7 +40,7 @@ export function SearchBar({
       onSubmit={handleSubmit}
       className={cn("relative flex items-center w-full", className)}
     >
-      <Search className="absolute left-3 w-4 h-4 text-[#5F625F] pointer-events-none" />
+      <Search className="absolute left-3 w-3.5 h-3.5 text-[#888E8A] pointer-events-none" />
       <input
         type="text"
         value={query}
@@ -49,15 +49,16 @@ export function SearchBar({
           if (onSearch) onSearch(e.target.value);
         }}
         placeholder={placeholder}
-        className="w-full h-10 pl-9 pr-9 bg-[#F0EDE5]/60 hover:bg-[#F0EDE5] focus:bg-white text-sm text-[#080B10] placeholder:text-[#8A8D8A] rounded-lg border border-[#D8D5CC] transition-colors focus:outline-none focus:border-[#004643] focus:ring-1 focus:ring-[#004643]"
+        className="w-full h-9 pl-8 pr-8 bg-[#F2EFEB]/80 hover:bg-[#F2EFEB] focus:bg-white text-xs text-[#111414] placeholder:text-[#888E8A] rounded-lg border border-[#DFDBD1] transition-colors focus:outline-none focus:border-[#064038] focus:ring-1 focus:ring-[#064038]"
       />
       {query && (
         <button
           type="button"
           onClick={handleClear}
-          className="absolute right-2.5 p-1 text-[#8A8D8A] hover:text-[#080B10] rounded-md"
+          className="absolute right-2.5 p-1 text-[#888E8A] hover:text-[#111414] rounded-md transition-colors"
+          aria-label="Clear search"
         >
-          <X className="w-3.5 h-3.5" />
+          <X className="w-3 h-3" />
         </button>
       )}
     </form>

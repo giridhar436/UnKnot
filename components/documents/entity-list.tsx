@@ -8,23 +8,23 @@ interface EntityListProps {
 export function EntityList({ entities }: EntityListProps) {
   if (entities.length === 0) {
     return (
-      <p className="text-xs text-[#8A8D8A] italic">
+      <p className="text-xs text-[#888E8A] italic">
         No specific entities extracted.
       </p>
     );
   }
 
   return (
-    <div className="border border-[#D8D5CC] rounded-xl overflow-hidden divide-y divide-[#F0EDE5] bg-white">
+    <div className="border border-[#DFDBD1] rounded-xl overflow-hidden divide-y divide-[#EAE6DE] bg-white">
       {entities.map((entity) => (
         <div
           key={entity.id}
-          className="grid grid-cols-3 sm:grid-cols-4 p-3.5 text-xs hover:bg-[#F7F5EF]/50 transition-colors"
+          className="grid grid-cols-3 sm:grid-cols-4 p-3.5 text-xs hover:bg-[#F2EFEB]/50 transition-colors"
         >
-          <span className="font-medium text-[#5F625F] uppercase tracking-wide text-[11px]">
+          <span className="font-mono uppercase tracking-wider text-[11px] text-[#5A605C]">
             {entity.label}
           </span>
-          <span className="col-span-2 sm:col-span-3 font-semibold text-[#080B10]">
+          <span className="col-span-2 sm:col-span-3 font-medium text-[#111414]">
             {entity.value}
           </span>
         </div>

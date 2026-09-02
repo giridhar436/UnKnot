@@ -9,16 +9,16 @@ export default async function CategoriesPage() {
   return (
     <div className="page-container space-y-6 max-w-5xl">
       {/* Header */}
-      <div className="pb-4 border-b border-[#D8D5CC] space-y-1">
-        <div className="flex items-center gap-2 text-xs font-semibold text-[#004643] uppercase tracking-wider">
-          <FolderTree className="w-4 h-4" />
+      <div className="pb-4 border-b border-[#DFDBD1] space-y-1">
+        <div className="flex items-center gap-2 text-[10.5px] font-mono font-semibold text-[#064038] uppercase tracking-widest">
+          <FolderTree className="w-3.5 h-3.5" />
           <span>Information Hierarchy</span>
         </div>
-        <h1 className="text-2xl font-bold text-[#080B10]">
+        <h1 className="text-2xl font-bold tracking-tight text-[#111414]">
           Categories &amp; Domains
         </h1>
-        <p className="text-xs sm:text-sm text-[#5F625F]">
-          Organized information system structuring your scattered receipts, medical bills, warranties, and financial records.
+        <p className="text-xs sm:text-sm text-[#5C615E]">
+          Structured information domains organizing your receipts, medical bills, warranties, and financial statements.
         </p>
       </div>
 
@@ -28,19 +28,19 @@ export default async function CategoriesPage() {
           <Link
             key={cat.id}
             href={`/documents?category=${encodeURIComponent(cat.name)}`}
-            className="p-5 bg-white hover:bg-[#F7F5EF] rounded-xl border border-[#D8D5CC] hover:border-[#004643]/50 transition-all flex flex-col justify-between space-y-4 group shadow-xs"
+            className="p-5 bg-white hover:bg-[#FAF8F5] rounded-xl border border-[#DFDBD1] hover:border-[#064038]/50 transition-all flex flex-col justify-between space-y-4 group shadow-xs"
           >
             <div className="space-y-2.5">
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-[#004643] uppercase tracking-wider">
+                <span className="text-xs font-mono font-semibold text-[#064038] uppercase tracking-wider">
                   {cat.name}
                 </span>
-                <span className="text-xs font-mono font-medium text-[#080B10] bg-[#F0EDE5] px-2.5 py-0.5 rounded-full border border-[#D8D5CC] tabular-nums">
+                <span className="text-xs font-mono font-medium text-[#111414] bg-[#FAF8F5] px-2 py-0.5 rounded border border-[#DFDBD1] tabular-nums">
                   {cat.count} {cat.count === 1 ? "record" : "records"}
                 </span>
               </div>
 
-              <h3 className="text-base font-bold text-[#080B10] group-hover:text-[#004643] transition-colors">
+              <h3 className="text-base font-bold text-[#111414] group-hover:text-[#064038] transition-colors">
                 {cat.name}
               </h3>
 
@@ -49,7 +49,7 @@ export default async function CategoriesPage() {
                   {cat.subcategories.map((sub) => (
                     <span
                       key={sub}
-                      className="text-[11px] text-[#5F625F] bg-[#F0EDE5]/80 px-2 py-0.5 rounded-md"
+                      className="text-[10.5px] font-mono text-[#5C615E] bg-[#F2EFEB] px-2 py-0.5 rounded"
                     >
                       {sub}
                     </span>
@@ -58,7 +58,7 @@ export default async function CategoriesPage() {
               )}
             </div>
 
-            <div className="pt-3 border-t border-[#F0EDE5] flex items-center justify-between text-xs text-[#004643] font-semibold">
+            <div className="pt-3 border-t border-[#DFDBD1]/60 flex items-center justify-between text-xs text-[#064038] font-semibold">
               <span>View category records</span>
               <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
             </div>

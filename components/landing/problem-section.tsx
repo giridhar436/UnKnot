@@ -1,119 +1,121 @@
 import * as React from "react";
 import {
   FileText,
-  MessageSquare,
   Mail,
   Smartphone,
   StickyNote,
-  AlertCircle,
+  Wrench,
+  ArrowRight,
+  CheckCircle2,
 } from "lucide-react";
 
 export function ProblemSection() {
   const examples = [
     {
       icon: FileText,
-      label: "A warranty buried in an old PDF",
-      detail: "Lost somewhere in the Downloads folder on your laptop",
+      label: "A receipt in one folder",
+      detail: "Buried inside Downloads / 2023_scan_final.pdf with an unreadable filename.",
       location: "Downloads / 2023_Receipt_scan_final.pdf",
     },
     {
-      icon: MessageSquare,
-      label: "A receipt sitting in WhatsApp",
-      detail: "Sent by the contractor 6 months ago in a group chat",
-      location: "WhatsApp / Chat with Plumber / Media",
+      icon: Mail,
+      label: "A warranty in an email",
+      detail: "Locked in a vendor thread from three years ago behind a forgotten login.",
+      location: "Inbox / 'Your Extended Protection Confirmation'",
     },
     {
-      icon: Mail,
-      label: "An investment statement in email",
-      detail: "Quarterly portfolio PDF locked behind a forgotten password",
-      location: "Inbox / 'Your Quarterly Account Summary'",
+      icon: Wrench,
+      label: "A repair invoice somewhere else",
+      detail: "Handwritten paper slip stored in a desk drawer after a technician visit.",
+      location: "Desk Drawer / Physical Receipt Folders",
     },
     {
       icon: Smartphone,
-      label: "A medical bill saved as a screenshot",
-      detail: "Buried between vacation photos in your camera roll",
+      label: "An investment statement elsewhere",
+      detail: "Quarterly portfolio PDF saved in camera roll screenshots between personal photos.",
       location: "Photos / Screenshots / IMG_4910.PNG",
     },
     {
       icon: StickyNote,
-      label: "A payment reminder written in notes",
-      detail: "Scrawled in a random note app with no calendar alert",
+      label: "A bill reminder forgotten",
+      detail: "Scrawled in a random note app with no alert, overdue notice arriving later.",
       location: "Notes App / Untitled (14)",
     },
   ];
 
   return (
-    <section id="problem" className="py-20 md:py-28 bg-[#F0EDE5] border-b border-[#D8D5CC]/80 scroll-mt-12">
+    <section id="problem" className="py-20 md:py-28 bg-[#F2EFEB] border-b border-[#DFDBD1]/80 scroll-mt-12">
       <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto space-y-4">
-          <span className="text-xs font-semibold text-[#004643] tracking-wider uppercase">
-            The Reality of Daily Life
+        <div className="text-center max-w-2xl mx-auto space-y-3">
+          <span className="text-[11px] font-mono font-semibold text-[#064038] tracking-widest uppercase">
+            The Reality
           </span>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-[#080B10] leading-tight">
+          <h2 className="text-3xl sm:text-4xl md:text-[2.6rem] font-bold tracking-tight text-[#111414] leading-tight">
             Your information isn&rsquo;t missing.{" "}
-            <span className="text-[#004643]">It&rsquo;s scattered.</span>
+            <span className="text-[#064038] block sm:inline">It&rsquo;s scattered.</span>
           </h2>
-          <p className="text-base sm:text-lg text-[#5F625F]">
-            You already collected every invoice, document, and policy. But they exist in five different apps, ten folders, and countless threads.
+          <p className="text-sm sm:text-base text-[#5C615E] leading-relaxed font-normal">
+            You already saved the invoices, warranties, statements, and policy numbers. But they exist across ten apps, five email threads, and multiple physical drawers.
           </p>
         </div>
 
-        {/* Scattered Examples List */}
-        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {/* Scattered Examples Grid */}
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3.5">
           {examples.map((item, idx) => {
             const Icon = item.icon;
             return (
               <div
                 key={idx}
-                className="p-5 bg-white rounded-xl border border-[#D8D5CC] shadow-xs flex flex-col justify-between hover:border-[#004643]/40 transition-colors"
+                className="p-5 bg-white rounded-xl border border-[#DFDBD1] shadow-xs flex flex-col justify-between hover:border-[#064038]/40 transition-colors"
               >
                 <div>
-                  <div className="w-9 h-9 rounded-lg bg-[#F0EDE5] text-[#004643] flex items-center justify-center mb-3">
+                  <div className="w-8 h-8 rounded-lg bg-[#FAF8F5] text-[#064038] flex items-center justify-center mb-3 border border-[#DFDBD1]/60">
                     <Icon className="w-4 h-4" />
                   </div>
-                  <h3 className="text-sm font-bold text-[#080B10]">
+                  <h3 className="text-sm font-bold text-[#111414]">
                     {item.label}
                   </h3>
-                  <p className="text-xs text-[#5F625F] mt-1.5 leading-relaxed">
+                  <p className="text-xs text-[#5C615E] mt-1.5 leading-relaxed">
                     {item.detail}
                   </p>
                 </div>
-                <div className="mt-4 pt-3 border-t border-[#E5E2DA] flex items-center gap-1.5 text-[11px] font-mono text-[#5F625F] truncate">
-                  <span className="text-[#004643] font-bold">↳</span>
+                <div className="mt-4 pt-3 border-t border-[#DFDBD1]/60 flex items-center gap-1.5 text-[10.5px] font-mono text-[#888E8A] truncate">
+                  <span className="text-[#064038] font-bold">↳</span>
                   <span className="truncate">{item.location}</span>
                 </div>
               </div>
             );
           })}
 
-          {/* The Summary Card */}
-          <div className="p-5 bg-[#004643] text-white rounded-xl shadow-xs flex flex-col justify-between">
+          {/* Connected Pivot Card */}
+          <div className="p-5 bg-[#064038] text-white rounded-xl shadow-xs flex flex-col justify-between">
             <div className="space-y-2">
-              <div className="w-9 h-9 rounded-lg bg-white/15 text-white flex items-center justify-center mb-3">
-                <AlertCircle className="w-5 h-5" />
+              <div className="w-8 h-8 rounded-lg bg-white/15 text-white flex items-center justify-center mb-3">
+                <CheckCircle2 className="w-4 h-4 text-[#E3ECE8]" />
               </div>
               <h3 className="text-base font-bold text-white leading-snug">
-                Friction adds up fast.
+                UnKnot connects the pieces.
               </h3>
-              <p className="text-xs text-white/80 leading-relaxed">
-                When you actually need the serial number, the tax amount, or the warranty deadline, you spend 20 minutes searching.
+              <p className="text-xs text-white/85 leading-relaxed">
+                When you actually need the serial number, warranty deadline, or repair history, UnKnot delivers the answer immediately.
               </p>
             </div>
-            <div className="mt-4 pt-3 border-t border-white/20 text-xs font-semibold text-[#A8D5D0]">
-              UnKnot eliminates this friction.
+            <div className="mt-4 pt-3 border-t border-white/20 text-xs font-semibold text-[#E3ECE8] flex items-center gap-1">
+              <span>One connected repository</span>
+              <ArrowRight className="w-3.5 h-3.5" />
             </div>
           </div>
         </div>
 
-        {/* Editorial Takeaway Banner */}
-        <div className="mt-12 p-6 sm:p-8 bg-[#F7F5EF] rounded-2xl border border-[#D8D5CC] text-center max-w-3xl mx-auto">
-          <blockquote className="text-lg sm:text-xl font-semibold text-[#080B10] leading-snug">
-            &ldquo;The problem isn&rsquo;t that we don&rsquo;t have information.
-            The problem is finding the right piece of information at the right time.&rdquo;
+        {/* Editorial Quote Banner */}
+        <div className="mt-12 p-6 sm:p-7 bg-[#FAF8F5] rounded-2xl border border-[#DFDBD1] text-center max-w-3xl mx-auto shadow-xs">
+          <blockquote className="text-base sm:text-lg font-semibold text-[#111414] leading-relaxed">
+            &ldquo;The problem isn&rsquo;t that we don&rsquo;t collect information.
+            The problem is understanding how the pieces relate to each other when we need to make a decision.&rdquo;
           </blockquote>
-          <p className="text-xs sm:text-sm text-[#5F625F] mt-2">
-            UnKnot transforms raw files into living, connected records ready whenever life requires a decision.
+          <p className="text-xs text-[#5C615E] mt-2 font-mono">
+            UnKnot transforms disconnected paperwork into actionable context.
           </p>
         </div>
       </div>

@@ -60,7 +60,7 @@ export function Modal({
       {/* Modal Dialog */}
       <div
         className={cn(
-          "relative w-full bg-white rounded-2xl border border-[#D8D5CC] shadow-xl overflow-hidden z-10 transition-all my-8 max-h-[90vh] flex flex-col",
+          "relative w-full bg-white rounded-2xl border border-[#DFDBD1] shadow-xl overflow-hidden z-10 transition-all my-8 max-h-[90vh] flex flex-col",
           maxWidths[maxWidth]
         )}
         role="dialog"
@@ -68,20 +68,20 @@ export function Modal({
       >
         {/* Header */}
         {(title || description) && (
-          <div className="flex items-start justify-between p-6 border-b border-[#F0EDE5]">
+          <div className="flex items-start justify-between p-6 border-b border-[#EAE6DE]">
             <div className="space-y-1">
               {title && (
-                <h3 className="text-lg font-semibold text-[#080B10]">
+                <h3 className="text-lg font-semibold text-[#111414]">
                   {title}
                 </h3>
               )}
               {description && (
-                <p className="text-xs text-[#5F625F]">{description}</p>
+                <p className="text-xs text-[#5A605C]">{description}</p>
               )}
             </div>
             <button
               onClick={onClose}
-              className="p-1 text-[#5F625F] hover:text-[#080B10] hover:bg-[#F0EDE5] rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
+              className="p-1 text-[#5A605C] hover:text-[#111414] hover:bg-[#F2EFEB] rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center"
               aria-label="Close"
             >
               <X className="w-5 h-5" />

@@ -39,9 +39,9 @@ export default async function DocumentDetailPage({ params }: DocumentDetailPageP
       <div className="flex items-center justify-between">
         <Link
           href="/documents"
-          className="text-xs font-semibold text-[#004643] hover:underline flex items-center gap-1.5 min-h-[44px]"
+          className="text-xs font-semibold text-[#064038] hover:underline flex items-center gap-1.5 min-h-[44px]"
         >
-          <ArrowLeft className="w-4 h-4" />
+          <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to all documents</span>
         </Link>
         <Badge variant="brand" size="md">
@@ -50,21 +50,21 @@ export default async function DocumentDetailPage({ params }: DocumentDetailPageP
       </div>
 
       {/* Header Info */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#D8D5CC]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#DFDBD1]">
         <div>
-          <h1 className="text-2xl sm:text-3xl font-bold text-[#080B10]">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-[#111414]">
             {doc.title}
           </h1>
           {doc.description && (
-            <p className="text-xs sm:text-sm text-[#5F625F] mt-1">
+            <p className="text-xs sm:text-sm text-[#5C615E] mt-0.5">
               {doc.description}
             </p>
           )}
         </div>
 
         {doc.amount && (
-          <div className="bg-white px-4 py-2.5 rounded-xl border border-[#D8D5CC] shrink-0">
-            <span className="text-[10px] uppercase font-semibold text-[#5F625F] block">
+          <div className="bg-white px-4 py-2.5 rounded-xl border border-[#DFDBD1] shrink-0 shadow-xs">
+            <span className="text-[10px] uppercase font-mono font-medium text-[#5C615E] block">
               Recorded Amount
             </span>
             <AmountDisplay amount={doc.amount} size="lg" />
@@ -81,11 +81,11 @@ export default async function DocumentDetailPage({ params }: DocumentDetailPageP
 
           {/* Extracted Structured Information */}
           <div className="space-y-3">
-            <div className="flex items-center justify-between">
-              <h2 className="text-base font-semibold text-[#080B10]">
+            <div className="flex items-center justify-between pb-1 border-b border-[#DFDBD1]/60">
+              <h2 className="text-xs font-mono font-bold uppercase tracking-wider text-[#111414]">
                 Extracted Information
               </h2>
-              <span className="text-xs text-[#5F625F]">
+              <span className="text-xs font-mono text-[#5C615E]">
                 {doc.entities.length} entities identified
               </span>
             </div>
@@ -100,7 +100,7 @@ export default async function DocumentDetailPage({ params }: DocumentDetailPageP
         <div className="space-y-6">
           {/* File Preview */}
           <div className="space-y-2">
-            <h3 className="text-sm font-semibold text-[#080B10]">
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-[#111414]">
               Original Document
             </h3>
             <DocumentPreview
@@ -112,49 +112,49 @@ export default async function DocumentDetailPage({ params }: DocumentDetailPageP
           </div>
 
           {/* Classification & Metadata Card */}
-          <div className="bg-white p-5 rounded-xl border border-[#D8D5CC] space-y-4">
-            <h3 className="text-xs font-semibold uppercase tracking-wider text-[#080B10]">
+          <div className="bg-white p-5 rounded-xl border border-[#DFDBD1] space-y-4 shadow-xs">
+            <h3 className="text-xs font-mono font-bold uppercase tracking-wider text-[#111414]">
               Document Metadata
             </h3>
 
-            <div className="space-y-3 text-xs divide-y divide-[#F0EDE5]">
+            <div className="space-y-3 text-xs divide-y divide-[#DFDBD1]/60">
               <div className="flex items-center justify-between pt-1">
-                <span className="text-[#5F625F] flex items-center gap-1.5">
-                  <FolderTree className="w-3.5 h-3.5" />
+                <span className="text-[#5C615E] flex items-center gap-1.5">
+                  <FolderTree className="w-3.5 h-3.5 text-[#064038]" />
                   Category
                 </span>
-                <span className="font-semibold text-[#080B10]">
+                <span className="font-semibold text-[#111414]">
                   {doc.category}
                   {doc.subcategory ? ` / ${doc.subcategory}` : ""}
                 </span>
               </div>
 
               <div className="flex items-center justify-between pt-2.5">
-                <span className="text-[#5F625F] flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5" />
+                <span className="text-[#5C615E] flex items-center gap-1.5">
+                  <Calendar className="w-3.5 h-3.5 text-[#064038]" />
                   Document Date
                 </span>
-                <span className="font-semibold text-[#080B10] font-mono">
+                <span className="font-semibold text-[#111414] font-mono">
                   {formatDate(doc.documentDate)}
                 </span>
               </div>
 
               <div className="flex items-center justify-between pt-2.5">
-                <span className="text-[#5F625F] flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5" />
+                <span className="text-[#5C615E] flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5 text-[#064038]" />
                   Uploaded At
                 </span>
-                <span className="font-semibold text-[#080B10] font-mono">
+                <span className="font-semibold text-[#111414] font-mono">
                   {formatTimestamp(doc.uploadedAt)}
                 </span>
               </div>
 
               <div className="flex items-center justify-between pt-2.5">
-                <span className="text-[#5F625F] flex items-center gap-1.5">
-                  <Tag className="w-3.5 h-3.5" />
+                <span className="text-[#5C615E] flex items-center gap-1.5">
+                  <Tag className="w-3.5 h-3.5 text-[#064038]" />
                   Input Type
                 </span>
-                <span className="font-semibold text-[#080B10] uppercase font-mono">
+                <span className="font-semibold text-[#111414] uppercase font-mono">
                   {doc.type}
                 </span>
               </div>

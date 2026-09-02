@@ -24,12 +24,11 @@ export function AskView({ initialSuggested }: AskViewProps) {
     setLoading(true);
     setQuery(textToAsk);
 
-    // Realistic short intentional synthesis delay (400ms)
     setTimeout(async () => {
       const res = await askQuestion(textToAsk);
       setCurrentAnalysis(res);
       setLoading(false);
-    }, 450);
+    }, 400);
   };
 
   const handleClear = () => {
@@ -39,7 +38,7 @@ export function AskView({ initialSuggested }: AskViewProps) {
 
   return (
     <div className="space-y-6">
-      {/* Search Input Bar */}
+      {/* Query Bar */}
       <form
         onSubmit={(e) => {
           e.preventDefault();
@@ -48,13 +47,13 @@ export function AskView({ initialSuggested }: AskViewProps) {
         className="space-y-3"
       >
         <div className="relative flex items-center">
-          <Search className="absolute left-4 w-5 h-5 text-[#5F625F] pointer-events-none" />
+          <Search className="absolute left-4 w-4 h-4 text-[#888E8A] pointer-events-none" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Ask a decision question or query your records (e.g. medicine spending, warranty status)..."
-            className="w-full h-14 pl-12 pr-28 bg-white text-[#080B10] placeholder:text-[#8A8D8A] text-sm sm:text-base rounded-xl border border-[#D8D5CC] shadow-sm focus:outline-none focus:border-[#004643] focus:ring-1 focus:ring-[#004643] transition-all"
+            placeholder="Ask a decision query across your records (e.g., 'When is my warranty expiring?', 'How much spent on car repairs?')..."
+            className="w-full h-12 pl-11 pr-28 bg-white text-[#111414] placeholder:text-[#888E8A] text-xs sm:text-sm rounded-xl border border-[#DFDBD1] shadow-xs focus:outline-none focus:border-[#064038] focus:ring-1 focus:ring-[#064038] transition-all"
           />
           <div className="absolute right-2 flex items-center gap-1.5">
             {currentAnalysis && (
@@ -72,14 +71,14 @@ export function AskView({ initialSuggested }: AskViewProps) {
               type="submit"
               size="md"
               disabled={!query.trim() || loading}
-              className="h-10 px-4 text-xs font-semibold"
+              className="h-9 px-4 text-xs font-semibold"
             >
               {loading ? (
-                <div className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
+                <div className="w-3.5 h-3.5 rounded-full border-2 border-white border-t-transparent animate-spin" />
               ) : (
                 <>
-                  <span>Ask</span>
-                  <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                  <span>Query</span>
+                  <ArrowRight className="w-3 h-3 ml-1" />
                 </>
               )}
             </Button>
@@ -87,16 +86,16 @@ export function AskView({ initialSuggested }: AskViewProps) {
         </div>
       </form>
 
-      {/* Loading Skeleton */}
+      {/* Loading State */}
       {loading && (
-        <div className="bg-white rounded-2xl border border-[#D8D5CC] p-6 space-y-4 animate-pulse">
-          <div className="h-5 bg-[#E7E3D8] rounded w-1/4"></div>
-          <div className="h-20 bg-[#E3F0EE]/60 rounded-xl"></div>
+        <div className="bg-white rounded-xl border border-[#DFDBD1] p-6 space-y-4 animate-pulse">
+          <div className="h-4 bg-[#F2EFEB] rounded w-1/4"></div>
+          <div className="h-16 bg-[#E3ECE8]/60 rounded-lg"></div>
           <div className="space-y-2">
-            <div className="h-4 bg-[#E7E3D8] rounded w-3/4"></div>
-            <div className="h-4 bg-[#E7E3D8] rounded w-1/2"></div>
+            <div className="h-3.5 bg-[#F2EFEB] rounded w-3/4"></div>
+            <div className="h-3.5 bg-[#F2EFEB] rounded w-1/2"></div>
           </div>
-          <p className="text-xs text-[#8A8D8A] text-center pt-2">
+          <p className="text-[11px] font-mono text-[#888E8A] text-center pt-2">
             Synthesizing structured records and analyzing context...
           </p>
         </div>

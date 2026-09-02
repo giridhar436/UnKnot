@@ -1,89 +1,137 @@
 @import "tailwindcss";
 
-/* ===========================
-   UnKnot Design System Tokens
-   =========================== */
+/* ======================================================
+   UnKnot Design System Tokens — Editorial & Intelligent
+   Palette: Deep Evergreen + Warm Ivory + Deep Charcoal + Muted Terracotta Accent
+   Typography: Geist Sans + Geist Mono
+   ====================================================== */
 
 :root {
-  /* Core palette */
-  --cyprus: #004643;
-  --cyprus-dark: #003633;
-  --cyprus-soft: #E3F0EE;
-  --sand: #F0EDE5;
-  --sand-light: #F7F5EF;
-  --near-black: #080B10;
-  --dark-gray: #171717;
+  /* Primary: Deep Evergreen */
+  --evergreen: #064038;
+  --evergreen-dark: #032B25;
+  --evergreen-soft: #E3ECE8;
+  --evergreen-muted: #2A5A53;
+
+  /* Legacy aliases for seamless backwards-compatibility */
+  --cyprus: #064038;
+  --cyprus-dark: #032B25;
+  --cyprus-soft: #E3ECE8;
+
+  /* Surfaces & Backgrounds: Warm Ivory & Bone */
+  --ivory: #FAF8F5;
+  --ivory-light: #FDFCFA;
+  --sand: #F2EFEB;
+  --sand-light: #FAF8F5;
+  --surface-bone: #EAE6DE;
+
+  /* Dark: Deep Charcoal */
+  --charcoal: #111414;
+  --charcoal-soft: #1E2323;
+  --near-black: #111414;
+  --dark-gray: #1E2323;
   --white: #FFFFFF;
 
-  /* Semantic colors */
-  --success: #167A5B;
-  --warning: #A66A00;
-  --danger: #B42318;
-  --info: #245B8F;
+  /* Restrained Warm Accent: Muted Terracotta / Copper */
+  --accent-terracotta: #B85D3B;
+  --accent-terracotta-dark: #9E4B2C;
+  --accent-terracotta-soft: #FDF1EC;
+  --accent-terracotta-border: #F0C4B6;
 
-  /* Text */
-  --text-primary: #080B10;
-  --text-secondary: #5F625F;
-  --text-muted: #8A8D8A;
+  /* Semantic status colors */
+  --success: #1D7A58;
+  --success-soft: #EBF7F1;
+  --warning: #B85D3B;
+  --warning-soft: #FDF1EC;
+  --danger: #BA2D25;
+  --danger-soft: #FDF0EE;
+  --info: #23587B;
+  --info-soft: #EDF5FA;
+
+  /* Typography Text Colors */
+  --text-primary: #111414;
+  --text-secondary: #5C615E;
+  --text-muted: #888E8A;
 
   /* Borders */
-  --border: #D8D5CC;
-  --border-strong: #C2BFB6;
+  --border: #DFDBD1;
+  --border-subtle: #E8E5DC;
+  --border-strong: #CCC7BB;
 
   /* Surfaces */
-  --bg-primary: #F7F5EF;
-  --bg-secondary: #F0EDE5;
+  --bg-primary: #FAF8F5;
+  --bg-secondary: #F2EFEB;
   --bg-card: #FFFFFF;
   --bg-elevated: #FFFFFF;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 4px rgba(0,0,0,0.04);
-  --shadow-md: 0 2px 8px rgba(0,0,0,0.06);
-  --shadow-lg: 0 4px 16px rgba(0,0,0,0.08);
+  /* Shadows: restrained and functional, no heavy glowing SaaS blurs */
+  --shadow-xs: 0 1px 2px rgba(17, 20, 20, 0.04);
+  --shadow-sm: 0 1px 4px rgba(17, 20, 20, 0.05);
+  --shadow-md: 0 3px 10px rgba(17, 20, 20, 0.06);
+  --shadow-lg: 0 8px 24px rgba(17, 20, 20, 0.07);
 
-  /* Radius */
-  --radius-sm: 8px;
-  --radius-md: 10px;
-  --radius-lg: 14px;
-  --radius-xl: 20px;
+  /* Radius: restrained and mature */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
   --radius-full: 999px;
 
   /* Transitions */
-  --transition-fast: 150ms ease-out;
-  --transition-normal: 200ms ease-out;
-  --transition-slow: 300ms ease-out;
+  --transition-fast: 120ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-normal: 180ms cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-slow: 260ms cubic-bezier(0.16, 1, 0.3, 1);
 
-  /* Sidebar */
-  --sidebar-width: 240px;
+  /* Application Chrome */
+  --sidebar-width: 248px;
   --sidebar-collapsed: 64px;
-  --topbar-height: 64px;
+  --topbar-height: 60px;
   --bottomnav-height: 64px;
 }
 
 /* Tailwind v4 theme extension */
 @theme inline {
+  --color-evergreen: var(--evergreen);
+  --color-evergreen-dark: var(--evergreen-dark);
+  --color-evergreen-soft: var(--evergreen-soft);
+
   --color-cyprus: var(--cyprus);
   --color-cyprus-dark: var(--cyprus-dark);
   --color-cyprus-soft: var(--cyprus-soft);
+
   --color-sand: var(--sand);
   --color-sand-light: var(--sand-light);
+  --color-ivory: var(--ivory);
+  --color-ivory-light: var(--ivory-light);
+
+  --color-charcoal: var(--charcoal);
   --color-near-black: var(--near-black);
   --color-dark-gray: var(--dark-gray);
+
+  --color-terracotta: var(--accent-terracotta);
+  --color-terracotta-soft: var(--accent-terracotta-soft);
+
   --color-success: var(--success);
   --color-warning: var(--warning);
   --color-danger: var(--danger);
   --color-info: var(--info);
+
   --color-text-primary: var(--text-primary);
   --color-text-secondary: var(--text-secondary);
   --color-text-muted: var(--text-muted);
+
   --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
   --color-border-strong: var(--border-strong);
+
   --color-bg-primary: var(--bg-primary);
   --color-bg-secondary: var(--bg-secondary);
   --color-bg-card: var(--bg-card);
   --color-bg-elevated: var(--bg-elevated);
-  --font-sans: var(--font-inter);
-  --font-mono: var(--font-mono);
+
+  --font-sans: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
 }
 
 /* ===========================
@@ -94,35 +142,48 @@ html {
   height: 100%;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 body {
   min-height: 100%;
   background: var(--bg-primary);
   color: var(--text-primary);
-  font-family: var(--font-inter), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: 15px;
-  line-height: 1.5;
+  font-family: var(--font-sans);
+  font-size: 14.5px;
+  line-height: 1.55;
+  letter-spacing: -0.011em;
 }
 
 /* ===========================
-   Typography
+   Typography Hierarchy
    =========================== */
 
 h1, h2, h3, h4, h5, h6 {
   color: var(--text-primary);
   font-weight: 600;
-  line-height: 1.25;
+  line-height: 1.22;
+  letter-spacing: -0.024em;
 }
 
-h1 { font-size: 2rem; }      /* 32px */
-h2 { font-size: 1.5rem; }    /* 24px */
-h3 { font-size: 1.25rem; }   /* 20px */
-h4 { font-size: 1.125rem; }  /* 18px */
+h1 { font-size: 1.875rem; }   /* 30px */
+h2 { font-size: 1.4rem; }     /* 22.4px */
+h3 { font-size: 1.15rem; }    /* 18.4px */
+h4 { font-size: 1rem; }       /* 16px */
 
 p {
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.58;
+}
+
+/* Geist Mono tabular data */
+.font-mono {
+  font-family: var(--font-mono);
+  font-feature-settings: "tnum" 1;
+}
+
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
 }
 
 /* ===========================
@@ -130,7 +191,7 @@ p {
    =========================== */
 
 :focus-visible {
-  outline: 2px solid var(--cyprus);
+  outline: 2px solid var(--evergreen);
   outline-offset: 2px;
   border-radius: var(--radius-sm);
 }
@@ -140,8 +201,8 @@ p {
    =========================== */
 
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 5px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -154,46 +215,102 @@ p {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--text-muted);
+  background: var(--border-strong);
 }
 
 /* ===========================
-   Safe area (PWA)
+   ChanhDai Component Patterns & Utilities
    =========================== */
 
-@supports (padding-bottom: env(safe-area-inset-bottom)) {
-  :root {
-    --safe-area-bottom: env(safe-area-inset-bottom);
-    --safe-area-top: env(safe-area-inset-top);
-  }
+/* Line Nav / Sliding Tab Indicator */
+.line-nav-item {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  transition: color var(--transition-fast);
+}
+
+.line-nav-item:hover {
+  color: var(--text-primary);
+}
+
+.line-nav-item[data-active="true"] {
+  color: var(--evergreen);
+  font-weight: 600;
+}
+
+.line-nav-item[data-active="true"]::after {
+  content: "";
+  position: absolute;
+  bottom: -1px;
+  left: 0.5rem;
+  right: 0.5rem;
+  height: 2px;
+  background-color: var(--evergreen);
+  border-radius: 999px;
+}
+
+/* Scroll Fade Edge Effect (Inspired by ChanhDai scroll fade) */
+.scroll-fade-x {
+  mask-image: linear-gradient(to right, transparent, black 16px, black calc(100% - 16px), transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 16px, black calc(100% - 16px), transparent);
+}
+
+.scroll-fade-y {
+  mask-image: linear-gradient(to bottom, transparent, black 16px, black calc(100% - 16px), transparent);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 16px, black calc(100% - 16px), transparent);
+}
+
+/* Subtle Shimmer for High-Priority Status Badges */
+@keyframes subtle-shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.badge-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: subtle-shimmer 4s infinite linear;
 }
 
 /* ===========================
-   Utility classes
+   Page & Card Layout Primitives
    =========================== */
 
 .page-container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1240px;
   margin: 0 auto;
-  padding: 1.5rem;
+  padding: 1.5rem 1.25rem;
 }
 
 @media (min-width: 1024px) {
   .page-container {
-    padding: 2rem;
+    padding: 2.25rem 2rem;
   }
-}
-
-.section-title {
-  font-size: 1.125rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  margin-bottom: 1rem;
 }
 
 .card-surface {
   background: var(--bg-card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+}
+
+.card-surface-interactive {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xs);
+  transition: border-color var(--transition-normal), box-shadow var(--transition-normal);
+}
+
+.card-surface-interactive:hover {
+  border-color: var(--border-strong);
+  box-shadow: var(--shadow-sm);
 }

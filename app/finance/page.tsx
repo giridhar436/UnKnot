@@ -1,10 +1,6 @@
 import * as React from "react";
 import Link from "next/link";
-import {
-  TrendingUp,
-  Receipt,
-  ArrowRight,
-} from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import {
   getExpenses,
   getInvestments,
@@ -27,29 +23,29 @@ export default async function FinancePage() {
   return (
     <div className="page-container space-y-8">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#D8D5CC]">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-[#DFDBD1]">
         <div>
-          <h1 className="text-2xl font-bold text-[#080B10]">
-            Financial Overview
+          <h1 className="text-2xl font-bold tracking-tight text-[#111414]">
+            Financial Context
           </h1>
-          <p className="text-xs sm:text-sm text-[#5F625F] mt-1">
-            Structured records of your expenses, active investments, and upcoming obligations.
+          <p className="text-xs sm:text-sm text-[#5C615E] mt-0.5">
+            Strict separation between everyday outflows, active investments, and upcoming obligations.
           </p>
         </div>
 
         <Link
           href="/investments"
-          className="text-xs font-semibold text-[#004643] hover:underline flex items-center gap-1.5 min-h-[44px]"
+          className="text-xs font-semibold text-[#064038] hover:underline flex items-center gap-1.5 min-h-[44px]"
         >
-          <span>View Dedicated Investments View</span>
-          <ArrowRight className="w-4 h-4" />
+          <span>Dedicated Investments View</span>
+          <ArrowRight className="w-3.5 h-3.5" />
         </Link>
       </div>
 
       {/* Top Metrics Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <div className="p-5 bg-white rounded-xl border border-[#D8D5CC] space-y-1.5 shadow-xs">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#5F625F] block">
+        <div className="p-4 sm:p-5 bg-white rounded-xl border border-[#DFDBD1] space-y-1.5 shadow-xs">
+          <span className="text-[10px] font-mono font-medium uppercase tracking-wider text-[#5C615E] block">
             Recorded Outflow (Aug)
           </span>
           <div>
@@ -59,14 +55,14 @@ export default async function FinancePage() {
               trend="expense"
             />
           </div>
-          <span className="text-[11px] text-[#5F625F] block">
-            {expenses.length} tracked items
+          <span className="text-[11px] text-[#5C615E] block font-mono">
+            {expenses.length} tracked items &bull; Everyday spending
           </span>
         </div>
 
-        <div className="p-5 bg-white rounded-xl border border-[#D8D5CC] space-y-1.5 shadow-xs">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#5F625F] block">
-            Active Investments Recorded
+        <div className="p-4 sm:p-5 bg-white rounded-xl border border-[#DFDBD1] space-y-1.5 shadow-xs">
+          <span className="text-[10px] font-mono font-medium uppercase tracking-wider text-[#5C615E] block">
+            Active Investments (Assets)
           </span>
           <div>
             <AmountDisplay
@@ -75,39 +71,36 @@ export default async function FinancePage() {
               trend="investment"
             />
           </div>
-          <span className="text-[11px] text-[#167A5B] block font-medium">
-            {investments.length} verified investment accounts
+          <span className="text-[11px] text-[#064038] block font-mono font-medium">
+            {investments.length} verified asset holdings
           </span>
         </div>
 
-        <div className="p-5 bg-white rounded-xl border border-[#D8D5CC] space-y-1.5 shadow-xs">
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#5F625F] block">
-            Upcoming Dues &amp; Bills
+        <div className="p-4 sm:p-5 bg-white rounded-xl border border-[#DFDBD1] space-y-1.5 shadow-xs">
+          <span className="text-[10px] font-mono font-medium uppercase tracking-wider text-[#5C615E] block">
+            Upcoming Due Obligations
           </span>
           <div>
             <AmountDisplay
               amount={upcomingPayments.reduce((sum, p) => sum + p.amount, 0)}
               size="xl"
-              trend="neutral"
+              trend="terracotta"
             />
           </div>
-          <span className="text-[11px] text-[#5F625F] block">
+          <span className="text-[11px] text-[#5C615E] block font-mono">
             {upcomingPayments.length} upcoming dues
           </span>
         </div>
       </div>
 
       {/* Section 1: Active Investments */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <div>
-            <h2 className="text-base font-semibold text-[#080B10] flex items-center gap-2">
-              <TrendingUp className="w-4 h-4 text-[#004643]" />
-              <span>Active Investments ({investments.length})</span>
+      <div className="space-y-3">
+        <div className="flex items-center justify-between pb-1 border-b border-[#DFDBD1]/60">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#064038]"></span>
+            <h2 className="text-xs font-mono font-bold uppercase tracking-wider text-[#111414]">
+              Active Investments &bull; Assets ({investments.length})
             </h2>
-            <p className="text-xs text-[#5F625F] mt-0.5">
-              Extracted facts from your statements and deposit certificates.
-            </p>
           </div>
         </div>
 
@@ -119,30 +112,32 @@ export default async function FinancePage() {
       </div>
 
       {/* Section 2: Recent Expenses List */}
-      <div className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-base font-semibold text-[#080B10] flex items-center gap-2">
-            <Receipt className="w-4 h-4 text-[#004643]" />
-            <span>Tracked Purchases &amp; Expenses</span>
-          </h2>
+      <div className="space-y-3">
+        <div className="flex items-center justify-between pb-1 border-b border-[#DFDBD1]/60">
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#111414]"></span>
+            <h2 className="text-xs font-mono font-bold uppercase tracking-wider text-[#111414]">
+              Tracked Purchases &amp; Expenses ({expenses.length})
+            </h2>
+          </div>
         </div>
 
-        <div className="bg-white rounded-xl border border-[#D8D5CC] divide-y divide-[#F0EDE5] overflow-hidden shadow-xs">
+        <div className="bg-white rounded-xl border border-[#DFDBD1] divide-y divide-[#DFDBD1]/60 overflow-hidden shadow-xs">
           {expenses.map((exp) => (
             <div
               key={exp.id}
-              className="p-4 flex items-center justify-between gap-4 hover:bg-[#F7F5EF]/50 transition-colors"
+              className="p-3.5 sm:p-4 flex items-center justify-between gap-4 hover:bg-[#FAF8F5] transition-colors"
             >
               <div className="space-y-0.5 min-w-0">
                 <div className="flex items-center gap-2 flex-wrap">
-                  <span className="text-sm font-semibold text-[#080B10] truncate">
+                  <span className="text-xs sm:text-sm font-semibold text-[#111414] truncate">
                     {exp.title}
                   </span>
-                  <Badge size="sm" variant="default">
+                  <Badge size="xs" variant="default">
                     {exp.category}
                   </Badge>
                 </div>
-                <p className="text-xs text-[#5F625F] font-mono">
+                <p className="text-[11px] text-[#5C615E] font-mono">
                   Date: {formatDate(exp.date)}
                 </p>
               </div>
@@ -152,7 +147,7 @@ export default async function FinancePage() {
                 {exp.documentId && (
                   <Link
                     href={`/documents/${exp.documentId}`}
-                    className="text-[11px] text-[#004643] hover:underline font-medium block mt-0.5"
+                    className="text-[11px] text-[#064038] hover:underline font-medium block mt-0.5"
                   >
                     View receipt &rarr;
                   </Link>

@@ -38,11 +38,11 @@ export function AppShell({ children }: AppShellProps) {
     pathname === "/forgot-password";
 
   if (isPublicRoute) {
-    return <div className="min-h-screen bg-[#F7F5EF] text-[#080B10] flex flex-col">{children}</div>;
+    return <div className="min-h-screen bg-[#FAF8F5] text-[#111414] flex flex-col">{children}</div>;
   }
 
   return (
-    <div className="min-h-screen flex bg-[#F7F5EF] text-[#080B10]">
+    <div className="min-h-screen flex bg-[#FAF8F5] text-[#111414]">
       {/* Desktop Sidebar */}
       <Sidebar onOpenUpload={() => setIsUploadOpen(true)} />
 
@@ -57,11 +57,12 @@ export function AppShell({ children }: AppShellProps) {
 
       {/* Mobile Floating Action Button */}
       <button
+        type="button"
         onClick={() => setIsUploadOpen(true)}
-        className="lg:hidden fixed right-5 bottom-20 z-40 w-14 h-14 rounded-full bg-[#004643] text-white shadow-lg flex items-center justify-center cursor-pointer hover:bg-[#003633] active:scale-95 transition-all"
+        className="lg:hidden fixed right-5 bottom-20 z-40 w-12 h-12 rounded-full bg-[#064038] text-white shadow-md flex items-center justify-center cursor-pointer hover:bg-[#032B25] active:scale-95 transition-all"
         aria-label="Add record"
       >
-        <Plus className="w-6 h-6" />
+        <Plus className="w-5 h-5" />
       </button>
 
       {/* Mobile Bottom Navigation */}
@@ -71,43 +72,45 @@ export function AppShell({ children }: AppShellProps) {
       {isMoreMenuOpen && (
         <div className="fixed inset-0 z-50 lg:hidden">
           <div
-            className="fixed inset-0 bg-black/40 backdrop-blur-[1px]"
+            className="fixed inset-0 bg-black/30 backdrop-blur-[1px]"
             onClick={() => setIsMoreMenuOpen(false)}
           />
-          <div className="fixed bottom-0 left-0 right-0 bg-[#F0EDE5] rounded-t-2xl border-t border-[#D8D5CC] p-6 pb-10 shadow-2xl z-10 space-y-4">
-            <div className="flex items-center justify-between border-b border-[#D8D5CC] pb-3">
-              <span className="font-semibold text-base text-[#080B10]">
+          <div className="fixed bottom-0 left-0 right-0 bg-[#FAF8F5] rounded-t-2xl border-t border-[#DFDBD1] p-6 pb-10 shadow-xl z-10 space-y-4">
+            <div className="flex items-center justify-between border-b border-[#DFDBD1] pb-3">
+              <span className="font-semibold text-sm text-[#111414]">
                 More Destinations
               </span>
               <button
+                type="button"
                 onClick={() => setIsMoreMenuOpen(false)}
-                className="p-1 text-[#5F625F] rounded-lg"
+                className="p-1 text-[#5C615E] hover:text-[#111414] rounded-lg"
+                aria-label="Close drawer"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
-            <div className="grid grid-cols-1 gap-2">
+            <div className="grid grid-cols-1 gap-2 text-xs">
               <Link
                 href="/categories"
-                className="flex items-center gap-3 p-3 bg-white rounded-xl border border-[#D8D5CC] text-sm font-medium text-[#080B10]"
+                className="flex items-center gap-3 p-3 bg-white rounded-xl border border-[#DFDBD1] font-medium text-[#111414] hover:border-[#064038]/40"
               >
-                <FolderTree className="w-5 h-5 text-[#004643]" />
-                <span>Categories</span>
+                <FolderTree className="w-4 h-4 text-[#064038]" />
+                <span>Categories &amp; Domains</span>
               </Link>
               <Link
                 href="/reminders"
-                className="flex items-center gap-3 p-3 bg-white rounded-xl border border-[#D8D5CC] text-sm font-medium text-[#080B10]"
+                className="flex items-center gap-3 p-3 bg-white rounded-xl border border-[#DFDBD1] font-medium text-[#111414] hover:border-[#064038]/40"
               >
-                <CalendarClock className="w-5 h-5 text-[#004643]" />
-                <span>Reminders & Important Dates</span>
+                <CalendarClock className="w-4 h-4 text-[#064038]" />
+                <span>Reminders &amp; Important Dates</span>
               </Link>
               <Link
                 href="/settings"
-                className="flex items-center gap-3 p-3 bg-white rounded-xl border border-[#D8D5CC] text-sm font-medium text-[#080B10]"
+                className="flex items-center gap-3 p-3 bg-white rounded-xl border border-[#DFDBD1] font-medium text-[#111414] hover:border-[#064038]/40"
               >
-                <Settings className="w-5 h-5 text-[#004643]" />
-                <span>Settings & Profile</span>
+                <Settings className="w-4 h-4 text-[#064038]" />
+                <span>Settings &amp; Profile</span>
               </Link>
             </div>
           </div>

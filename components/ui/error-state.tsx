@@ -18,8 +18,8 @@ export function ErrorState({
       <div className="w-12 h-12 rounded-full bg-[#FEECEC] flex items-center justify-center text-[#B42318] mb-4">
         <AlertCircle className="w-6 h-6" />
       </div>
-      <h3 className="text-base font-semibold text-[#080B10] mb-1">{title}</h3>
-      <p className="text-xs text-[#5F625F] max-w-sm mb-6 leading-relaxed">
+      <h3 className="text-base font-semibold text-[#111414] mb-1">{title}</h3>
+      <p className="text-xs text-[#5A605C] max-w-sm mb-6 leading-relaxed">
         {message}
       </p>
       {onRetry && (
@@ -39,13 +39,13 @@ export function LoadingState({
 }) {
   return (
     <div className="space-y-4 p-6 animate-pulse">
-      <div className="h-6 bg-[#E7E3D8] rounded w-1/3"></div>
+      <div className="h-6 bg-[#EAE6DE] rounded w-1/3"></div>
       <div className="space-y-2">
-        <div className="h-4 bg-[#E7E3D8] rounded"></div>
-        <div className="h-4 bg-[#E7E3D8] rounded w-5/6"></div>
-        <div className="h-4 bg-[#E7E3D8] rounded w-4/6"></div>
+        <div className="h-4 bg-[#EAE6DE] rounded"></div>
+        <div className="h-4 bg-[#EAE6DE] rounded w-5/6"></div>
+        <div className="h-4 bg-[#EAE6DE] rounded w-4/6"></div>
       </div>
-      <p className="text-xs text-[#8A8D8A] text-center pt-2">{text}</p>
+      <p className="text-xs font-mono text-[#888E8A] text-center pt-2">{text}</p>
     </div>
   );
 }

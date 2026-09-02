@@ -106,15 +106,15 @@ export function UploadModal({ isOpen, onClose }: UploadModalProps) {
       {step === "select" && (
         <div className="space-y-6">
           {/* Mode Selector */}
-          <div className="grid grid-cols-3 gap-2 p-1 bg-[#F0EDE5] rounded-xl border border-[#D8D5CC]">
+          <div className="grid grid-cols-3 gap-2 p-1 bg-[#F2EFEB] rounded-xl border border-[#DFDBD1]">
             <button
               type="button"
               onClick={() => setMode("image")}
               className={cn(
                 "flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-semibold transition-all min-h-[44px]",
                 mode === "image"
-                  ? "bg-[#004643] text-white shadow-sm"
-                  : "text-[#080B10] hover:bg-white/50"
+                  ? "bg-[#064038] text-white shadow-xs"
+                  : "text-[#111414] hover:bg-white/50"
               )}
             >
               <ImageIcon className="w-4 h-4" />
@@ -127,8 +127,8 @@ export function UploadModal({ isOpen, onClose }: UploadModalProps) {
               className={cn(
                 "flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-semibold transition-all min-h-[44px]",
                 mode === "pdf"
-                  ? "bg-[#004643] text-white shadow-sm"
-                  : "text-[#080B10] hover:bg-white/50"
+                  ? "bg-[#064038] text-white shadow-xs"
+                  : "text-[#111414] hover:bg-white/50"
               )}
             >
               <FileText className="w-4 h-4" />
@@ -141,8 +141,8 @@ export function UploadModal({ isOpen, onClose }: UploadModalProps) {
               className={cn(
                 "flex items-center justify-center gap-2 py-2.5 px-3 rounded-lg text-xs font-semibold transition-all min-h-[44px]",
                 mode === "text"
-                  ? "bg-[#004643] text-white shadow-sm"
-                  : "text-[#080B10] hover:bg-white/50"
+                  ? "bg-[#064038] text-white shadow-xs"
+                  : "text-[#111414] hover:bg-white/50"
               )}
             >
               <AlignLeft className="w-4 h-4" />
@@ -155,15 +155,15 @@ export function UploadModal({ isOpen, onClose }: UploadModalProps) {
             <div className="space-y-4">
               <div
                 onClick={() => handleMockUpload("image")}
-                className="border-2 border-dashed border-[#004643]/30 hover:border-[#004643] bg-[#F7F5EF] rounded-xl p-8 text-center cursor-pointer transition-all hover:bg-[#E3F0EE]/30 flex flex-col items-center justify-center"
+                className="border-2 border-dashed border-[#064038]/30 hover:border-[#064038] bg-[#FAF8F5] rounded-xl p-8 text-center cursor-pointer transition-all hover:bg-[#E3ECE8]/30 flex flex-col items-center justify-center"
               >
-                <div className="w-12 h-12 rounded-full bg-[#E3F0EE] text-[#004643] flex items-center justify-center mb-3">
+                <div className="w-12 h-12 rounded-full bg-[#E3ECE8] text-[#064038] flex items-center justify-center mb-3">
                   <Upload className="w-6 h-6" />
                 </div>
-                <p className="text-sm font-semibold text-[#080B10]">
+                <p className="text-sm font-semibold text-[#111414]">
                   Click to upload receipt or photo
                 </p>
-                <p className="text-xs text-[#5F625F] mt-1">
+                <p className="text-xs text-[#5A605C] mt-1">
                   Supports JPG, PNG, WEBP up to 10MB
                 </p>
               </div>
@@ -174,7 +174,7 @@ export function UploadModal({ isOpen, onClose }: UploadModalProps) {
                   onClick={() => handleMockUpload("image")}
                   className="w-full"
                 >
-                  <Camera className="w-4 h-4 mr-2 text-[#004643]" />
+                  <Camera className="w-4 h-4 mr-2 text-[#064038]" />
                   Take Photo
                 </Button>
                 <Button
@@ -182,7 +182,7 @@ export function UploadModal({ isOpen, onClose }: UploadModalProps) {
                   onClick={() => handleMockUpload("image")}
                   className="w-full"
                 >
-                  <ImageIcon className="w-4 h-4 mr-2 text-[#004643]" />
+                  <ImageIcon className="w-4 h-4 mr-2 text-[#064038]" />
                   Choose Image
                 </Button>
               </div>
@@ -193,15 +193,15 @@ export function UploadModal({ isOpen, onClose }: UploadModalProps) {
             <div className="space-y-4">
               <div
                 onClick={() => handleMockUpload("pdf")}
-                className="border-2 border-dashed border-[#004643]/30 hover:border-[#004643] bg-[#F7F5EF] rounded-xl p-8 text-center cursor-pointer transition-all hover:bg-[#E3F0EE]/30 flex flex-col items-center justify-center"
+                className="border-2 border-dashed border-[#064038]/30 hover:border-[#064038] bg-[#FAF8F5] rounded-xl p-8 text-center cursor-pointer transition-all hover:bg-[#E3ECE8]/30 flex flex-col items-center justify-center"
               >
-                <div className="w-12 h-12 rounded-full bg-[#E3F0EE] text-[#004643] flex items-center justify-center mb-3">
+                <div className="w-12 h-12 rounded-full bg-[#E3ECE8] text-[#064038] flex items-center justify-center mb-3">
                   <FileText className="w-6 h-6" />
                 </div>
-                <p className="text-sm font-semibold text-[#080B10]">
+                <p className="text-sm font-semibold text-[#111414]">
                   Click to select PDF document
                 </p>
-                <p className="text-xs text-[#5F625F] mt-1">
+                <p className="text-xs text-[#5A605C] mt-1">
                   Invoices, statements, warranty cards, policies
                 </p>
               </div>
@@ -219,14 +219,14 @@ export function UploadModal({ isOpen, onClose }: UploadModalProps) {
           {mode === "text" && (
             <form onSubmit={handleTextSubmit} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-[#080B10] uppercase tracking-wider mb-2">
+                <label className="block text-xs font-semibold text-[#111414] uppercase tracking-wider mb-2">
                   Paste or type information
                 </label>
                 <textarea
                   value={textInput}
                   onChange={(e) => setTextInput(e.target.value)}
                   placeholder="e.g. Bought Dell Laptop for ₹72,000 on 15 March 2024 with 2 years warranty until 15 Mar 2026."
-                  className="w-full h-32 p-3 text-sm bg-white text-[#080B10] placeholder:text-[#8A8D8A] rounded-lg border border-[#D8D5CC] focus:outline-none focus:border-[#004643] focus:ring-1 focus:ring-[#004643] resize-none"
+                  className="w-full h-32 p-3 text-sm bg-white text-[#111414] placeholder:text-[#888E8A] rounded-lg border border-[#DFDBD1] focus:outline-none focus:border-[#064038] focus:ring-1 focus:ring-[#064038] resize-none"
                 />
               </div>
               <Button
@@ -243,15 +243,15 @@ export function UploadModal({ isOpen, onClose }: UploadModalProps) {
 
       {step === "processing" && (
         <div className="py-4 space-y-6">
-          <div className="flex items-center gap-3 p-3 bg-[#F0EDE5] rounded-xl border border-[#D8D5CC]">
-            <div className="w-10 h-10 rounded-lg bg-[#004643] text-white flex items-center justify-center text-xs font-bold">
+          <div className="flex items-center gap-3 p-3 bg-[#F2EFEB] rounded-xl border border-[#DFDBD1]">
+            <div className="w-10 h-10 rounded-lg bg-[#064038] text-white flex items-center justify-center text-xs font-bold">
               {mode === "pdf" ? "PDF" : mode === "image" ? "IMG" : "TXT"}
             </div>
             <div className="flex-1 min-w-0">
-              <p className="text-sm font-semibold text-[#080B10] truncate">
+              <p className="text-sm font-semibold text-[#111414] truncate">
                 {selectedFile}
               </p>
-              <p className="text-xs text-[#5F625F]">
+              <p className="text-xs text-[#5A605C]">
                 Asynchronous extraction pipeline
               </p>
             </div>
@@ -268,9 +268,9 @@ export function UploadModal({ isOpen, onClose }: UploadModalProps) {
                   {isCompleted ? (
                     <CheckCircle2 className="w-5 h-5 text-[#167A5B] flex-shrink-0" />
                   ) : isActive ? (
-                    <div className="w-5 h-5 rounded-full border-2 border-[#004643] border-t-transparent animate-spin flex-shrink-0" />
+                    <div className="w-5 h-5 rounded-full border-2 border-[#064038] border-t-transparent animate-spin flex-shrink-0" />
                   ) : (
-                    <div className="w-5 h-5 rounded-full border border-[#D8D5CC] flex-shrink-0" />
+                    <div className="w-5 h-5 rounded-full border border-[#DFDBD1] flex-shrink-0" />
                   )}
                   <span
                     className={cn(
@@ -278,8 +278,8 @@ export function UploadModal({ isOpen, onClose }: UploadModalProps) {
                       isCompleted
                         ? "text-[#167A5B] font-medium"
                         : isActive
-                        ? "text-[#080B10] font-semibold"
-                        : "text-[#8A8D8A]"
+                        ? "text-[#111414] font-semibold"
+                        : "text-[#888E8A]"
                     )}
                   >
                     {isCompleted ? stage.doneText : stage.label}
@@ -293,13 +293,13 @@ export function UploadModal({ isOpen, onClose }: UploadModalProps) {
 
       {step === "completed" && (
         <div className="py-2 space-y-5">
-          <div className="p-4 bg-[#EBF7F2] border border-[#167A5B]/20 rounded-xl flex items-start gap-3">
+          <div className="p-4 bg-[#E3F3EC] border border-[#167A5B]/20 rounded-xl flex items-start gap-3">
             <CheckCircle2 className="w-5 h-5 text-[#167A5B] flex-shrink-0 mt-0.5" />
             <div>
-              <p className="text-sm font-semibold text-[#080B10]">
+              <p className="text-sm font-semibold text-[#111414]">
                 Extracted & Categorized Successfully
               </p>
-              <p className="text-xs text-[#5F625F] mt-0.5">
+              <p className="text-xs text-[#5A605C] mt-0.5">
                 The document was processed, entities connected, and added to your
                 knowledge base.
               </p>
@@ -307,31 +307,31 @@ export function UploadModal({ isOpen, onClose }: UploadModalProps) {
           </div>
 
           {/* Extracted Preview */}
-          <div className="bg-[#F7F5EF] p-4 rounded-xl border border-[#D8D5CC] space-y-2.5">
+          <div className="bg-[#FAF8F5] p-4 rounded-xl border border-[#DFDBD1] space-y-2.5">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold text-[#080B10]">
+              <span className="text-xs font-semibold text-[#111414]">
                 Extracted Summary
               </span>
               <Badge variant="brand">Purchase</Badge>
             </div>
             <div className="grid grid-cols-2 gap-2 text-xs pt-1">
               <div>
-                <span className="text-[#5F625F] block">Product</span>
-                <span className="font-semibold text-[#080B10]">
+                <span className="text-[#5A605C] block">Product</span>
+                <span className="font-semibold text-[#111414]">
                   Samsung Galaxy S25
                 </span>
               </div>
               <div>
-                <span className="text-[#5F625F] block">Amount</span>
-                <span className="font-semibold text-[#080B10]">₹79,999</span>
+                <span className="text-[#5A605C] block">Amount</span>
+                <span className="font-semibold text-[#111414]">₹79,999</span>
               </div>
               <div>
-                <span className="text-[#5F625F] block">Document Date</span>
-                <span className="font-semibold text-[#080B10]">12 Aug 2026</span>
+                <span className="text-[#5A605C] block">Document Date</span>
+                <span className="font-semibold text-[#111414]">12 Aug 2026</span>
               </div>
               <div>
-                <span className="text-[#5F625F] block">Warranty Expiry</span>
-                <span className="font-semibold text-[#080B10]">12 Aug 2027</span>
+                <span className="text-[#5A605C] block">Warranty Expiry</span>
+                <span className="font-semibold text-[#111414]">12 Aug 2027</span>
               </div>
             </div>
           </div>

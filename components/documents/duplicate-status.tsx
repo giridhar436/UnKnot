@@ -18,11 +18,11 @@ export function DuplicateStatus({ status }: DuplicateStatusProps) {
 
   if (status === "possible") {
     return (
-      <div className="flex items-start gap-2.5 text-xs text-[#A66A00] bg-[#FEF7EA] border border-[#A66A00]/20 p-3 rounded-lg">
+      <div className="flex items-start gap-2.5 text-xs text-[#B07219] bg-[#F9F1E2] border border-[#B07219]/25 p-3 rounded-lg">
         <AlertTriangle className="w-4 h-4 flex-shrink-0 mt-0.5" />
         <div>
           <span className="font-semibold block">Possible Duplicate Record</span>
-          <span className="text-[#5F625F] text-[11px] block mt-0.5">
+          <span className="text-[#5A605C] text-[11px] block mt-0.5">
             A similar merchant or amount was found in another document. No automatic deletion occurs.
           </span>
         </div>
@@ -31,11 +31,11 @@ export function DuplicateStatus({ status }: DuplicateStatusProps) {
   }
 
   return (
-    <div className="flex items-start gap-2.5 text-xs text-[#B42318] bg-[#FEECEC] border border-[#B42318]/20 p-3 rounded-lg">
+    <div className="flex items-start gap-2.5 text-xs text-[#B42318] bg-[#FDE8E8] border border-[#B42318]/25 p-3 rounded-lg">
       <AlertOctagon className="w-4 h-4 flex-shrink-0 mt-0.5" />
       <div>
         <span className="font-semibold block">High-Confidence Duplicate</span>
-        <span className="text-[#5F625F] text-[11px] block mt-0.5">
+        <span className="text-[#5A605C] text-[11px] block mt-0.5">
           Identical invoice number and date found. Please verify which document is the primary record.
         </span>
       </div>

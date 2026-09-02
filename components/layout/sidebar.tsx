@@ -11,7 +11,7 @@ import {
   Wallet,
   CalendarClock,
   Settings,
-  PlusCircle,
+  Plus,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -33,31 +33,32 @@ export function Sidebar({ onOpenUpload }: SidebarProps) {
   const pathname = usePathname();
 
   return (
-    <aside className="hidden lg:flex flex-col w-60 bg-[#F0EDE5] border-r border-[#D8D5CC] h-screen sticky top-0 select-none z-30">
+    <aside className="hidden lg:flex flex-col w-60 bg-[#F2EFEB] border-r border-[#DFDBD1] h-screen sticky top-0 select-none z-30">
       {/* Brand Header */}
-      <div className="h-16 px-6 flex items-center justify-between border-b border-[#D8D5CC]">
+      <div className="h-16 px-5 flex items-center justify-between border-b border-[#DFDBD1]">
         <Link href="/dashboard" className="flex items-center gap-2.5 group">
-          <div className="w-8 h-8 rounded-lg bg-[#004643] text-white flex items-center justify-center font-bold text-base shadow-sm group-hover:bg-[#003633] transition-colors">
+          <div className="w-7 h-7 rounded-lg bg-[#064038] text-white flex items-center justify-center font-bold text-xs shadow-xs group-hover:bg-[#032B25] transition-colors">
             U
           </div>
           <div>
-            <span className="font-semibold text-lg tracking-tight text-[#080B10]">
+            <span className="font-semibold text-base tracking-tight text-[#111414] block leading-none">
               UnKnot
             </span>
-            <span className="block text-[10px] text-[#5F625F] -mt-1 font-medium tracking-wide">
+            <span className="text-[9px] text-[#888E8A] font-mono font-medium tracking-widest uppercase">
               DECISION UTILITY
             </span>
           </div>
         </Link>
       </div>
 
-      {/* Quick Add Button */}
-      <div className="px-4 py-4">
+      {/* Primary Add Action */}
+      <div className="px-3.5 py-3.5">
         <button
+          type="button"
           onClick={onOpenUpload}
-          className="w-full flex items-center justify-center gap-2 h-10 px-4 rounded-lg bg-[#004643] text-white text-sm font-medium hover:bg-[#003633] transition-colors shadow-sm cursor-pointer"
+          className="w-full flex items-center justify-center gap-2 h-10 px-4 rounded-lg bg-[#064038] text-white text-xs font-semibold hover:bg-[#032B25] transition-colors shadow-xs cursor-pointer active:scale-[0.985]"
         >
-          <PlusCircle className="w-4 h-4" />
+          <Plus className="w-4 h-4" />
           <span>Add Record</span>
         </button>
       </div>
@@ -75,16 +76,16 @@ export function Sidebar({ onOpenUpload }: SidebarProps) {
               key={item.name}
               href={item.href}
               className={cn(
-                "flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors",
+                "flex items-center gap-3 px-3 py-2 rounded-lg text-xs font-medium transition-colors",
                 isActive
-                  ? "bg-[#004643] text-white shadow-sm font-semibold"
-                  : "text-[#080B10] hover:bg-[#E7E3D8] hover:text-[#080B10]"
+                  ? "bg-[#064038] text-white shadow-xs font-semibold"
+                  : "text-[#111414] hover:bg-[#EAE6DE]"
               )}
             >
               <Icon
                 className={cn(
                   "w-4 h-4",
-                  isActive ? "text-white" : "text-[#5F625F]"
+                  isActive ? "text-white" : "text-[#5C615E]"
                 )}
               />
               <span>{item.name}</span>
@@ -94,31 +95,31 @@ export function Sidebar({ onOpenUpload }: SidebarProps) {
       </nav>
 
       {/* Footer Profile Snippet */}
-      <div className="p-4 border-t border-[#D8D5CC] space-y-2">
-        <div className="flex items-center gap-3 p-2 rounded-lg bg-white/60 border border-[#D8D5CC]/60">
-          <div className="w-8 h-8 rounded-full bg-[#004643] text-white flex items-center justify-center text-xs font-semibold">
+      <div className="p-3.5 border-t border-[#DFDBD1] space-y-2">
+        <div className="flex items-center gap-2.5 p-2 rounded-lg bg-white/80 border border-[#DFDBD1]/80 shadow-xs">
+          <div className="w-7 h-7 rounded-full bg-[#064038] text-white flex items-center justify-center text-xs font-semibold">
             G
           </div>
           <div className="flex-1 min-w-0">
-            <p className="text-xs font-medium text-[#080B10] truncate">
+            <p className="text-xs font-semibold text-[#111414] truncate leading-tight">
               Giridhar
             </p>
-            <p className="text-[10px] text-[#5F625F] truncate">
+            <p className="text-[10px] text-[#5C615E] font-mono truncate">
               Demo Session
             </p>
           </div>
         </div>
 
-        <div className="flex items-center justify-between px-1 text-[11px]">
+        <div className="flex items-center justify-between px-1 text-[11px] font-mono">
           <Link
             href="/settings"
-            className="text-[#5F625F] hover:text-[#080B10] transition-colors"
+            className="text-[#5C615E] hover:text-[#111414] transition-colors"
           >
             Settings
           </Link>
           <Link
             href="/login"
-            className="text-[#B42318] hover:underline font-medium"
+            className="text-[#BA2D25] hover:underline font-medium"
           >
             Sign out
           </Link>

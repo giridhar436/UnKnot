@@ -27,7 +27,7 @@ export function MobileBottomNav({ onOpenMenu }: MobileBottomNavProps) {
   const pathname = usePathname();
 
   return (
-    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#F0EDE5] border-t border-[#D8D5CC] pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-1 px-2 shadow-[0_-2px_8px_rgba(0,0,0,0.05)]">
+    <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-[#F2EFEB]/95 backdrop-blur-md border-t border-[#DFDBD1] pb-[max(env(safe-area-inset-bottom),0.5rem)] pt-1 px-2 shadow-xs">
       <div className="grid grid-cols-5 items-center justify-around h-14">
         {mobileItems.map((item) => {
           const Icon = item.icon;
@@ -42,23 +42,25 @@ export function MobileBottomNav({ onOpenMenu }: MobileBottomNavProps) {
               className={cn(
                 "flex flex-col items-center justify-center min-h-[44px] py-1 rounded-lg transition-colors",
                 isActive
-                  ? "text-[#004643] font-semibold"
-                  : "text-[#5F625F] hover:text-[#080B10]"
+                  ? "text-[#064038] font-semibold"
+                  : "text-[#5C615E] hover:text-[#111414]"
               )}
             >
-              <Icon className={cn("w-5 h-5", isActive && "stroke-[2.5px]")} />
-              <span className="text-[11px] mt-1">{item.name}</span>
+              <Icon className={cn("w-4 h-4", isActive && "stroke-[2.5px]")} />
+              <span className="text-[10.5px] mt-1">{item.name}</span>
             </Link>
           );
         })}
 
         {/* More Menu trigger */}
         <button
+          type="button"
           onClick={onOpenMenu}
-          className="flex flex-col items-center justify-center min-h-[44px] py-1 rounded-lg text-[#5F625F] hover:text-[#080B10] transition-colors cursor-pointer"
+          className="flex flex-col items-center justify-center min-h-[44px] py-1 rounded-lg text-[#5C615E] hover:text-[#111414] transition-colors cursor-pointer"
+          aria-label="Open more navigation options"
         >
-          <Menu className="w-5 h-5" />
-          <span className="text-[11px] mt-1">More</span>
+          <Menu className="w-4 h-4" />
+          <span className="text-[10.5px] mt-1">More</span>
         </button>
       </div>
     </nav>
