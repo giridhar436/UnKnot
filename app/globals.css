@@ -143,8 +143,6 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  /* PWA: Prevent overscroll bounce on iOS */
-  overscroll-behavior: none;
 }
 
 body {
@@ -155,22 +153,6 @@ body {
   font-size: 14.5px;
   line-height: 1.55;
   letter-spacing: -0.011em;
-  /* PWA: Prevent overscroll */
-  overscroll-behavior-y: contain;
-}
-
-/* PWA: Standalone mode adjustments */
-@media (display-mode: standalone) {
-  body {
-    /* Account for status bar in standalone mode */
-    padding-top: env(safe-area-inset-top, 0px);
-  }
-}
-
-/* Prevent horizontal overflow globally */
-html, body {
-  overflow-x: hidden;
-  max-width: 100%;
 }
 
 /* ===========================
@@ -304,13 +286,7 @@ p {
   width: 100%;
   max-width: 1240px;
   margin: 0 auto;
-  padding: 1rem 1rem;
-}
-
-@media (min-width: 640px) {
-  .page-container {
-    padding: 1.25rem 1.25rem;
-  }
+  padding: 1.5rem 1.25rem;
 }
 
 @media (min-width: 1024px) {

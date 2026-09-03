@@ -64,25 +64,23 @@ export function AskView({ initialSuggested }: AskViewProps) {
         }}
         className="space-y-3"
       >
-        <div className="flex flex-col sm:flex-row gap-2">
-          <div className="relative flex-1">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-[#888E8A] pointer-events-none" />
-            <input
-              type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="Ask about your records..."
-              className="w-full h-12 pl-11 pr-4 bg-white text-[#111414] placeholder:text-[#888E8A] text-sm rounded-xl border border-[#DFDBD1] shadow-xs focus:outline-none focus:border-[#064038] focus:ring-1 focus:ring-[#064038] transition-all"
-            />
-          </div>
-          <div className="flex items-center gap-2">
+        <div className="relative flex items-center">
+          <Search className="absolute left-4 w-4 h-4 text-[#888E8A] pointer-events-none" />
+          <input
+            type="text"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Ask a decision query across your records (e.g., 'When is my warranty expiring?', 'How much spent on car repairs?')..."
+            className="w-full h-12 pl-11 pr-28 bg-white text-[#111414] placeholder:text-[#888E8A] text-xs sm:text-sm rounded-xl border border-[#DFDBD1] shadow-xs focus:outline-none focus:border-[#064038] focus:ring-1 focus:ring-[#064038] transition-all"
+          />
+          <div className="absolute right-2 flex items-center gap-1.5">
             {currentAnalysis && (
               <Button
                 type="button"
                 variant="ghost"
                 size="sm"
                 onClick={handleClear}
-                className="text-xs h-10"
+                className="text-xs"
               >
                 Reset
               </Button>
@@ -91,14 +89,14 @@ export function AskView({ initialSuggested }: AskViewProps) {
               type="submit"
               size="md"
               disabled={!query.trim() || loading}
-              className="h-10 px-4 text-xs font-semibold"
+              className="h-9 px-4 text-xs font-semibold"
             >
               {loading ? (
-                <div className="w-4 h-4 rounded-full border-2 border-white border-t-transparent animate-spin" />
+                <div className="w-3.5 h-3.5 rounded-full border-2 border-white border-t-transparent animate-spin" />
               ) : (
                 <>
                   <span>Query</span>
-                  <ArrowRight className="w-3.5 h-3.5 ml-1" />
+                  <ArrowRight className="w-3 h-3 ml-1" />
                 </>
               )}
             </Button>
